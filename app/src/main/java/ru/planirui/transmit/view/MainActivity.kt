@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 Toast.makeText(applicationContext, "Вы выбрали котёнка!", Toast.LENGTH_SHORT).show();
                 return true
             }
-            R.id.action_addGooods -> {
+            R.id.action_addGoods -> {
                 Toast.makeText(applicationContext, "Вы выбрали добавить вещь!", Toast.LENGTH_SHORT).show();
                 return true
             }

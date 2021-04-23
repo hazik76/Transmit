@@ -9,9 +9,9 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/action_addGooods"
+        android:id="@+id/action_addGoods"
         android:orderInCategory="100"
-        android:title="@string/action_addGooods"
+        android:title="@string/action_addGoods"
         app:showAsAction="never"/>
 
     <item

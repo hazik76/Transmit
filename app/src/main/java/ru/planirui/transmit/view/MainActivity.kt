@@ -1,6 +1,9 @@
 package ru.planirui.transmit.view
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
@@ -23,5 +26,29 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             }
 
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_game -> {
+                Toast.makeText(applicationContext, "Вы выбрали моя игра!", Toast.LENGTH_SHORT).show();
+                return true
+            }
+            R.id.action_kitten -> {
+                Toast.makeText(applicationContext, "Вы выбрали котёнка!", Toast.LENGTH_SHORT).show();
+                return true
+            }
+            R.id.action_addGooods -> {
+                Toast.makeText(applicationContext, "Вы выбрали добавить вещь!", Toast.LENGTH_SHORT).show();
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Transmit</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_game">Игры</string>
+    <string name="action_addGooods">Добавить вещь</string>
+    <string name="action_kitten">Котёнок</string>
 </resources>

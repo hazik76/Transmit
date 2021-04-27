@@ -10,18 +10,20 @@ import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.AuthUI.IdpConfig.*
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
+import com.google.firebase.ktx.Firebase
 import ru.planirui.transmit.R
 import java.lang.Boolean
 import java.util.*
 
 
 class LoginActivity : AppCompatActivity() {
-    private val TAG = "LoginRegisterActivity"
-    var AUTHUI_REQUEST_CODE = 10001
+    private val TAG = "LoginActivity"
+    private val AUTHUI_REQUEST_CODE = 10001
     private var firestoreUsers: CollectionReference? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,16 +34,14 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }else{
-
             handleLoginRegister()
         }
     }
 
     private fun handleLoginRegister() {
         // список провайдеров для авторизации
-        //Toast.makeText(this, "надо авторизовываться", Toast.LENGTH_SHORT).show()
         val providers = arrayListOf(
-            EmailBuilder().build(),
+            EmailBuilder().build(), //ToDo Для тестовой регистрации, потом оставить только телефон
             GoogleBuilder().build(),
             PhoneBuilder().build()
         )
@@ -54,58 +54,38 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Toast.makeText(this, "надо авторизовываться 2", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "надо авторизовываться 2", Toast.LENGTH_SHORT).show()
         if (requestCode == AUTHUI_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                //Мы вошли в систему пользователя или у нас есть новый пользователь?
-                val user = FirebaseAuth.getInstance().currentUser
-                Log.d(TAG, "onActivityResult: " + user.email)
+                //Мы вошли в систему пользователя или у нас есть новый пользователь
+                val user = Firebase.auth.currentUser
+                //Name, email address
+                val userName = user.displayName
+                val userEmail = user.email
+                val userPhone = user.phoneNumber
+                val userId = user.uid
+
+                Log.d(TAG, "onActivityResult: $userName $userEmail")
                 //Если время регистрации совпадает с текущим, то новый пользователь
                 if (user.metadata.creationTimestamp == user.metadata.lastSignInTimestamp) {
-                    Toast.makeText(this, "Добро пожаловать, новый пользователь", Toast.LENGTH_SHORT)
-                        .show()
-                    val userId = FirebaseAuth.getInstance().currentUser.uid
-                    Log.d(TAG, "userId=$userId")
-                    // Каким-то образом зарегистрировались, нужно создать запись users (userId) в базе данных
-                    val profileMap = HashMap<String, Any>()
-                    profileMap["name"] =
-                        "" // по идее можно обойтись только этим полем, но в Profile Activity идут запросы к другм полям
-                    profileMap["phone"] = ""
-                    profileMap["email"] = ""
-                    profileMap["showPhone"] = Boolean.TRUE
-                    profileMap["showMail"] = Boolean.TRUE
-                    profileMap["showAddress"] = Boolean.TRUE
-                    //TODO Надо ещё подабавлять полей из ProfileActivity
-
-                    //Так как пользователя не существовало, то set(), а не update()
-                    firestoreUsers!!.document(userId).set(profileMap)
-                        .addOnSuccessListener { Log.d(TAG, "Пользователь $userId создан") }
-                    // По хорошему это не нужно, но иначе нарастает количество записей в массивах address и addressGlobal
-                    firestoreUsers!!.document(userId)
-                        .set(profileMap) // ToDo Подумать, как убрать эту фигню(
-                        .addOnSuccessListener {
-                            Log.d(
-                                TAG,
-                                "onSuccess: " + Void.TYPE
-                            )
-                        }
-                    val userAddress2 =
-                        firestoreUsers!!.document(userId) //создадим пустые массивы геолокаций
-                    val addressGeo = GeoPoint(0.0, 0.0)
-                    userAddress2.update(
-                        "address",
-                        FieldValue.arrayUnion(""),
-                        "addressGlobal",
-                        FieldValue.arrayUnion(""),
-                        "location",
-                        FieldValue.arrayUnion(addressGeo)
+                    Toast.makeText(this, "Добро пожаловать, новый пользователь", Toast.LENGTH_SHORT).show()
+                    // Зарегистрировались, нужно создать запись users (userId) в базе данных
+                    Log.d(TAG, "onActivityResult: $userName $userEmail")
+                    val userData = hashMapOf(
+                            "name" to userName,
+                            "addressCity" to "",
+                            "addressStreet" to "",
+                            "phone" to userPhone,
+                            "email" to userEmail,
+                            "userRating" to 0
                     )
-                        .addOnSuccessListener {
-                            Log.d(
-                                TAG,
-                                "onSuccess: Обновили список адресов пользователя "
-                            )
-                        }.addOnFailureListener { e -> Log.e(TAG, "onFailure: ", e) }
+                    firestoreUsers!!.document(userId).set(userData)
+                            .addOnSuccessListener {
+                                Log.d(TAG, "Пользователь $userId создан")
+                            }
+                            .addOnFailureListener { e ->
+                                Log.w(TAG, "Error adding document", e)
+                            }
                 } else {
                     // пользователь вернулся ))) Ура!
                     Toast.makeText(this, "С возвращением!", Toast.LENGTH_SHORT).show()

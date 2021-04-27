@@ -3,27 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_account"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/action_account"
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/action_addGoods"
+        android:id="@+id/action_myGoods"
         android:orderInCategory="100"
-        android:title="@string/action_addGoods"
+        android:title="@string/action_myGoods"
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/action_game"
+        android:id="@+id/action_myGame"
         android:orderInCategory="100"
-        android:title="@string/action_game"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_kitten"
-        android:orderInCategory="100"
-        android:title="@string/action_kitten"
+        android:title="@string/action_myGame"
         app:showAsAction="never" />
 
     <item

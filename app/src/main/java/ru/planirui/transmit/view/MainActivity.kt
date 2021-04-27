@@ -39,24 +39,22 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_game -> {
-                Toast.makeText(applicationContext, "Вы выбрали моя игра!", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this@MainActivity, LoginActivity::class.java)
-                startActivity(intent)
-                //return true
-            }
-            R.id.action_kitten -> {
-                Toast.makeText(applicationContext, "Вы выбрали котёнка!", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this@MainActivity, LoginActivity::class.java)
-                startActivity(intent)
+            R.id.action_account -> {
+                Toast.makeText(applicationContext, "Вы выбрали Аккаунт!", Toast.LENGTH_SHORT).show()
                 return true
             }
-            R.id.action_addGoods -> {
-                Toast.makeText(applicationContext, "Вы выбрали добавить вещь!", Toast.LENGTH_SHORT).show()
+            R.id.action_myGame -> {
+                Toast.makeText(applicationContext, "Вы выбрали моя игра!", Toast.LENGTH_SHORT).show()
+                return true
+            }
+            R.id.action_myGoods -> {
+                Toast.makeText(applicationContext, "Вы выбрали мои вещи!", Toast.LENGTH_SHORT).show()
                 return true
             }
             R.id.action_exit -> {
                 FirebaseAuth.getInstance().signOut()   // выйти из аккаунта
+                val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                startActivity(intent)
                 return true
             }
         }

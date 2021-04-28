@@ -1,20 +1,20 @@
 package ru.planirui.transmit
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import ru.planirui.transmit.activities.RegisterActivity
 import ru.planirui.transmit.ui.fragments.GamesFragment
 import ru.planirui.transmit.ui.fragments.SettingsFragment
 import ru.planirui.transmit.ui.objects.AppDriwer
-import ru.planirui.transmit.view.LoginActivity
+import ru.planirui.transmit.utilits.replaceActivity
+import ru.planirui.transmit.utilits.replaceFragment
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
-    private lateinit var mAppDrawer:AppDriwer
+    private lateinit var mAppDrawer: AppDriwer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             /*// Добавим фрагмент
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add<MainFragmentMVVM>(R.id.fragment_container_view)
+                add<MainFragmentMVVM>(R.id.dataContainer)
             }*/
         }
     }
@@ -33,9 +33,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun initFunc() {
-        mAppDrawer = AppDriwer(this)
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container_view, GamesFragment()).commit()
+        if (true) {
+            mAppDrawer = AppDriwer(this)
+            replaceFragment(GamesFragment())
+        } else {
+            replaceActivity(RegisterActivity())
+
+        }
     }
 
     // Меню страниц
@@ -49,24 +53,24 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_account -> {
-                Toast.makeText(applicationContext, "Вы выбрали Аккаунт!", Toast.LENGTH_SHORT).show()
-                supportFragmentManager.beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.fragment_container_view, SettingsFragment()).commit()
+                mAppDrawer.testFunc("Вы выбрали Аккаунт!")
+                replaceFragment(SettingsFragment())
                 return true
             }
             R.id.action_myGame -> {
                 mAppDrawer.testFunc("Вы выбрали мои игры!")
+                replaceFragment(GamesFragment())
                 return true
             }
             R.id.action_myGoods -> {
-                Toast.makeText(applicationContext, "Вы выбрали мои вещи!", Toast.LENGTH_SHORT).show()
+                mAppDrawer.testFunc("Вы выбрали мои вещи!")
                 return true
             }
             R.id.action_exit -> {
                 FirebaseAuth.getInstance().signOut()   // выйти из аккаунта
-                val intent = Intent(this@MainActivity, LoginActivity::class.java)
-                startActivity(intent)
+                replaceActivity(RegisterActivity())
+                //val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                //startActivity(intent)
                 return true
             }
         }

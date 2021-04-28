@@ -13,7 +13,7 @@
         tools:ignore="MissingClass" />-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/fragment_container_view"
+        android:id="@+id/dataContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"

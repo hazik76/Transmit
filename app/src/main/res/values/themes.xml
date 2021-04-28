@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/orange</item>
         <item name="colorPrimaryVariant">@color/orange</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="popupTheme">@style/actionMenu</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
@@ -13,6 +14,12 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="actionMenu" parent="Theme.AppCompat.DayNight">
+        <item name="background">@color/white</item>
+        <item name="actionMenuTextColor">@color/black</item>
+    </style>
+
     <style name="settingsButtons">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginTop">@dimen/vertical_margin</item>
@@ -20,7 +27,6 @@
         <item name="android:background">@drawable/ripple_effect</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
-
     </style>
 
     <style name="normalText">

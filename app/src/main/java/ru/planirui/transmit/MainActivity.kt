@@ -38,11 +38,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 .replace(R.id.fragment_container_view, GamesFragment()).commit()
     }
 
-    // Меню страницы
+    // Меню страниц
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        inflater.inflate(R.menu.menu_main, menu)
+        inflater.inflate(R.menu.settings_action_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 

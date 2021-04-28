@@ -3,7 +3,6 @@ package ru.planirui.transmit.view
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
@@ -12,13 +11,10 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.ktx.Firebase
+import ru.planirui.transmit.MainActivity
 import ru.planirui.transmit.R
-import java.lang.Boolean
-import java.util.*
 
 
 class LoginActivity : AppCompatActivity() {
@@ -33,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
         if (FirebaseAuth.getInstance().currentUser != null) {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
-        }else{
+        } else {
             handleLoginRegister()
         }
     }
@@ -41,14 +37,14 @@ class LoginActivity : AppCompatActivity() {
     private fun handleLoginRegister() {
         // список провайдеров для авторизации
         val providers = arrayListOf(
-            EmailBuilder().build(), //ToDo Для тестовой регистрации, потом оставить только телефон
-            GoogleBuilder().build(),
-            PhoneBuilder().build()
+                EmailBuilder().build(), //ToDo Для тестовой регистрации, потом оставить только телефон
+                GoogleBuilder().build(),
+                PhoneBuilder().build()
         )
         val intent = AuthUI.getInstance()
-            .createSignInIntentBuilder()
-            .setAvailableProviders(providers)
-            .build()
+                .createSignInIntentBuilder()
+                .setAvailableProviders(providers)
+                .build()
         startActivityForResult(intent, AUTHUI_REQUEST_CODE)
     }
 

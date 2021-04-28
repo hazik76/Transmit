@@ -1,4 +1,4 @@
-package ru.planirui.transmit.view
+package ru.planirui.transmit.ui.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,23 +7,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import ru.planirui.transmit.R
-import ru.planirui.transmit.databinding.FragmentMainBinding
-import ru.planirui.transmit.viewmodel.MainViewModel
+import ru.planirui.transmit.databinding.FragmentMvvmMainBinding
+import ru.planirui.transmit.viewmodel.MainViewModelMVVM
 
 /*
  *      MainFragment
  *      - shows the UI
  *      - listens to viewModel for updates on UI
  */
-class MainFragment: Fragment() {
+class MainFragmentMVVM: Fragment() {
 
     // View Binding
-    private var _binding: FragmentMainBinding? = null
+    private var _binding: FragmentMvvmMainBinding? = null
     private val binding get() = _binding!!
 
     // Create a viewModel
-    private val viewModel: MainViewModel by activityViewModels()
+    private val viewModel: MainViewModelMVVM by activityViewModels()
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -31,7 +30,7 @@ class MainFragment: Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         // This is needed for view binding
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentMvvmMainBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }

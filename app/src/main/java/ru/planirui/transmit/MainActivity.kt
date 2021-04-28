@@ -1,4 +1,4 @@
-package ru.planirui.transmit.view
+package ru.planirui.transmit
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,33 +6,42 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.add
-import androidx.fragment.app.commit
 import com.google.firebase.auth.FirebaseAuth
-import ru.planirui.transmit.R
+import ru.planirui.transmit.ui.fragments.GamesFragment
+import ru.planirui.transmit.ui.fragments.SettingsFragment
+import ru.planirui.transmit.ui.objects.AppDriwer
+import ru.planirui.transmit.view.LoginActivity
 
-
-/*
- *      MainActivity
- *      - opens our fragment which has the UI
- */
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
+
+    private lateinit var mAppDrawer:AppDriwer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-
-            // Adds our fragment
+            /*// Добавим фрагмент
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add<MainFragment>(R.id.fragment_container_view)
-            }
-
+                add<MainFragmentMVVM>(R.id.fragment_container_view)
+            }*/
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        initFunc()
+    }
+
+    private fun initFunc() {
+        mAppDrawer = AppDriwer(this)
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container_view, GamesFragment()).commit()
+    }
+
+    // Меню страницы
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         inflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
     }
@@ -41,10 +50,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         when (item.itemId) {
             R.id.action_account -> {
                 Toast.makeText(applicationContext, "Вы выбрали Аккаунт!", Toast.LENGTH_SHORT).show()
+                supportFragmentManager.beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.fragment_container_view, SettingsFragment()).commit()
                 return true
             }
             R.id.action_myGame -> {
-                Toast.makeText(applicationContext, "Вы выбрали моя игра!", Toast.LENGTH_SHORT).show()
+                mAppDrawer.testFunc("Вы выбрали мои игры!")
                 return true
             }
             R.id.action_myGoods -> {

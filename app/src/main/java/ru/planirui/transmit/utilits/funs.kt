@@ -17,6 +17,7 @@ fun AppCompatActivity.replaceActivity(activity: AppCompatActivity) {
 }
 
 fun AppCompatActivity.replaceFragment(fragment: Fragment) {
+    supportActionBar?.setDisplayHomeAsUpEnabled(true)
     supportFragmentManager.beginTransaction()
         .addToBackStack(null)
         .replace(

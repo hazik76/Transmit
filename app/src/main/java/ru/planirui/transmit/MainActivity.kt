@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     // Меню страниц
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater = menuInflater
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
         inflater.inflate(R.menu.settings_action_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }

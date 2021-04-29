@@ -12,7 +12,6 @@ import ru.planirui.transmit.utilits.replaceFragment
 
 private lateinit var mBinding: ActivityRegisterBinding
 @SuppressLint("StaticFieldLeak")
-private lateinit var mToolbar: Toolbar
 
 class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,10 +22,8 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        mToolbar = mBinding.registerToolbar
-//        setSupportActionBar(mToolbar)
         title = getString(R.string.register_title_your_phone)
 
-        replaceFragment(EnterPhoneNumberFragment())
+        replaceFragment(EnterPhoneNumberFragment(), false)
     }
 }

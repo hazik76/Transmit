@@ -1,4 +1,4 @@
-package ru.planirui.transmit.viewmodel
+package ru.planirui.transmit.model
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

@@ -1,4 +1,4 @@
-package ru.planirui.transmit.ui.fragments
+package ru.planirui.transmit.model
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import ru.planirui.transmit.databinding.FragmentMvvmMainBinding
-import ru.planirui.transmit.viewmodel.MainViewModelMVVM
+import ru.planirui.transmit.model.MainViewModelMVVM
 
 /*
  *      MainFragment

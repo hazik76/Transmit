@@ -10,6 +10,7 @@ import ru.planirui.transmit.ui.fragments.MyGamesFragment
 import ru.planirui.transmit.ui.fragments.MyGoodsFragment
 import ru.planirui.transmit.ui.fragments.SettingsFragment
 import ru.planirui.transmit.ui.objects.AppDriwer
+import ru.planirui.transmit.utilits.AUTH
 import ru.planirui.transmit.utilits.replaceActivity
 import ru.planirui.transmit.utilits.replaceFragment
 
@@ -23,16 +24,21 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onStart() {
         super.onStart()
+        initFields()
         initFunc()
     }
 
     private fun initFunc() {
-        if (true) {
+        if (AUTH.currentUser!=null) {
             mAppDrawer = AppDriwer(this)
-            replaceFragment(MyGamesFragment())
+            replaceFragment(MyGamesFragment(),false)
         } else {
             replaceActivity(RegisterActivity())
         }
+    }
+
+    private fun initFields() {
+        AUTH = FirebaseAuth.getInstance()
     }
 
     // Меню страниц

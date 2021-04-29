@@ -7,11 +7,14 @@
     tools:context=".ui.fragments.EnterPhoneNumberFragment">
 
     <EditText
+        android:hint="@string/register_phone_hint"
         android:id="@+id/register_input_phone_number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
         tools:ignore="LabelFor"
+        android:textSize="27sp"
         style="@style/editText"
         android:autofillHints="" />
 

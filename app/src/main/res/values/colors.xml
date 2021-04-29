@@ -9,5 +9,13 @@
     <color name="white">#FFFFFFFF</color>
     <color name="orange">#ff9a00</color>
     <color name="gray">#686868</color>
-    <color name="lightgray">#C5C5C5</color>
+    <color name="lightgray">#EDEDED</color>
+
+    <color name="colorPrimary">@color/orange</color>
+    <color name="colorPrimaryVariant">@android:color/holo_orange_light</color>
+    <color name="colorOnPrimary">@color/lightgray</color>
+    <!-- Secondary brand color. -->
+    <color name="colorSecondary">@color/teal_200</color>
+    <color name="colorSecondaryVariant">@color/teal_700</color>
+    <color name="colorOnSecondary">@color/black</color>
 </resources>

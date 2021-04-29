@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="action_account" type="id" />
+    <item name="action_myGoods" type="id" />
+    <item name="action_myGame" type="id" />
+    <item name="action_exit" type="id" />
+</resources>

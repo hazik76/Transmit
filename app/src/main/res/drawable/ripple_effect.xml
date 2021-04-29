@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/gray">
+    android:color="@color/colorPrimary">
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
-            <solid android:color="@color/lightgray"/>
+            <solid android:color="@color/colorOnPrimary"/>
             <corners android:radius="@dimen/settings_ripple_effect_radius"/>
         </shape>
     </item>

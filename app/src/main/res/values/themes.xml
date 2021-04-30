@@ -60,4 +60,13 @@
         <item name="android:background">@color/orange</item>
         <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
     </style>
+
+    <style name="Theme.Transmit.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Transmit.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Transmit.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

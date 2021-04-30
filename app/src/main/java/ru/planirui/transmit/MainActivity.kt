@@ -13,6 +13,7 @@ import ru.planirui.transmit.ui.objects.AppDriwer
 import ru.planirui.transmit.utilits.AUTH
 import ru.planirui.transmit.utilits.replaceActivity
 import ru.planirui.transmit.utilits.replaceFragment
+import ru.planirui.transmit.view.LoginActivity
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -33,7 +34,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             mAppDrawer = AppDriwer(this)
             replaceFragment(MyGamesFragment(),false)
         } else {
-            replaceActivity(RegisterActivity())
+            replaceActivity(LoginActivity())    // временная мера, регистер активити что-то не так делает
+            //replaceActivity(RegisterActivity())
         }
     }
 
@@ -71,7 +73,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             }
             R.id.action_exit -> {
                 FirebaseAuth.getInstance().signOut()   // выйти из аккаунта
-                replaceActivity(RegisterActivity())
+                replaceActivity(LoginActivity())
+                //replaceActivity(RegisterActivity())
                 return true
             }
         }

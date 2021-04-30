@@ -13,7 +13,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="wrap_content"
-        tools:ignore="LabelFor"
         android:textSize="27sp"
         style="@style/editText"
         android:autofillHints="" />

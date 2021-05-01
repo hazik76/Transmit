@@ -73,7 +73,6 @@
         <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
         <item name="android:layout_marginTop">@dimen/vertical_large_margin</item>
         <item name="android:layout_marginEnd">@dimen/vertical_large_margin</item>
-        <item name="textInputStyle">bold</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 

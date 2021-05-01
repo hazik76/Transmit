@@ -6,14 +6,16 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import ru.planirui.transmit.activities.RegisterActivity
+import ru.planirui.transmit.activities.RegisterTestActivity
 import ru.planirui.transmit.ui.fragments.MyGamesFragment
 import ru.planirui.transmit.ui.fragments.MyGoodsFragment
 import ru.planirui.transmit.ui.fragments.SettingsFragment
 import ru.planirui.transmit.ui.objects.AppDriwer
 import ru.planirui.transmit.utilits.AUTH
+import ru.planirui.transmit.utilits.initFirebase
 import ru.planirui.transmit.utilits.replaceActivity
 import ru.planirui.transmit.utilits.replaceFragment
-import ru.planirui.transmit.view.LoginActivity
+import ru.planirui.transmit.model.LoginActivity
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -36,11 +38,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         } else {
             replaceActivity(LoginActivity())    // временная мера, регистер активити что-то не так делает
             //replaceActivity(RegisterActivity())
+            //replaceActivity(RegisterTestActivity())
         }
     }
 
     private fun initFields() {
-        AUTH = FirebaseAuth.getInstance()
+        initFirebase()
     }
 
     // Меню страниц

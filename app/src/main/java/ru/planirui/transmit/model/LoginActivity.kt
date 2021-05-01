@@ -1,9 +1,8 @@
-package ru.planirui.transmit.view
+package ru.planirui.transmit.model
 
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.AuthUI.IdpConfig.*
@@ -15,6 +14,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import ru.planirui.transmit.MainActivity
 import ru.planirui.transmit.R
+import ru.planirui.transmit.activities.RegisterActivity
+import ru.planirui.transmit.utilits.*
 
 
 class LoginActivity : AppCompatActivity() {
@@ -37,8 +38,8 @@ class LoginActivity : AppCompatActivity() {
     private fun handleLoginRegister() {
         // список провайдеров для авторизации
         val providers = arrayListOf(
-            /*EmailBuilder().build(), //Для тестовой регистрации, потом оставить только телефон
-            GoogleBuilder().build(),*/
+            EmailBuilder().build(), //ToDo Для тестовой регистрации, потом оставить только телефон
+            GoogleBuilder().build(),
             PhoneBuilder().build()
         )
         val intent = AuthUI.getInstance()
@@ -50,7 +51,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        //Toast.makeText(this, "надо авторизовываться 2", Toast.LENGTH_SHORT).show()
+        //showToast("надо авторизовываться 2")
         if (requestCode == AUTHUI_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 //Мы вошли в систему пользователя или у нас есть новый пользователь
@@ -61,12 +62,27 @@ class LoginActivity : AppCompatActivity() {
                 val userPhone = user.phoneNumber
                 val userId = user.uid
 
-                Log.d(TAG, "onActivityResult: $userName $userEmail")
+                Log.d(TAG, "onActivityResult: $userPhone $userId")
                 //Если время регистрации совпадает с текущим, то новый пользователь
-                if (user.metadata.creationTimestamp == user.metadata.lastSignInTimestamp) {
-                    Toast.makeText(this, "Добро пожаловать, новый пользователь", Toast.LENGTH_SHORT).show()
+                //if (user.metadata.creationTimestamp == user.metadata.lastSignInTimestamp) {
+                    showToast("Добро пожаловать")
                     // Зарегистрировались, нужно создать запись users (userId) в базе данных
-                    Log.d(TAG, "onActivityResult: $userName $userEmail")
+
+                val dateMap = mutableMapOf<String, Any>()
+                dateMap[CHILD_ID] = userId
+                dateMap[CHILD_PHONE] = userPhone.toString()
+                dateMap[CHILD_USERNAME] = userId
+
+                REF_DATABASE_ROOT.child(NODE_USERS).child(userId).updateChildren(dateMap)
+                    .addOnCompleteListener { task2 ->
+                        if (task2.isSuccessful) {
+                            Log.d(TAG, "REF ok")
+                            showToast("Добро пожаловать")
+                            replaceActivity(MainActivity())
+                        } else Log.d(TAG, "Ref error: $task2.exception?.message.toString()")
+                    }
+
+                /*
                     val userData = hashMapOf(
                         "name" to userName,
                         "addressCity" to "",
@@ -81,11 +97,11 @@ class LoginActivity : AppCompatActivity() {
                         }
                         .addOnFailureListener { e ->
                             Log.w(TAG, "Error adding document", e)
-                        }
-                } else {
+                        }*/
+                /*} else {
                     // пользователь вернулся ))) Ура!
-                    Toast.makeText(this, "С возвращением!", Toast.LENGTH_SHORT).show()
-                }
+                    showToast("С возвращением!")
+                }*/
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()

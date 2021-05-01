@@ -7,10 +7,12 @@ import androidx.appcompat.widget.Toolbar
 import ru.planirui.transmit.R
 import ru.planirui.transmit.databinding.ActivityRegisterBinding
 import ru.planirui.transmit.ui.fragments.EnterPhoneNumberFragment
+import ru.planirui.transmit.utilits.initFirebase
 import ru.planirui.transmit.utilits.replaceActivity
 import ru.planirui.transmit.utilits.replaceFragment
 
 private lateinit var mBinding: ActivityRegisterBinding
+
 @SuppressLint("StaticFieldLeak")
 
 class RegisterActivity : AppCompatActivity() {
@@ -18,6 +20,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+        initFirebase()
     }
 
     override fun onStart() {

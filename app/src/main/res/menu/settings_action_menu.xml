@@ -12,20 +12,20 @@
                 android:id="@+id/action_account"
                 android:icon="@drawable/ic_btn_menu_settings"
                 android:orderInCategory="100"
-                android:title="@string/action_account"
+                android:title="@string/action_my_account"
                 app:showAsAction="never" />
 
             <item
                 android:id="@+id/action_myGoods"
                 android:icon="@drawable/ic_btn_menu_goods"
                 android:orderInCategory="100"
-                android:title="@string/action_myGoods"
+                android:title="@string/action_my_goods"
                 app:showAsAction="never" />
 
             <item
                 android:id="@+id/action_myGame"
                 android:orderInCategory="100"
-                android:title="@string/action_myGame"
+                android:title="@string/action_my_games"
                 app:showAsAction="never" />
 
             <item

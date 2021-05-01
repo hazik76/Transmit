@@ -66,6 +66,17 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="topic">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/normalText</item>
+        <item name="android:layout_marginStart">@dimen/horizontal_margin</item>
+        <item name="android:layout_marginTop">@dimen/vertical_large_margin</item>
+        <item name="android:layout_marginEnd">@dimen/vertical_large_margin</item>
+        <item name="textInputStyle">bold</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
     <style name="Theme.Transmit.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Transmit.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

@@ -10,7 +10,7 @@
         android:id="@+id/settings_text_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/action_myGame"
+        android:text="@string/action_my_games"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/smallText"
         android:textStyle="bold"

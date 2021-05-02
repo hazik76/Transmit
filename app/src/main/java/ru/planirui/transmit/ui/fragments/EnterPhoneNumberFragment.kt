@@ -64,30 +64,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
             .setActivity(activity as RegisterActivity)
             .setCallbacks(mCallback)
             .build()
-        Log.d(TAG, options.toString())      // D/EnterPhoneNumberFragment: com.google.firebase.auth.PhoneAuthOptions@e7bdcbc
+        Log.d(TAG, options.toString())
         PhoneAuthProvider.verifyPhoneNumber(options)
-        /* Что делать пока не понимаю (((
-         W/ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@dec0643
-         W/System: Ignoring header X-Firebase-Locale because its value was null.
-         W/System: A resource failed to call end.
-        */
-
-        /*PhoneAuthProvider.verifyPhoneNumber(
-            PhoneAuthOptions
-                .newBuilder(FirebaseAuth.getInstance())
-                .setActivity(activity as RegisterActivity)
-                .setPhoneNumber(mPhoneNumber)
-                .setTimeout(60L, TimeUnit.SECONDS)
-                .setCallbacks(mCallback)
-                .build()
-        )*/
-
-        /*PhoneAuthProvider.getInstance().verifyPhoneNumber(
-            mPhoneNumber,
-            60,
-            TimeUnit.SECONDS,
-            activity as RegisterActivity,
-            mCallback
-        )*/
     }
 }

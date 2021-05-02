@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             mAppDrawer = AppDriwer(this)
             replaceFragment(MyGamesFragment(),false)
         } else {
-            replaceActivity(LoginActivity())    // временная мера, регистер активити что-то не так делает
-            //replaceActivity(RegisterActivity())
+            //replaceActivity(LoginActivity())    // временная мера, регистер активити что-то не так делает
+            replaceActivity(RegisterActivity())
             //replaceActivity(RegisterTestActivity())
         }
     }
@@ -76,8 +76,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             }
             R.id.action_exit -> {
                 FirebaseAuth.getInstance().signOut()   // выйти из аккаунта
-                replaceActivity(LoginActivity())
-                //replaceActivity(RegisterActivity())
+                //replaceActivity(LoginActivity())
+                replaceActivity(RegisterActivity())
                 return true
             }
         }

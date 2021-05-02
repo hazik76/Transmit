@@ -73,6 +73,8 @@ class LoginActivity : AppCompatActivity() {
                 dateMap[CHILD_PHONE] = userPhone.toString()
                 dateMap[CHILD_USERNAME] = userId
 
+                Log.d(TAG, dateMap.toString())
+
                 REF_DATABASE_ROOT.child(NODE_USERS).child(userId).updateChildren(dateMap)
                     .addOnCompleteListener { task2 ->
                         if (task2.isSuccessful) {
@@ -81,30 +83,14 @@ class LoginActivity : AppCompatActivity() {
                             replaceActivity(MainActivity())
                         } else Log.d(TAG, "Ref error: $task2.exception?.message.toString()")
                     }
+                    .addOnFailureListener { e ->
+                        Log.w(TAG, "Error adding document", e)
+                    }
+                    .addOnCanceledListener {
+                        Log.d(TAG, "как мы сюда попали?")
+                    }
 
-                /*
-                    val userData = hashMapOf(
-                        "name" to userName,
-                        "addressCity" to "",
-                        "addressStreet" to "",
-                        "phone" to userPhone,
-                        "email" to userEmail,
-                        "userRating" to 0
-                    )
-                    firestoreUsers!!.document(userId).set(userData)
-                        .addOnSuccessListener {
-                            Log.d(TAG, "Пользователь $userId создан")
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w(TAG, "Error adding document", e)
-                        }*/
-                /*} else {
-                    // пользователь вернулся ))) Ура!
-                    showToast("С возвращением!")
-                }*/
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+                replaceActivity(MainActivity())
             } else {
                 //Вход не выполнен
                 val response = IdpResponse.fromResultIntent(data)

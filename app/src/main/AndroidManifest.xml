@@ -23,9 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- Активити временный, пока не поченю EnterPhoneNumberFragment -->
-        <activity android:name=".model.LoginActivity" />
-        <activity android:name=".activities.RegisterTestActivity" />
     </application>
 
 </manifest>

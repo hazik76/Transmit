@@ -14,5 +14,5 @@ const val CHILD_USERNAME = "username"
 
 fun initFirebase() {
     AUTH = FirebaseAuth.getInstance()
-    REF_DATABASE_ROOT = FirebaseDatabase.getInstance().reference
+    REF_DATABASE_ROOT = FirebaseDatabase.getInstance("https://transmit-da0e5-default-rtdb.europe-west1.firebasedatabase.app/").reference
 }

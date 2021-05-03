@@ -5,22 +5,23 @@ import ru.planirui.transmit.MainActivity
 import ru.planirui.transmit.R
 import ru.planirui.transmit.utilits.*
 
-class ChangeNameFragment : BaseFragment(R.layout.fragment_change_name) {
+class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
 
     override fun onResume() {
         super.onResume()
-        (activity as MainActivity).title =
-            getString(R.string.action_my_account) //не меняется по сравнению с предыдущим фрагментом
-        //setHasOptionsMenu(true)
+        (activity as MainActivity).title = getString(R.string.action_my_account)
+        initFullnameList()
+    }
+
+    private fun initFullnameList() {
         val fullnameList = USER.fullname.split(" ")
         if (fullnameList.size > 1) {
             settings_input_name.setText(fullnameList[0])
             settings_input_surname.setText(fullnameList[1])
         } else settings_input_name.setText(fullnameList[0])
-        register_btn_next.setOnClickListener { changeName() }
     }
 
-    private fun changeName() {
+    override fun change() {
         val name = settings_input_name.text.toString()
         val surname = settings_input_surname.text.toString()
         if (name.isEmpty()) {

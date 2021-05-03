@@ -42,7 +42,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
                 replaceFragment(EnterCodeFragment(mPhoneNumber, id))
             }
         }
-        register_btn_next.setOnClickListener { sendCode() }
+        btn_ok.setOnClickListener { sendCode() }
     }
 
     private fun sendCode() {

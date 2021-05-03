@@ -4,24 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.EnterPhoneNumberFragment">
+    tools:context=".ui.fragments.ChangeBioFragment">
 
     <EditText
-        android:hint="@string/register_phone_hint"
-        android:id="@+id/register_input_phone_number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_width="wrap_content"
-        android:textSize="27sp"
+        android:id="@+id/settings_input_bio"
         style="@style/editText"
-        android:autofillHints="" />
+        android:hint="@string/settings_hint_input_bio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_btn_next"
+        android:src="@drawable/ic_baseline_check"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="@dimen/horizontal_margin"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -5,17 +5,16 @@ import ru.planirui.transmit.R
 import ru.planirui.transmit.utilits.*
 import java.util.*
 
-class ChangeUsernameFragment : BaseFragment(R.layout.fragment_change_username) {
+class ChangeUsernameFragment : BaseChangeFragment(R.layout.fragment_change_username) {
 
     lateinit var mNewUsername: String
 
     override fun onResume() {
         super.onResume()
-        btn_ok.setOnClickListener({ change() })
         settings_input_username.setText(USER.username)
     }
 
-    private fun change() {
+    override fun change() {
         mNewUsername = settings_input_username.text.toString().toLowerCase(Locale.ROOT)
         if (mNewUsername.isEmpty()) {
             showToast("Поле пустое")

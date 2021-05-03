@@ -5,15 +5,16 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import ru.planirui.transmit.activities.RegisterActivity
+import ru.planirui.transmit.models.User
 import ru.planirui.transmit.ui.fragments.MyGamesFragment
 import ru.planirui.transmit.ui.fragments.MyGoodsFragment
 import ru.planirui.transmit.ui.fragments.SettingsFragment
 import ru.planirui.transmit.ui.objects.AppDriwer
-import ru.planirui.transmit.utilits.AUTH
-import ru.planirui.transmit.utilits.initFirebase
-import ru.planirui.transmit.utilits.replaceActivity
-import ru.planirui.transmit.utilits.replaceFragment
+import ru.planirui.transmit.utilits.*
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -42,6 +43,15 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private fun initFields() {
         initFirebase()
+        initUser()
+    }
+
+    private fun initUser() {
+        REF_DATABASE_ROOT.child(NODE_USERS).child(UID)
+            .addListenerForSingleValueEvent(AppValueEventListener{
+
+                USER = it.getValue(User::class.java) ?: User()
+            })
     }
 
     // Меню страниц

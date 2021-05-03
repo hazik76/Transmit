@@ -24,7 +24,6 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
 
     override fun onStart() {
         super.onStart()
-        register_input_phone_number.setText("+79030000000") // Что бы тестовый телефон не вбивать, кд в смс 000000
         mCallback = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
                 AUTH.signInWithCredential(credential).addOnCompleteListener { task ->

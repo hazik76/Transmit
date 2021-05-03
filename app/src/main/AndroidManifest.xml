@@ -16,7 +16,9 @@
         <activity
             android:name=".activities.RegisterActivity"
             android:windowSoftInputMode="stateVisible|adjustResize" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -14,8 +14,6 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         super.onResume()
         (activity as MainActivity).title = getString(R.string.action_my_account)
         initFields()
-        settings_btn_change_username.setOnClickListener { replaceFragment(ChangeNameFragment()) }
-        settings_header_bloc.setOnClickListener { replaceFragment(ChangeNameFragment()) }
     }
 
     private fun initFields() {
@@ -24,5 +22,8 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         settings_phone_number.text = USER.phone
         settings_status.text = USER.status
         settings_username.text = USER.username
+        // settings_btn_change_username.setOnClickListener { replaceFragment(ChangeNameFragment()) }
+        settings_header_bloc.setOnClickListener { replaceFragment(ChangeNameFragment()) }
+        settings_btn_change_username.setOnClickListener{ replaceFragment(ChangeUsernameFragment()) }
     }
 }

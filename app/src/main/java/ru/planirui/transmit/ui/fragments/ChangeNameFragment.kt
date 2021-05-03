@@ -1,8 +1,5 @@
 package ru.planirui.transmit.ui.fragments
 
-import android.os.Bundle
-import android.view.*
-import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_change_name.*
 import ru.planirui.transmit.MainActivity
 import ru.planirui.transmit.R
@@ -17,7 +14,7 @@ class ChangeNameFragment : BaseFragment(R.layout.fragment_change_name) {
         val fullnameList = USER.fullname.split(" ")
         settings_input_name.setText(fullnameList[0])
         settings_input_surname.setText(fullnameList[1])
-        register_btn_next.setOnClickListener( { changeName() } )
+        register_btn_next.setOnClickListener({ changeName() })
     }
 
     private fun changeName() {

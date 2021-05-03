@@ -1,11 +1,9 @@
 package ru.planirui.transmit.ui.fragments
 
-import android.view.MenuItem
 import kotlinx.android.synthetic.main.fragment_settings.*
 import ru.planirui.transmit.MainActivity
 import ru.planirui.transmit.R
 import ru.planirui.transmit.utilits.USER
-import ru.planirui.transmit.utilits.initFirebase
 import ru.planirui.transmit.utilits.replaceFragment
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
@@ -24,6 +22,6 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         settings_username.text = USER.username
         // settings_btn_change_username.setOnClickListener { replaceFragment(ChangeNameFragment()) }
         settings_header_bloc.setOnClickListener { replaceFragment(ChangeNameFragment()) }
-        settings_btn_change_username.setOnClickListener{ replaceFragment(ChangeUsernameFragment()) }
+        settings_btn_change_username.setOnClickListener { replaceFragment(ChangeUsernameFragment()) }
     }
 }

@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
-import de.hdodenhof.circleimageview.CircleImageView
 import ru.planirui.transmit.R
 
 /* Файл для хранения утилитарных функций, доступных во всем приложении */
@@ -27,14 +26,14 @@ fun AppCompatActivity.replaceActivity(activity: AppCompatActivity) {
 
 fun AppCompatActivity.replaceFragment(fragment: Fragment, addStack: Boolean = true) {
     /* Функция расширения для AppCompatActivity, позволяет устанавливать фрагменты */
-    if (addStack){
+    if (addStack) {
         supportFragmentManager.beginTransaction()
             .addToBackStack(null)
             .replace(
                 R.id.dataContainer,
                 fragment
             ).commit()
-    }else {
+    } else {
         supportFragmentManager.beginTransaction()
             .replace(
                 R.id.dataContainer,
@@ -61,8 +60,8 @@ fun hideKeyboard() {
     imm.hideSoftInputFromWindow(APP_ACTIVITY.window.decorView.windowToken, 0)
 }
 
-fun ImageView.downloadAndSetImage(url:String){
-    /* Функция раширения ImageView, скачивает и устанавливает картинку*/
+fun ImageView.downloadAndSetImage(url: String) {
+    /* Функция раширения ImageView, скачивает и устанавливает картинку */
     Picasso.get()
         .load(url)
         .placeholder(R.drawable.default_user)

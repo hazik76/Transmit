@@ -4,6 +4,8 @@ import kotlinx.android.synthetic.main.fragment_change_name.*
 import ru.planirui.transmit.R
 import ru.planirui.transmit.utilits.*
 
+/* Фрагмент для изменения имени пользователя */
+
 class ChangeNameFragment : BaseChangeFragment(R.layout.fragment_change_name) {
 
     override fun onResume() {

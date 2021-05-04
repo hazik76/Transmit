@@ -3,6 +3,8 @@ package ru.planirui.transmit.utilits
 import android.text.Editable
 import android.text.TextWatcher
 
+/* Модификация класса TextWatcher */
+
 class AppTextWatcher(val onSuccess:(Editable?) -> Unit):TextWatcher {
     override fun afterTextChanged(s:Editable?) {
         onSuccess(s)

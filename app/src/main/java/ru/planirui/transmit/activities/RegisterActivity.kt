@@ -11,6 +11,8 @@ import ru.planirui.transmit.utilits.initFirebase
 import ru.planirui.transmit.utilits.replaceActivity
 import ru.planirui.transmit.utilits.replaceFragment
 
+/* Активность для регистрации нового пользователя или входа существующего */
+
 private lateinit var mBinding: ActivityRegisterBinding
 
 @SuppressLint("StaticFieldLeak")

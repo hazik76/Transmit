@@ -8,6 +8,8 @@ import kotlinx.android.synthetic.main.fragment_settings.*
 import ru.planirui.transmit.R
 import ru.planirui.transmit.utilits.*
 
+/* Фрагмент настроек */
+
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     override fun onResume() {
@@ -30,6 +32,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     }
 
     private fun changePhotoUser() {
+        /* Изменения фото пользователя */
         CropImage.activity()
             .setAspectRatio(1, 1)
             .setRequestedSize(600, 600)
@@ -38,6 +41,7 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        /* Активность которая запускается для получения картинки для фото пользователя */
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE
             && resultCode == RESULT_OK && data != null

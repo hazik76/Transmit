@@ -6,7 +6,6 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import ru.planirui.transmit.activities.RegisterActivity
-import ru.planirui.transmit.models.User
 import ru.planirui.transmit.ui.fragments.MyGamesFragment
 import ru.planirui.transmit.ui.fragments.MyGoodsFragment
 import ru.planirui.transmit.ui.fragments.SettingsFragment
@@ -20,8 +19,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         APP_ACTIVITY = this
-        initFields()
-        initFunc()
+        initFirebase()
+        initUser {
+            initFields()
+            initFunc()
+        }
     }
 
     private fun initFunc() {
@@ -34,16 +36,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun initFields() {
-        initFirebase()
-        initUser()
+
     }
 
-    private fun initUser() {
-        REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
-            .addListenerForSingleValueEvent(AppValueEventListener {
-                USER = it.getValue(User::class.java) ?: User()
-            })
-    }
 
     // Меню страниц
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -61,17 +56,17 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_account -> {
-                mAppDrawer.testFunc("Вы выбрали Аккаунт!")
+                showToast("Вы выбрали Аккаунт!")
                 replaceFragment(SettingsFragment())
                 return true
             }
             R.id.action_myGame -> {
-                mAppDrawer.testFunc("Вы выбрали мои игры!")
+                showToast("Вы выбрали мои игры!")
                 replaceFragment(MyGamesFragment())
                 return true
             }
             R.id.action_myGoods -> {
-                mAppDrawer.testFunc("Вы выбрали мои вещи!")
+                showToast("Вы выбрали мои вещи!")
                 replaceFragment(MyGoodsFragment())
                 return true
             }

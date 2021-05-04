@@ -4,6 +4,8 @@ import kotlinx.android.synthetic.main.fragment_change_bio.*
 import ru.planirui.transmit.R
 import ru.planirui.transmit.utilits.*
 
+/* Фрагмент для изменения информации о пользователе */
+
 class ChangeBioFragment : BaseChangeFragment(R.layout.fragment_change_bio) {
     override fun onResume() {
         super.onResume()

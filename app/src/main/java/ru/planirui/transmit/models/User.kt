@@ -1,5 +1,7 @@
 package ru.planirui.transmit.models
 
+/* Модель User */
+
 class User {
     val id: String = ""
     var username: String = ""

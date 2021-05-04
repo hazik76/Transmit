@@ -9,6 +9,8 @@ import ru.planirui.transmit.R
 import ru.planirui.transmit.activities.RegisterActivity
 import ru.planirui.transmit.utilits.*
 
+/* Фрагмент для ввода кода подтверждения при регистрации */
+
 class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment(R.layout.fragment_enter_code) {
 
     override fun onStart() {
@@ -23,6 +25,7 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment(R.la
     }
 
     private fun enterCode() {
+        /* Функция проверяет код, если все нормально, производит создания информации о пользователе в базе данных.*/
         val code = register_input_code.text.toString()
         val credential = PhoneAuthProvider.getCredential(id,code)
         AUTH.signInWithCredential(credential).addOnCompleteListener { task ->

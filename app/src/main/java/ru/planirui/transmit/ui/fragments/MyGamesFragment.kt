@@ -1,10 +1,9 @@
 package ru.planirui.transmit.ui.fragments
 
-import android.util.Log
-import ru.planirui.transmit.MainActivity
 import ru.planirui.transmit.R
-import ru.planirui.transmit.utilits.*
+import ru.planirui.transmit.utilits.APP_ACTIVITY
 
+/* Главный фрагмент, содержит все игры пользователя */
 
 class MyGamesFragment : BaseFragment(R.layout.fragment_my_games) {
     private val TAG = "MyGamesFragment"
@@ -12,6 +11,5 @@ class MyGamesFragment : BaseFragment(R.layout.fragment_my_games) {
     override fun onResume() {
         super.onResume()
         APP_ACTIVITY.title = getString(R.string.action_my_games)
-
     }
 }

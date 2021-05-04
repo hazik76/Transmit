@@ -4,6 +4,9 @@
     package="ru.planirui.transmit">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
 
     <application
         android:icon="@mipmap/ic_launcher"
@@ -16,6 +19,8 @@
         <activity
             android:name=".activities.RegisterActivity"
             android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/>
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="stateVisible|adjustResize">

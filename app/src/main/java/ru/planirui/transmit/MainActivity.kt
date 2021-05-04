@@ -36,9 +36,18 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun initFields() {
-
+    /* Функция инициализирует переменные, но у меня их нет) */
     }
 
+    override fun onStart() {
+        super.onStart()
+        AppStates.updateState(AppStates.ONLINE)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        AppStates.updateState(AppStates.OFFLINE)
+    }
 
     // Меню страниц
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

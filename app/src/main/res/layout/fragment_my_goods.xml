@@ -88,7 +88,7 @@
             app:civ_border_color="@color/gray"
             app:civ_circle_background_color="@color/lightgray"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:layout_marginEnd="@dimen/app_margin"
             tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -128,7 +128,7 @@
             app:civ_border_color="@color/gray"
             app:civ_circle_background_color="@color/lightgray"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:layout_marginEnd="@dimen/app_margin"
             tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -168,7 +168,7 @@
             app:civ_border_color="@color/gray"
             app:civ_circle_background_color="@color/lightgray"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/horizontal_margin"
+            android:layout_marginEnd="@dimen/app_margin"
             tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

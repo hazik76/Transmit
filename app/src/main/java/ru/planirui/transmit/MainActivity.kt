@@ -16,7 +16,6 @@ import ru.planirui.transmit.ui.fragments.MyGamesFragment
 import ru.planirui.transmit.ui.fragments.MyGoodsFragment
 import ru.planirui.transmit.ui.fragments.SettingsFragment
 import ru.planirui.transmit.utilits.*
-import ru.planirui.transmit.ui.objects.AppDrawer
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 

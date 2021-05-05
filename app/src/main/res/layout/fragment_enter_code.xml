@@ -21,7 +21,7 @@
         android:id="@+id/register_text_enter_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/horizontal_margin"
+        android:layout_margin="@dimen/app_margin"
         android:gravity="center"
         android:text="@string/register_text_enter_code"
         android:textColor="@color/black"
@@ -36,7 +36,7 @@
         style="@style/smallText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/horizontal_margin"
+        android:layout_margin="@dimen/app_margin"
         android:gravity="center"
         android:text="@string/register_text_send_info"
         app:layout_constraintTop_toBottomOf="@+id/register_text_enter_code" />

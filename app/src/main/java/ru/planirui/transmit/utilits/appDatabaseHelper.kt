@@ -10,6 +10,7 @@ import ru.planirui.transmit.models.CommonModel
 import ru.planirui.transmit.models.User
 import android.provider.ContactsContract
 import android.util.Log
+import com.google.firebase.database.DataSnapshot
 import java.util.ArrayList
 
 /* Файл содержит все необходимые инструменты для работы с базой данных */
@@ -74,7 +75,7 @@ inline fun initUser(crossinline function: () -> Unit) {
             if (USER.username.isEmpty()) {
                 USER.username = CURRENT_UID
                 function()
-            }else{
+            } else {
                 function()
             }
         })
@@ -83,7 +84,6 @@ inline fun initUser(crossinline function: () -> Unit) {
 fun initContacts() {
     /* Функция считывает контакты с телефонной книги, заполняет массив arrayContacts моделями CommonModel */
     if (checkPermission(READ_CONTACTS)) {
-        Log.d(TAG, "считывание из записной книги разрешены")
         var arrayContacts = arrayListOf<CommonModel>()
         val cursor = APP_ACTIVITY.contentResolver.query(
             ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
@@ -107,23 +107,27 @@ fun initContacts() {
         }
         cursor?.close()
         updatePhonesToDatabase(arrayContacts)
-    }else{
+    } else {
         Log.d(TAG, "считывание из записной книги не разрешены")
     }
 }
 
-fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>){
-    REF_DATABASE_ROOT.child(NODE_PHONES).addListenerForSingleValueEvent(AppValueEventListener{
-        it.children.forEach{snapshot ->
-            arrayContacts.forEach{contact ->
-                if (snapshot.key == contact.phone){
+fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>) {
+    /* Функция добавляет номер телефона с id в базу данных */
+    REF_DATABASE_ROOT.child(NODE_PHONES).addListenerForSingleValueEvent(AppValueEventListener {
+        it.children.forEach { snapshot ->
+            arrayContacts.forEach { contact ->
+                if (snapshot.key == contact.phone) {
                     REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
                         .child(snapshot.value.toString()).child(CHILD_ID)
                         .setValue(snapshot.value.toString())
                         .addOnFailureListener { e -> showToast(e.message.toString()) }
                 }
-
             }
         }
     })
 }
+
+/* Функция преобразовывает полученые данные из Firebase в модель CommonModel */
+fun DataSnapshot.getCommonModel(): CommonModel =
+    this.getValue(CommonModel::class.java) ?: CommonModel()

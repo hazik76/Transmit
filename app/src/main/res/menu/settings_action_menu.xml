@@ -23,9 +23,15 @@
                 app:showAsAction="never" />
 
             <item
-                android:id="@+id/action_myGame"
+                android:id="@+id/action_myGames"
                 android:orderInCategory="100"
                 android:title="@string/action_my_games"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/action_myContacts"
+                android:orderInCategory="100"
+                android:title="@string/action_myContacts"
                 app:showAsAction="never" />
 
             <item

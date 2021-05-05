@@ -1,6 +1,6 @@
 package ru.planirui.transmit.models
 
-/* Модель CommonModel */
+/* Общая модель для всех сущностей приложения*/
 
 class CommonModel {
     val id: String = ""

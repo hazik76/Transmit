@@ -2,7 +2,6 @@ package ru.planirui.transmit
 
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -12,11 +11,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.planirui.transmit.activities.RegisterActivity
+import ru.planirui.transmit.ui.fragments.ContactsFragment
 import ru.planirui.transmit.ui.fragments.MyGamesFragment
 import ru.planirui.transmit.ui.fragments.MyGoodsFragment
 import ru.planirui.transmit.ui.fragments.SettingsFragment
-import ru.planirui.transmit.ui.objects.AppDriwer
 import ru.planirui.transmit.utilits.*
+import ru.planirui.transmit.ui.objects.AppDrawer
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun initFields() {
-    /* Функция инициализирует переменные, но у меня их нет) */
+        /* Функция инициализирует переменные, но у меня их нет) */
     }
 
     override fun onStart() {
@@ -61,7 +61,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (ContextCompat.checkSelfPermission(APP_ACTIVITY, READ_CONTACTS)== PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(
+                APP_ACTIVITY,
+                READ_CONTACTS
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             initContacts()
         }
     }
@@ -81,26 +85,14 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_account -> {
-                showToast("Вы выбрали Аккаунт!")
-                replaceFragment(SettingsFragment())
-                return true
-            }
-            R.id.action_myGame -> {
-                showToast("Вы выбрали мои игры!")
-                replaceFragment(MyGamesFragment())
-                return true
-            }
-            R.id.action_myGoods -> {
-                showToast("Вы выбрали мои вещи!")
-                replaceFragment(MyGoodsFragment())
-                return true
-            }
+            R.id.action_account -> { replaceFragment(SettingsFragment()) }
+            R.id.action_myGames -> { replaceFragment(MyGamesFragment()) }
+            R.id.action_myGoods -> { replaceFragment(MyGoodsFragment()) }
+            R.id.action_myContacts -> { replaceFragment(ContactsFragment()) }
             R.id.action_exit -> {
                 FirebaseAuth.getInstance().signOut()   // выйти из аккаунта
                 AppStates.updateState(AppStates.OFFLINE)
                 replaceActivity(RegisterActivity())
-                return true
             }
         }
         return super.onOptionsItemSelected(item)

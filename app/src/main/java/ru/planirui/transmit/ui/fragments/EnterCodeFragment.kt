@@ -1,7 +1,6 @@
 package ru.planirui.transmit.ui.fragments
 
 import androidx.fragment.app.Fragment
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthProvider
 import kotlinx.android.synthetic.main.fragment_enter_code.*
 import ru.planirui.transmit.MainActivity
@@ -25,7 +24,7 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment(R.la
     }
 
     private fun enterCode() {
-        /* Функция проверяет код, если все нормально, производит создания информации о пользователе в базе данных.*/
+        /* Функция проверяет код, если все нормально, производит создания информации о пользователе в базе данных */
         val code = register_input_code.text.toString()
         val credential = PhoneAuthProvider.getCredential(id,code)
         AUTH.signInWithCredential(credential).addOnCompleteListener { task ->
@@ -36,12 +35,15 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) : Fragment(R.la
                 dateMap[CHILD_PHONE] = phoneNumber
                 dateMap[CHILD_USERNAME] = uid
 
-                REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dateMap)
-                    .addOnCompleteListener { task2 ->
-                        if (task2.isSuccessful) {
-                            showToast("Добро пожаловать")
-                            (activity as RegisterActivity).replaceActivity(MainActivity())
-                        } else showToast(task2.exception?.message.toString())
+                REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber).setValue(uid)
+                    .addOnFailureListener {}
+                    .addOnSuccessListener {
+                        REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dateMap)
+                            .addOnSuccessListener{
+                                showToast("Добро пожаловать")
+                                (activity as RegisterActivity).replaceActivity(MainActivity())
+                            }
+                            .addOnFailureListener{ showToast(it.message.toString())}
                     }
             }else showToast(task.exception?.message.toString())
         }

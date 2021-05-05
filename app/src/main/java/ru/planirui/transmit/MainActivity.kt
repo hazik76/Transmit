@@ -1,10 +1,16 @@
 package ru.planirui.transmit
 
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import ru.planirui.transmit.activities.RegisterActivity
 import ru.planirui.transmit.ui.fragments.MyGamesFragment
 import ru.planirui.transmit.ui.fragments.MyGoodsFragment
@@ -14,21 +20,21 @@ import ru.planirui.transmit.utilits.*
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
-    private lateinit var mAppDrawer: AppDriwer
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         APP_ACTIVITY = this
         initFirebase()
         initUser {
+            CoroutineScope(Dispatchers.IO).launch {
+                initContacts()
+            }
             initFields()
-            initFunc()
         }
+        initFunc()
     }
 
     private fun initFunc() {
         if (AUTH.currentUser != null) {
-            mAppDrawer = AppDriwer(this)
             replaceFragment(MyGamesFragment(), false)
         } else {
             replaceActivity(RegisterActivity())
@@ -47,6 +53,17 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onStop() {
         super.onStop()
         AppStates.updateState(AppStates.OFFLINE)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (ContextCompat.checkSelfPermission(APP_ACTIVITY, READ_CONTACTS)== PackageManager.PERMISSION_GRANTED){
+            initContacts()
+        }
     }
 
     // Меню страниц
@@ -81,6 +98,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             }
             R.id.action_exit -> {
                 FirebaseAuth.getInstance().signOut()   // выйти из аккаунта
+                AppStates.updateState(AppStates.OFFLINE)
                 replaceActivity(RegisterActivity())
                 return true
             }

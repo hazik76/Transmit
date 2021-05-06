@@ -28,6 +28,14 @@ class SingleChatFragment(private val contact: CommonModel) :
 
         mRefUser = REF_DATABASE_ROOT.child(NODE_USERS).child(contact.id)
         mRefUser.addValueEventListener(mListenerInfoToolbar)
+        chat_btn_send_message.setOnClickListener {
+            val message = chat_input_message.text.toString()
+            if (!message.isEmpty()) sendMessage(message, contact.id, TYPE_TEXT){
+                hideKeyboard()
+                chat_input_message.setText("")
+            }
+
+        }
     }
 
     private fun initInfoToolbar() {

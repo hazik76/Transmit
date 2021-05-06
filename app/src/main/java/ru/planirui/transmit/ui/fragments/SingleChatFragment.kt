@@ -30,7 +30,7 @@ class SingleChatFragment(private val contact: CommonModel) :
         mRefUser.addValueEventListener(mListenerInfoToolbar)
         chat_btn_send_message.setOnClickListener {
             val message = chat_input_message.text.toString()
-            if (!message.isEmpty()) sendMessage(message, contact.id, TYPE_TEXT){
+            if (message.isNotEmpty()) sendMessage(message, contact.id, TYPE_TEXT){
                 hideKeyboard()
                 chat_input_message.setText("")
             }

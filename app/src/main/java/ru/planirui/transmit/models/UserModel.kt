@@ -2,7 +2,7 @@ package ru.planirui.transmit.models
 
 /* Модель User */
 
-class User {
+class UserModel {
     val id: String = ""
     var username: String = ""
     var bio: String = ""

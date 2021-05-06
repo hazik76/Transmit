@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         if (AUTH.currentUser != null) {
             replaceFragment(MyGamesFragment(), false)
         } else {
+            hideKeyboard() // после RegisterActivity остаётся открытой клаватура
             replaceActivity(RegisterActivity())
         }
     }
@@ -89,8 +90,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             R.id.action_myGoods -> { replaceFragment(MyGoodsFragment()) }
             R.id.action_myContacts -> { replaceFragment(ContactsFragment()) }
             R.id.action_exit -> {
-                FirebaseAuth.getInstance().signOut()   // выйти из аккаунта
                 AppStates.updateState(AppStates.OFFLINE)
+                FirebaseAuth.getInstance().signOut()   // выйти из аккаунта
                 replaceActivity(RegisterActivity())
             }
         }

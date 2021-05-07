@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBlueWish"
-    tools:context=".ui.fragments.SingleChatFragment">
+    tools:context=".ui.fragments.single_chat.SingleChatFragment">
 
     <include
         android:id="@+id/toolbar_info"

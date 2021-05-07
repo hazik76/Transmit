@@ -14,5 +14,5 @@ class CommonModel {
     var text: String = ""
     var type: String = ""
     var from: String = ""
-    var timeStamp: String = ""
+    var timeStamp: Any = ""
 }

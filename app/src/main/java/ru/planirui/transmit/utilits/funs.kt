@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import ru.planirui.transmit.R
 import ru.planirui.transmit.models.CommonModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 /* Файл для хранения утилитарных функций, доступных во всем приложении */
 
@@ -100,4 +102,10 @@ fun initContacts() {
     } else {
         Log.d(TAG, "считывание из записной книги не разрешены")
     }
+}
+
+fun String.asTime(): String {
+    val time = Date(this.toLong())
+    val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+    return timeFormat.format(time)
 }

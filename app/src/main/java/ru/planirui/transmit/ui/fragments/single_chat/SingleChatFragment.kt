@@ -21,7 +21,7 @@ class SingleChatFragment(private val contact: CommonModel) :
     private lateinit var mRefMessages: DatabaseReference
     private lateinit var mAdapter: SingleChatAdapter
     private lateinit var mRecyclerView: RecyclerView
-    private lateinit var mMessagesListener:AppValueEventListener
+    private lateinit var mMessagesListener: AppValueEventListener
     private var mListMessages = emptyList<CommonModel>()
 
     override fun onResume() {

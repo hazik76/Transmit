@@ -1,31 +1,35 @@
 package ru.planirui.transmit.ui.fragments.single_chat
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.message_item.view.*
+import org.w3c.dom.Text
 import ru.planirui.transmit.R
 import ru.planirui.transmit.models.CommonModel
 import ru.planirui.transmit.utilits.CURRENT_UID
 import ru.planirui.transmit.utilits.asTime
-import java.text.SimpleDateFormat
-import java.util.*
 
 class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolder>() {
 
-    private var mListMessagesCache = emptyList<CommonModel>()
+    private var mListMessagesCache = mutableListOf<CommonModel>()
+    private var mListTimePost = arrayListOf<String>()
+    private lateinit var mDiffResult: DiffUtil.DiffResult
+    private lateinit var thisTimeStamp: String
 
     class SingleChatHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val blockUserMessage: ConstraintLayout = view.bloc_user_message
+        val blocUserMessage: ConstraintLayout = view.bloc_user_message
         val chatUserMessage: TextView = view.chat_user_message
         val chatUserMessageTime: TextView = view.chat_user_message_time
 
-        val blocReceiveMessage: ConstraintLayout = view.bloc_received_message
-        val chatReceiveMessage: TextView = view.chat_received_message
-        val chatReceiveMessageTime: TextView = view.chat_user_message_time
+        val blocReceivedMessage: ConstraintLayout = view.bloc_received_message
+        val chatReceivedMessage: TextView = view.chat_received_message
+        val chatReceivedMessageTime: TextView = view.chat_received_message_time
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleChatHolder {
@@ -37,22 +41,55 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolde
 
     override fun onBindViewHolder(holder: SingleChatHolder, position: Int) {
         if (mListMessagesCache[position].from == CURRENT_UID) {
-            holder.blockUserMessage.visibility = View.VISIBLE
-            holder.blocReceiveMessage.visibility = View.GONE
+            holder.blocUserMessage.visibility = View.VISIBLE
+            holder.blocReceivedMessage.visibility = View.GONE
             holder.chatUserMessage.text = mListMessagesCache[position].text
             holder.chatUserMessageTime.text =
                 mListMessagesCache[position].timeStamp.toString().asTime()
         } else {
-            holder.blockUserMessage.visibility = View.GONE
-            holder.blocReceiveMessage.visibility = View.VISIBLE
-            holder.chatReceiveMessage.text = mListMessagesCache[position].text
-            holder.chatReceiveMessageTime.text =
+            holder.blocUserMessage.visibility = View.GONE
+            holder.blocReceivedMessage.visibility = View.VISIBLE
+            holder.chatReceivedMessage.text = mListMessagesCache[position].text
+            holder.chatReceivedMessageTime.text =
                 mListMessagesCache[position].timeStamp.toString().asTime()
         }
     }
 
-    fun setList(list: List<CommonModel>) {
-        mListMessagesCache = list
-        notifyDataSetChanged()
+
+    fun addItem(
+        item: CommonModel,
+        toBottom: Boolean,
+        onSuccess: () -> Unit
+    ) {
+        // TODO подглючивает что-то, не правильно отрабатывается mListMessagesCache.contains(item)
+        thisTimeStamp = item.timeStamp.toString()
+        if (toBottom) {
+            if (!mListTimePost.contains(thisTimeStamp) && !mListMessagesCache.contains(item)){
+                Log.d("TAG1", mListTimePost.toString())
+                Log.d("TAG1", thisTimeStamp)
+                mListTimePost.add(thisTimeStamp)
+                mListMessagesCache.add(item)
+                notifyItemInserted(mListMessagesCache.size)
+            }
+//            if (!mListMessagesCache.contains(item)) {
+//                mListMessagesCache.add(item)
+//                notifyItemInserted(mListMessagesCache.size)
+//            }
+        } else {
+//            Log.d("TAG2", mListTimePost.toString())
+//            Log.d("TAG2", thisTimeStamp)
+            if (!mListTimePost.contains(thisTimeStamp)){
+                mListTimePost.add(thisTimeStamp)
+                mListMessagesCache.add(item)
+                mListMessagesCache.sortBy { it.timeStamp.toString() }
+                notifyItemInserted(0)
+            }
+//            if (!mListMessagesCache.contains(item)) {
+//                mListMessagesCache.add(item)
+//                mListMessagesCache.sortBy { it.timeStamp.toString() }
+//                notifyItemInserted(0)
+//            }
+        }
+        onSuccess()
     }
 }

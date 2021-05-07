@@ -11,29 +11,38 @@
         android:id="@+id/toolbar_info"
         layout="@layout/toolbar_info" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chat_recycle_view"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        tools:listitem="@layout/message_item"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/chat_swipe_refresh"
+        android:layout_width="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/chat_input_message"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_info" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_info"
+        android:layout_height="0dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chat_recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+            tools:listitem="@layout/message_item" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
     <EditText
         android:id="@+id/chat_input_message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Сообщение"
-        tools:listitem="@layout/message_item"
         android:padding="@dimen/appPadding"
         android:textColor="@color/black"
         android:textColorHint="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/chat_btn_send_message"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/message_item" />
 
     <ImageView
         android:id="@+id/chat_btn_send_message"

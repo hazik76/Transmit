@@ -17,9 +17,6 @@
         android:theme="@style/Theme.Transmit"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity
-            android:name=".activities.RegisterActivity"
-            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
         <activity

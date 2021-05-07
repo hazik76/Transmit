@@ -1,4 +1,4 @@
-package ru.planirui.transmit.ui.fragments
+package ru.planirui.transmit.ui.fragments.register
 
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,13 +8,8 @@ import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import kotlinx.android.synthetic.main.fragment_enter_phone_number.*
-import ru.planirui.transmit.MainActivity
 import ru.planirui.transmit.R
-import ru.planirui.transmit.activities.RegisterActivity
-import ru.planirui.transmit.utilits.AUTH
-import ru.planirui.transmit.utilits.replaceActivity
-import ru.planirui.transmit.utilits.replaceFragment
-import ru.planirui.transmit.utilits.showToast
+import ru.planirui.transmit.utilits.*
 import java.util.concurrent.TimeUnit
 
 /* Фрагмент для ввода номера телефона при регистрации */
@@ -26,6 +21,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
 
     override fun onStart() {
         super.onStart()
+        APP_ACTIVITY.supportActionBar?.hide()
         /* Callback который возвращает результат верификации */
         mCallback = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
@@ -34,7 +30,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
                 AUTH.signInWithCredential(credential).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         showToast("Добро пожаловать")
-                        (activity as RegisterActivity).replaceActivity(MainActivity())
+                        restartActivity()
                     } else showToast(task.exception?.message.toString())
                 }
             }
@@ -70,7 +66,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
             .newBuilder(FirebaseAuth.getInstance())
             .setPhoneNumber(mPhoneNumber)
             .setTimeout(60L, TimeUnit.SECONDS)
-            .setActivity(activity as RegisterActivity)
+            .setActivity(APP_ACTIVITY)
             .setCallbacks(mCallback)
             .build()
         Log.d(TAG, options.toString())

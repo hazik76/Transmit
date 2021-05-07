@@ -2,6 +2,7 @@ package ru.planirui.transmit
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -10,15 +11,15 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.planirui.transmit.activities.RegisterActivity
 import ru.planirui.transmit.ui.fragments.ContactsFragment
 import ru.planirui.transmit.ui.fragments.MyGamesFragment
 import ru.planirui.transmit.ui.fragments.MyGoodsFragment
 import ru.planirui.transmit.ui.fragments.SettingsFragment
+import ru.planirui.transmit.ui.fragments.register.EnterPhoneNumberFragment
 import ru.planirui.transmit.utilits.*
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
-
+    private val TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         APP_ACTIVITY = this
@@ -36,8 +37,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         if (AUTH.currentUser != null) {
             replaceFragment(MyGamesFragment(), false)
         } else {
-            hideKeyboard() // после RegisterActivity остаётся открытой клаватура
-            replaceActivity(RegisterActivity())
+            replaceFragment(EnterPhoneNumberFragment(), false)
         }
     }
 
@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             R.id.action_exit -> {
                 AppStates.updateState(AppStates.OFFLINE)
                 FirebaseAuth.getInstance().signOut()   // выйти из аккаунта
-                replaceActivity(RegisterActivity())
+                restartActivity()
             }
         }
         return super.onOptionsItemSelected(item)

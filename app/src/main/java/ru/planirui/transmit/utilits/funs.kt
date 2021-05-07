@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
+import ru.planirui.transmit.MainActivity
 import ru.planirui.transmit.R
 import ru.planirui.transmit.models.CommonModel
 import java.text.SimpleDateFormat
@@ -17,45 +18,37 @@ import java.util.*
 
 /* Файл для хранения утилитарных функций, доступных во всем приложении */
 
+private val TAG = "funs.kt"
+
 fun showToast(message: String) {
     /* Функция показывает сообщение */
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_SHORT).show()
 }
 
-fun AppCompatActivity.replaceActivity(activity: AppCompatActivity) {
+fun restartActivity() {
     /* Функция расширения для AppCompatActivity, позволяет запускать активити */
-    val intent = Intent(this, activity::class.java)
-    startActivity(intent)
-    this.finish()
+    val intent = Intent(APP_ACTIVITY, MainActivity::class.java)
+    APP_ACTIVITY.startActivity(intent)
+    APP_ACTIVITY.finish()
 }
 
-fun AppCompatActivity.replaceFragment(fragment: Fragment, addStack: Boolean = true) {
+fun replaceFragment(fragment: Fragment, addStack: Boolean = true) {
     /* Функция расширения для AppCompatActivity, позволяет устанавливать фрагменты */
     if (addStack) {
-        supportFragmentManager.beginTransaction()
+        APP_ACTIVITY.supportFragmentManager.beginTransaction()
             .addToBackStack(null)
             .replace(
                 R.id.data_container,
                 fragment
             ).commit()
     } else {
-        supportFragmentManager.beginTransaction()
+        APP_ACTIVITY.supportFragmentManager.beginTransaction()
             .replace(
                 R.id.data_container,
                 fragment
             ).commit()
     }
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
-}
-
-fun Fragment.replaceFragment(fragment: Fragment) {
-    /* Функция расширения для Fragment, позволяет устанавливать фрагменты */
-    this.fragmentManager?.beginTransaction()
-        ?.addToBackStack(null)
-        ?.replace(
-            R.id.data_container,
-            fragment
-        )?.commit()
+    APP_ACTIVITY.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 }
 
 fun hideKeyboard() {

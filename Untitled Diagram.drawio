@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-05-08T08:54:53.990Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36" etag="PxieJTbXJiRczKHAxmQI" version="14.6.9" type="github">
+<mxfile host="app.diagrams.net" modified="2021-05-08T11:10:26.280Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36" etag="OUxN--cd8gDE9bR47Fr2" version="14.6.9" type="github">
   <diagram name="Page-1" id="9f46799a-70d6-7492-0946-bef42562c5a5">
     <mxGraphModel dx="995" dy="636" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
       <root>
@@ -87,7 +87,7 @@
           <mxGeometry y="178" width="160" height="26" as="geometry" />
         </mxCell>
         <mxCell id="W9N70R6g1bRT6CnUL-Pl-109" value="Добавить вещь /&lt;br&gt;add goods" style="swimlane;html=1;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;swimlaneFillColor=#ffffff;rounded=0;shadow=0;comic=0;labelBackgroundColor=none;strokeWidth=1;fillColor=none;fontFamily=Verdana;fontSize=12" parent="1" vertex="1">
-          <mxGeometry x="40" y="480" width="160" height="204" as="geometry">
+          <mxGeometry x="30" y="473" width="160" height="204" as="geometry">
             <mxRectangle x="80" y="480" width="140" height="26" as="alternateBounds" />
           </mxGeometry>
         </mxCell>

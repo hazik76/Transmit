@@ -2,6 +2,7 @@ package ru.planirui.transmit.ui.fragments
 
 import kotlinx.android.synthetic.main.fragment_change_username.*
 import ru.planirui.transmit.R
+import ru.planirui.transmit.database.*
 import ru.planirui.transmit.utilits.*
 import java.util.*
 

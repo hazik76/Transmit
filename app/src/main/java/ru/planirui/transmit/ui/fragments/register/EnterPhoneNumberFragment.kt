@@ -9,6 +9,7 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import kotlinx.android.synthetic.main.fragment_enter_phone_number.*
 import ru.planirui.transmit.R
+import ru.planirui.transmit.database.AUTH
 import ru.planirui.transmit.utilits.*
 import java.util.concurrent.TimeUnit
 

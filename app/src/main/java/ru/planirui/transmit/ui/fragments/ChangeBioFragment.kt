@@ -2,6 +2,8 @@ package ru.planirui.transmit.ui.fragments
 
 import kotlinx.android.synthetic.main.fragment_change_bio.*
 import ru.planirui.transmit.R
+import ru.planirui.transmit.database.USER
+import ru.planirui.transmit.database.setBioToDatabase
 import ru.planirui.transmit.utilits.*
 
 /* Фрагмент для изменения информации о пользователе */

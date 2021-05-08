@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.auth.PhoneAuthProvider
 import kotlinx.android.synthetic.main.fragment_enter_code.*
 import ru.planirui.transmit.R
+import ru.planirui.transmit.database.*
 import ru.planirui.transmit.utilits.*
 
 /* Фрагмент для ввода кода подтверждения при регистрации */
@@ -33,18 +34,27 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) :
                 val dateMap = mutableMapOf<String, Any>()
                 dateMap[CHILD_ID] = uid
                 dateMap[CHILD_PHONE] = phoneNumber
-                dateMap[CHILD_USERNAME] = uid
 
-                REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber).setValue(uid)
-                    .addOnFailureListener {}
-                    .addOnSuccessListener {
-                        REF_DATABASE_ROOT.child(NODE_USERS).child(uid).updateChildren(dateMap)
+                REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
+                    .addListenerForSingleValueEvent(AppValueEventListener {
+                        if (!it.hasChild(CHILD_USERNAME)) {
+                            dateMap[CHILD_USERNAME] = uid
+                        }
+
+                        REF_DATABASE_ROOT.child(NODE_PHONES).child(phoneNumber).setValue(uid)
+                            .addOnFailureListener {}
                             .addOnSuccessListener {
-                                showToast("Добро пожаловать")
-                                restartActivity()
+                                REF_DATABASE_ROOT.child(NODE_USERS).child(uid)
+                                    .updateChildren(dateMap)
+                                    .addOnSuccessListener {
+                                        showToast("Добро пожаловать")
+                                        restartActivity()
+                                    }
+                                    .addOnFailureListener { showToast(it.message.toString()) }
                             }
-                            .addOnFailureListener { showToast(it.message.toString()) }
-                    }
+                    })
+
+
             } else showToast(task.exception?.message.toString())
         }
     }

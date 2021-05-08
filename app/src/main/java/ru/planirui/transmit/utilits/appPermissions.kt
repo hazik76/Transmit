@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 /* Файл содержит разрешения из манифеста */
 
 const val READ_CONTACTS = Manifest.permission.READ_CONTACTS
-
+const val RECORD_AUDIO = Manifest.permission.RECORD_AUDIO
 /* Контакты приложению пока не нужны, но на всякий случай */
 const val PERMISSION_REQUEST = 200
 

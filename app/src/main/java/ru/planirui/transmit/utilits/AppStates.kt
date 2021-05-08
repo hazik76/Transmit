@@ -1,5 +1,7 @@
 package ru.planirui.transmit.utilits
 
+import ru.planirui.transmit.database.*
+
 enum class AppStates(val state:String) {
     ONLINE("в сети"),
     OFFLINE("был недавно"),

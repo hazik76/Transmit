@@ -12,6 +12,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.contact_item.view.*
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import ru.planirui.transmit.R
+import ru.planirui.transmit.database.*
 import ru.planirui.transmit.models.CommonModel
 import ru.planirui.transmit.ui.fragments.single_chat.SingleChatFragment
 import ru.planirui.transmit.utilits.*

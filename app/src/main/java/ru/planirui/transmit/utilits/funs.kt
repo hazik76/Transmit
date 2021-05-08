@@ -7,11 +7,12 @@ import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.squareup.picasso.Picasso
 import ru.planirui.transmit.MainActivity
 import ru.planirui.transmit.R
+import ru.planirui.transmit.database.AUTH
+import ru.planirui.transmit.database.updatePhonesToDatabase
 import ru.planirui.transmit.models.CommonModel
 import java.text.SimpleDateFormat
 import java.util.*

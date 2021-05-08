@@ -2,7 +2,6 @@ package ru.planirui.transmit
 
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +10,9 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.planirui.transmit.database.AUTH
+import ru.planirui.transmit.database.initFirebase
+import ru.planirui.transmit.database.initUser
 import ru.planirui.transmit.ui.fragments.ContactsFragment
 import ru.planirui.transmit.ui.fragments.MyGamesFragment
 import ru.planirui.transmit.ui.fragments.MyGoodsFragment

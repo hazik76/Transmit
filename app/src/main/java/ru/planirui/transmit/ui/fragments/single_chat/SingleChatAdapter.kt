@@ -52,23 +52,27 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolde
         }
     }
 
-    fun addItem(
+    fun addItemToBottom(
         item: CommonModel,
-        toBottom: Boolean,
         onSuccess: () -> Unit
     ) {
-        if (toBottom) {
-            if (!mListMessagesCache.contains(item)) {
-                mListMessagesCache.add(item)
-                notifyItemInserted(mListMessagesCache.size)
-            }
-        } else {
-            if (!mListMessagesCache.contains(item)) {
-                mListMessagesCache.add(item)
-                mListMessagesCache.sortBy { it.timeStamp.toString() }
-                notifyItemInserted(0)
-            }
+        if (!mListMessagesCache.contains(item)) {
+            mListMessagesCache.add(item)
+            notifyItemInserted(mListMessagesCache.size)
         }
         onSuccess()
     }
+
+    fun addItemToTop(
+        item: CommonModel,
+        onSuccess: () -> Unit
+    ) {
+        if (!mListMessagesCache.contains(item)) {
+            mListMessagesCache.add(item)
+            mListMessagesCache.sortBy { it.timeStamp.toString() }
+            notifyItemInserted(0)
+        }
+        onSuccess()
+    }
+
 }

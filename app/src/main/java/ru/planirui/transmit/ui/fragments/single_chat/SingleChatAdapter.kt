@@ -18,9 +18,6 @@ import ru.planirui.transmit.utilits.asTime
 class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolder>() {
 
     private var mListMessagesCache = mutableListOf<CommonModel>()
-    private var mListTimePost = arrayListOf<String>()
-    private lateinit var mDiffResult: DiffUtil.DiffResult
-    private lateinit var thisTimeStamp: String
 
     class SingleChatHolder(view: View) : RecyclerView.ViewHolder(view) {
         val blocUserMessage: ConstraintLayout = view.bloc_user_message
@@ -55,40 +52,22 @@ class SingleChatAdapter : RecyclerView.Adapter<SingleChatAdapter.SingleChatHolde
         }
     }
 
-
     fun addItem(
         item: CommonModel,
         toBottom: Boolean,
         onSuccess: () -> Unit
     ) {
-        // TODO подглючивает что-то, не правильно отрабатывается mListMessagesCache.contains(item)
-        thisTimeStamp = item.timeStamp.toString()
         if (toBottom) {
-            if (!mListTimePost.contains(thisTimeStamp) && !mListMessagesCache.contains(item)){
-                Log.d("TAG1", mListTimePost.toString())
-                Log.d("TAG1", thisTimeStamp)
-                mListTimePost.add(thisTimeStamp)
+            if (!mListMessagesCache.contains(item)) {
                 mListMessagesCache.add(item)
                 notifyItemInserted(mListMessagesCache.size)
             }
-//            if (!mListMessagesCache.contains(item)) {
-//                mListMessagesCache.add(item)
-//                notifyItemInserted(mListMessagesCache.size)
-//            }
         } else {
-//            Log.d("TAG2", mListTimePost.toString())
-//            Log.d("TAG2", thisTimeStamp)
-            if (!mListTimePost.contains(thisTimeStamp)){
-                mListTimePost.add(thisTimeStamp)
+            if (!mListMessagesCache.contains(item)) {
                 mListMessagesCache.add(item)
                 mListMessagesCache.sortBy { it.timeStamp.toString() }
                 notifyItemInserted(0)
             }
-//            if (!mListMessagesCache.contains(item)) {
-//                mListMessagesCache.add(item)
-//                mListMessagesCache.sortBy { it.timeStamp.toString() }
-//                notifyItemInserted(0)
-//            }
         }
         onSuccess()
     }

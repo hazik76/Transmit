@@ -123,6 +123,7 @@ fun sendMessage(message: String, receivingUserID: String, typeText: String, func
     mapMessage[CHILD_FROM] = CURRENT_UID
     mapMessage[CHILD_TYPE] = typeText
     mapMessage[CHILD_TEXT] = message
+    mapMessage[CHILD_ID] = messageKey.toString()
     mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
 
     val mapDialog = hashMapOf<String, Any>()

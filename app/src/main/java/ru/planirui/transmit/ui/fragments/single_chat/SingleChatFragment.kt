@@ -24,8 +24,9 @@ class SingleChatFragment(private val contact: CommonModel) :
     private lateinit var mAdapter: SingleChatAdapter
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mMessagesListener: AppChildEventListener
+
     //private var mListMessages = mutableListOf<CommonModel>()
-    private var mCountMessages = 20
+    private var mCountMessages = 3
     private var mIsScrolling = false
     private var mSmoothScrollToPosition = true
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
@@ -47,7 +48,7 @@ class SingleChatFragment(private val contact: CommonModel) :
         mRecyclerView.adapter = mAdapter
 
         mMessagesListener = AppChildEventListener {
-            mAdapter.addItem(it.getCommonModel(),mSmoothScrollToPosition){
+            mAdapter.addItem(it.getCommonModel(), mSmoothScrollToPosition) {
                 if (mSmoothScrollToPosition) {
                     mRecyclerView.smoothScrollToPosition(mAdapter.itemCount)
                 }
@@ -98,12 +99,17 @@ class SingleChatFragment(private val contact: CommonModel) :
         chat_btn_send_message.setOnClickListener {
             mSmoothScrollToPosition = true
             val message = chat_input_message.text.toString()
-            if (message.isNotEmpty()) sendMessage(message, contact.id, TYPE_TEXT) {
+            if (message.isEmpty()) {
+                showToast("Введите сообщение")
+            } else sendMessage(
+                message,
+                contact.id,
+                TYPE_TEXT
+            ) {
                 hideKeyboard()
                 chat_input_message.setText("")
-            } else {
-                showToast("Введите сообщение")
             }
+
         }
     }
 

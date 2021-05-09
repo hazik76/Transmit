@@ -29,6 +29,12 @@
                 app:showAsAction="never" />
 
             <item
+                android:id="@+id/action_myMessages"
+                android:orderInCategory="100"
+                android:title="@string/action_myMessages"
+                app:showAsAction="never" />
+
+            <item
                 android:id="@+id/action_myContacts"
                 android:orderInCategory="100"
                 android:title="@string/action_myContacts"

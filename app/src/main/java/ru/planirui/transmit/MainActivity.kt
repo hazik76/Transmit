@@ -17,10 +17,12 @@ import ru.planirui.transmit.ui.screens.ContactsFragment
 import ru.planirui.transmit.ui.screens.MyGamesFragment
 import ru.planirui.transmit.ui.screens.MyGoodsFragment
 import ru.planirui.transmit.ui.screens.SettingsFragment
+import ru.planirui.transmit.ui.screens.main_list.MainListFragment
 import ru.planirui.transmit.ui.screens.register.EnterPhoneNumberFragment
 import ru.planirui.transmit.utilits.*
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
+
     private val TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private fun initFunc() {
         if (AUTH.currentUser != null) {
             replaceFragment(MyGamesFragment(), false)
+            //replaceFragment(MainListFragment(), false)
         } else {
             replaceFragment(EnterPhoneNumberFragment(), false)
         }
@@ -90,6 +93,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             R.id.action_account -> { replaceFragment(SettingsFragment()) }
             R.id.action_myGames -> { replaceFragment(MyGamesFragment()) }
             R.id.action_myGoods -> { replaceFragment(MyGoodsFragment()) }
+            R.id.action_myMessages -> { replaceFragment(MainListFragment()) }
             R.id.action_myContacts -> { replaceFragment(ContactsFragment()) }
             R.id.action_exit -> {
                 AppStates.updateState(AppStates.OFFLINE)

@@ -1,8 +1,9 @@
-package ru.planirui.transmit.ui.screens
+package ru.planirui.transmit.ui.screens.settings
 
 import kotlinx.android.synthetic.main.fragment_change_username.*
 import ru.planirui.transmit.R
 import ru.planirui.transmit.database.*
+import ru.planirui.transmit.ui.screens.BaseChangeFragment
 import ru.planirui.transmit.utilits.*
 import java.util.*
 

@@ -1,4 +1,4 @@
-package ru.planirui.transmit.ui.screens
+package ru.planirui.transmit.ui.screens.settings
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -7,6 +7,7 @@ import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.fragment_settings.*
 import ru.planirui.transmit.R
 import ru.planirui.transmit.database.*
+import ru.planirui.transmit.ui.screens.BaseFragment
 import ru.planirui.transmit.utilits.*
 
 /* Фрагмент настроек */

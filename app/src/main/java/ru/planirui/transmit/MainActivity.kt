@@ -16,7 +16,7 @@ import ru.planirui.transmit.database.initUser
 import ru.planirui.transmit.ui.screens.ContactsFragment
 import ru.planirui.transmit.ui.screens.MyGamesFragment
 import ru.planirui.transmit.ui.screens.MyGoodsFragment
-import ru.planirui.transmit.ui.screens.SettingsFragment
+import ru.planirui.transmit.ui.screens.settings.SettingsFragment
 import ru.planirui.transmit.ui.screens.main_list.MainListFragment
 import ru.planirui.transmit.ui.screens.register.EnterPhoneNumberFragment
 import ru.planirui.transmit.utilits.*

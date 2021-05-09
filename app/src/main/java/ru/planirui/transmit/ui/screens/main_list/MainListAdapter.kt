@@ -9,7 +9,9 @@ import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.main_list_item.view.*
 import ru.planirui.transmit.R
 import ru.planirui.transmit.models.CommonModel
+import ru.planirui.transmit.ui.screens.single_chat.SingleChatFragment
 import ru.planirui.transmit.utilits.downloadAndSetImage
+import ru.planirui.transmit.utilits.replaceFragment
 
 //TODO для сообщений(Переписки), потом переменовать! MyMessagesAdapter
 
@@ -26,7 +28,11 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainListHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.main_list_item, parent, false)
-        return MainListHolder(view)
+        val holder = MainListHolder(view)
+        holder.itemView.setOnClickListener {
+            replaceFragment(SingleChatFragment(listItems[holder.adapterPosition]))
+        }
+        return holder
     }
 
     override fun getItemCount(): Int = listItems.size

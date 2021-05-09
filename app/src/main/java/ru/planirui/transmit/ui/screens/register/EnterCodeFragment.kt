@@ -1,4 +1,4 @@
-package ru.planirui.transmit.ui.fragments.register
+package ru.planirui.transmit.ui.screens.register
 
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.PhoneAuthProvider

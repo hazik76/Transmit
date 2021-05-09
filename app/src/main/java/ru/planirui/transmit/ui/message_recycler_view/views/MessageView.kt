@@ -1,4 +1,4 @@
-package ru.planirui.transmit.ui.fragments.message_recycler_view.views
+package ru.planirui.transmit.ui.message_recycler_view.views
 
 interface MessageView {
 
@@ -13,6 +13,8 @@ interface MessageView {
             get() = 0
         val MESSAGE_TEXT
             get() = 1
+        val MESSAGE_VOICE
+            get() = 2
     }
 
     fun getTypeView():Int

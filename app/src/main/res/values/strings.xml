@@ -34,4 +34,6 @@
     <string name="settings_hint_input_username">username</string>
     <string name="settings_hint_input_bio">bio</string>
     <string name="action_myContacts">Мои Контакты</string>
+    <string name="play">play</string>
+    <string name="stop">stop</string>
 </resources>

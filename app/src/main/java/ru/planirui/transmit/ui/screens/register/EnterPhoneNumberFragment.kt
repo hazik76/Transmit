@@ -1,4 +1,4 @@
-package ru.planirui.transmit.ui.fragments.register
+package ru.planirui.transmit.ui.screens.register
 
 import android.util.Log
 import androidx.fragment.app.Fragment

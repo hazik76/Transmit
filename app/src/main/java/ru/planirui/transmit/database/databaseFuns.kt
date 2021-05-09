@@ -13,6 +13,7 @@ import ru.planirui.transmit.models.UserModel
 import ru.planirui.transmit.utilits.APP_ACTIVITY
 import ru.planirui.transmit.utilits.AppValueEventListener
 import ru.planirui.transmit.utilits.showToast
+import java.io.File
 import java.util.ArrayList
 
 fun initFirebase() {
@@ -187,4 +188,11 @@ fun uploadFileToStorage(uri: Uri, messageKey: String, receivedID: String, typeMe
             sendMessageAsFile(receivedID, it, messageKey, typeMessage)
         }
     }
+}
+
+fun getFileFromStorage(mFile: File, fileUrl: String, function: () -> Unit) {
+    val path = REF_STORAGE_ROOT.storage.getReferenceFromUrl(fileUrl)
+    path.getFile(mFile)
+        .addOnSuccessListener { function() }
+        .addOnFailureListener { showToast(it.message.toString())}
 }

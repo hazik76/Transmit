@@ -1,4 +1,4 @@
-package ru.planirui.transmit.ui.fragments
+package ru.planirui.transmit.ui.screens
 
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_change_username.*

@@ -1,4 +1,4 @@
-package ru.planirui.transmit.ui.fragments
+package ru.planirui.transmit.ui.screens
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent

@@ -1,4 +1,4 @@
-package ru.planirui.transmit.ui.fragments.single_chat
+package ru.planirui.transmit.ui.screens.single_chat
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -22,8 +22,8 @@ import ru.planirui.transmit.R
 import ru.planirui.transmit.database.*
 import ru.planirui.transmit.models.CommonModel
 import ru.planirui.transmit.models.UserModel
-import ru.planirui.transmit.ui.fragments.BaseFragment
-import ru.planirui.transmit.ui.fragments.message_recycler_view.views.AppViewFactory
+import ru.planirui.transmit.ui.screens.BaseFragment
+import ru.planirui.transmit.ui.message_recycler_view.views.AppViewFactory
 import ru.planirui.transmit.utilits.*
 
 class SingleChatFragment(private val contact: CommonModel) :
@@ -216,6 +216,7 @@ class SingleChatFragment(private val contact: CommonModel) :
     override fun onDestroyView() {
         super.onDestroyView()
         mAppVoiceRecorder.releaseRecorder()
+        mAdapter.odDestroy()
     }
 
     override fun onPause() {

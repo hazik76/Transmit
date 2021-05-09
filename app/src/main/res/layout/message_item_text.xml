@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:gravity="end"
             android:padding="@dimen/appPadding"
+            android:textSize="@dimen/normalText"
             android:textColor="@color/colorBlack"
             app:layout_constraintEnd_toStartOf="@+id/chat_user_message_time"
             app:layout_constraintTop_toTopOf="parent"
@@ -33,10 +34,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/app_small_margin"
             android:gravity="end"
-            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/smallText"
+            android:textColor="@color/colorGreenDark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="21:45" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -56,9 +57,10 @@
             android:layout_height="wrap_content"
             android:gravity="end"
             android:padding="@dimen/appPadding"
+            android:textSize="@dimen/normalText"
             android:textColor="@color/colorBlack"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/chat_received_message_time"
+            app:layout_constraintEnd_toStartOf="@+id/chat_received_message_time"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Привет я Юра" />
 
@@ -66,11 +68,12 @@
             android:id="@+id/chat_received_message_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/app_small_margin"
             android:gravity="end"
+            android:textSize="@dimen/smallText"
             android:textColor="@color/colorBlack"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             tools:text="21:45" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

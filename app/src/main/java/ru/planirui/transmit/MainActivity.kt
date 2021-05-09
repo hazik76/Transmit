@@ -13,11 +13,11 @@ import kotlinx.coroutines.launch
 import ru.planirui.transmit.database.AUTH
 import ru.planirui.transmit.database.initFirebase
 import ru.planirui.transmit.database.initUser
-import ru.planirui.transmit.ui.fragments.ContactsFragment
-import ru.planirui.transmit.ui.fragments.MyGamesFragment
-import ru.planirui.transmit.ui.fragments.MyGoodsFragment
-import ru.planirui.transmit.ui.fragments.SettingsFragment
-import ru.planirui.transmit.ui.fragments.register.EnterPhoneNumberFragment
+import ru.planirui.transmit.ui.screens.ContactsFragment
+import ru.planirui.transmit.ui.screens.MyGamesFragment
+import ru.planirui.transmit.ui.screens.MyGoodsFragment
+import ru.planirui.transmit.ui.screens.SettingsFragment
+import ru.planirui.transmit.ui.screens.register.EnterPhoneNumberFragment
 import ru.planirui.transmit.utilits.*
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {

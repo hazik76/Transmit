@@ -1,7 +1,6 @@
-package ru.planirui.transmit.ui.fragments
+package ru.planirui.transmit.ui.screens
 
 import androidx.fragment.app.Fragment
-import ru.planirui.transmit.MainActivity
 import ru.planirui.transmit.R
 import ru.planirui.transmit.utilits.APP_ACTIVITY
 

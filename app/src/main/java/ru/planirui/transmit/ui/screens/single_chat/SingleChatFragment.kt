@@ -25,6 +25,7 @@ import ru.planirui.transmit.models.CommonModel
 import ru.planirui.transmit.models.UserModel
 import ru.planirui.transmit.ui.screens.BaseFragment
 import ru.planirui.transmit.ui.message_recycler_view.views.AppViewFactory
+import ru.planirui.transmit.ui.screens.main_list.MainListFragment
 import ru.planirui.transmit.utilits.*
 
 class SingleChatFragment(private val contact: CommonModel) :
@@ -206,7 +207,6 @@ class SingleChatFragment(private val contact: CommonModel) :
                 saveToMainList(contact.id, TYPE_CHAT)
                 chat_input_message.setText("")
             }
-
         }
     }
 
@@ -242,12 +242,20 @@ class SingleChatFragment(private val contact: CommonModel) :
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         /* Создания выпадающего меню*/
+        //menu.clear();
         activity?.menuInflater?.inflate(R.menu.single_chat_action_menu, menu)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         /* Слушатель выбора пунктов выпадающего меню */
         when (item.itemId) {
-
+            R.id.menu_clear_chat -> clearChat(contact.id){
+                showToast("Чат очищен")
+                replaceFragment(MainListFragment())
+            }
+            R.id.menu_delete_chat -> deleteChat(contact.id){
+                showToast("Чат удален")
+                replaceFragment(MainListFragment())
+            }
         }
         return true
     }

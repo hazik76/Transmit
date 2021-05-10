@@ -9,7 +9,10 @@ import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.main_list_item.view.*
 import ru.planirui.transmit.R
 import ru.planirui.transmit.models.CommonModel
+import ru.planirui.transmit.ui.screens.groups.GroupChatFragment
 import ru.planirui.transmit.ui.screens.single_chat.SingleChatFragment
+import ru.planirui.transmit.utilits.TYPE_CHAT
+import ru.planirui.transmit.utilits.TYPE_GROUP
 import ru.planirui.transmit.utilits.downloadAndSetImage
 import ru.planirui.transmit.utilits.replaceFragment
 
@@ -30,7 +33,10 @@ class MainListAdapter : RecyclerView.Adapter<MainListAdapter.MainListHolder>() {
             LayoutInflater.from(parent.context).inflate(R.layout.main_list_item, parent, false)
         val holder = MainListHolder(view)
         holder.itemView.setOnClickListener {
-            replaceFragment(SingleChatFragment(listItems[holder.adapterPosition]))
+            when(listItems[holder.adapterPosition].type){
+                TYPE_CHAT ->replaceFragment(SingleChatFragment(listItems[holder.adapterPosition]))
+                TYPE_GROUP -> replaceFragment(GroupChatFragment(listItems[holder.adapterPosition]))
+            }
         }
         return holder
     }

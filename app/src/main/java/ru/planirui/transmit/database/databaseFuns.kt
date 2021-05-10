@@ -12,6 +12,7 @@ import ru.planirui.transmit.models.CommonModel
 import ru.planirui.transmit.models.UserModel
 import ru.planirui.transmit.utilits.APP_ACTIVITY
 import ru.planirui.transmit.utilits.AppValueEventListener
+import ru.planirui.transmit.utilits.TYPE_GROUP
 import ru.planirui.transmit.utilits.showToast
 import java.io.File
 import java.util.ArrayList
@@ -259,9 +260,10 @@ fun createGroupToDatabase(
     val mapData = hashMapOf<String, Any>()
     mapData[CHILD_ID] = keyGroup
     mapData[CHILD_FULLNAME] = nameGroup
+    mapData[CHILD_PHOTO_URL] = "empty"
     val mapMembers = hashMapOf<String, Any>()
     listContacts.forEach {
-        mapMembers[it.id] = USER_MEMBER
+        if (it.id != CURRENT_UID) mapMembers[it.id] = USER_MEMBER
     }
     mapMembers[CURRENT_UID] = USER_CREATOR
 
@@ -273,11 +275,53 @@ fun createGroupToDatabase(
             if (uri != Uri.EMPTY) {
                 putFileToStorage(uri, pathStorage) {
                     getUrlFromStorage(pathStorage) {
-                        path.child(CHILD_FILE_URL).setValue(it)
+                        path.child(CHILD_PHOTO_URL).setValue(it)
+                        addGroupsToMainList(mapData, listContacts) {
+                            function()
+                        }
                     }
+                }
+            } else {
+                addGroupsToMainList(mapData, listContacts) {
+                    function()
                 }
             }
         }
         .addOnFailureListener { showToast(it.message.toString()) }
+}
 
+fun addGroupsToMainList(
+    mapData: HashMap<String, Any>,
+    listContacts: List<CommonModel>,
+    function: () -> Unit
+) {
+    val path = REF_DATABASE_ROOT.child(NODE_MAIN_LIST)
+    val map = hashMapOf<String, Any>()
+
+    map[CHILD_ID] = mapData[CHILD_ID].toString()
+    map[CHILD_TYPE] = TYPE_GROUP
+    listContacts.forEach {
+        path.child(it.id).child(map[CHILD_ID].toString()).updateChildren(map)
+    }
+    path.child(CURRENT_UID).child(map[CHILD_ID].toString()).updateChildren(map)
+        .addOnSuccessListener { function() }
+        .addOnFailureListener { showToast(it.message.toString()) }
+}
+
+fun sendMessageToGroup(message: String, groupID: String, typeText: String, function: () -> Unit) {
+
+    var refMessages = "$NODE_GROUPS/$groupID/$NODE_MESSAGES"
+    val messageKey = REF_DATABASE_ROOT.child(refMessages).push().key
+
+    val mapMessage = hashMapOf<String, Any>()
+    mapMessage[CHILD_FROM] = CURRENT_UID
+    mapMessage[CHILD_TYPE] = typeText
+    mapMessage[CHILD_TEXT] = message
+    mapMessage[CHILD_ID] = messageKey.toString()
+    mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
+
+    REF_DATABASE_ROOT.child(refMessages).child(messageKey.toString())
+        .updateChildren(mapMessage)
+        .addOnSuccessListener { function() }
+        .addOnFailureListener { showToast(it.message.toString()) }
 }

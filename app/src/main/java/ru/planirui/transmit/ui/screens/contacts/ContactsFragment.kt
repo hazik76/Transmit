@@ -1,4 +1,4 @@
-package ru.planirui.transmit.ui.screens
+package ru.planirui.transmit.ui.screens.contacts
 
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.fragment_contacts.*
 import ru.planirui.transmit.R
 import ru.planirui.transmit.database.*
 import ru.planirui.transmit.models.CommonModel
+import ru.planirui.transmit.ui.screens.base.BaseFragment
 import ru.planirui.transmit.ui.screens.single_chat.SingleChatFragment
 import ru.planirui.transmit.utilits.*
 

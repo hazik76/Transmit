@@ -7,7 +7,7 @@ import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.fragment_settings.*
 import ru.planirui.transmit.R
 import ru.planirui.transmit.database.*
-import ru.planirui.transmit.ui.screens.BaseFragment
+import ru.planirui.transmit.ui.screens.base.BaseFragment
 import ru.planirui.transmit.utilits.*
 
 /* Фрагмент настроек */

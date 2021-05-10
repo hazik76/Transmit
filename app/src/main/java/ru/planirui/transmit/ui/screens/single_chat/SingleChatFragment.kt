@@ -23,7 +23,7 @@ import ru.planirui.transmit.R
 import ru.planirui.transmit.database.*
 import ru.planirui.transmit.models.CommonModel
 import ru.planirui.transmit.models.UserModel
-import ru.planirui.transmit.ui.screens.BaseFragment
+import ru.planirui.transmit.ui.screens.base.BaseFragment
 import ru.planirui.transmit.ui.message_recycler_view.views.AppViewFactory
 import ru.planirui.transmit.ui.screens.main_list.MainListFragment
 import ru.planirui.transmit.utilits.*

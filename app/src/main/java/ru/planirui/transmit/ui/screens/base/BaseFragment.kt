@@ -1,4 +1,4 @@
-package ru.planirui.transmit.ui.screens
+package ru.planirui.transmit.ui.screens.base
 
 import androidx.fragment.app.Fragment
 

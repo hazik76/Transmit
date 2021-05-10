@@ -4,7 +4,7 @@ import kotlinx.android.synthetic.main.fragment_change_name.*
 import ru.planirui.transmit.R
 import ru.planirui.transmit.database.USER
 import ru.planirui.transmit.database.setNameToDatabase
-import ru.planirui.transmit.ui.screens.BaseChangeFragment
+import ru.planirui.transmit.ui.screens.base.BaseChangeFragment
 import ru.planirui.transmit.utilits.*
 
 /* Фрагмент для изменения имени пользователя */

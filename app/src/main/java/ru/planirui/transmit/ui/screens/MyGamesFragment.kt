@@ -1,6 +1,7 @@
 package ru.planirui.transmit.ui.screens
 
 import ru.planirui.transmit.R
+import ru.planirui.transmit.ui.screens.base.BaseFragment
 import ru.planirui.transmit.utilits.APP_ACTIVITY
 
 /* Главный фрагмент, содержит все игры пользователя */

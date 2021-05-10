@@ -40,7 +40,7 @@
     <string name="play">play</string>
     <string name="stop">stop</string>
     <string name="action_myMessages">Сообщения</string>
-    <string name="action_my_groups">Мои группы</string>
+    <string name="action_my_groups">Создать группу</string>
 
     <plurals name="count_members">
         <item quantity="one">%d участник</item>

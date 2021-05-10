@@ -13,9 +13,10 @@ import kotlinx.coroutines.launch
 import ru.planirui.transmit.database.AUTH
 import ru.planirui.transmit.database.initFirebase
 import ru.planirui.transmit.database.initUser
-import ru.planirui.transmit.ui.screens.ContactsFragment
+import ru.planirui.transmit.ui.screens.contacts.ContactsFragment
 import ru.planirui.transmit.ui.screens.MyGamesFragment
 import ru.planirui.transmit.ui.screens.MyGoodsFragment
+import ru.planirui.transmit.ui.screens.groups.AddContactsFragment
 import ru.planirui.transmit.ui.screens.settings.SettingsFragment
 import ru.planirui.transmit.ui.screens.main_list.MainListFragment
 import ru.planirui.transmit.ui.screens.register.EnterPhoneNumberFragment
@@ -93,6 +94,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             R.id.action_account -> { replaceFragment(SettingsFragment()) }
             R.id.action_myGames -> { replaceFragment(MyGamesFragment()) }
             R.id.action_myGoods -> { replaceFragment(MyGoodsFragment()) }
+            R.id.action_myGroups -> { replaceFragment(AddContactsFragment()) }
             R.id.action_myMessages -> { replaceFragment(MainListFragment()) }
             R.id.action_myContacts -> { replaceFragment(ContactsFragment()) }
             R.id.action_exit -> {

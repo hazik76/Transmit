@@ -15,7 +15,7 @@ import ru.planirui.transmit.utilits.AppValueEventListener
 import ru.planirui.transmit.utilits.TYPE_GROUP
 import ru.planirui.transmit.utilits.showToast
 import java.io.File
-import java.util.ArrayList
+import java.util.*
 
 fun initFirebase() {
     /* Инициализация базы данных Firebase */
@@ -246,25 +246,18 @@ fun clearChat(id: String, function: () -> Unit) {
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun deleteGroupChat(keyGroup: String, function: () -> Unit) {
-    // пройтись по всему списку пользователей, посмотеть, если текущий пользователь USER_CREATOR
-    // или USER_CREATOR отсутствует в группе, а текущий пользователь USER_ADMIN, то
-    // удалить у всех пользователей запись о беседе и удалить беседу + удалить картинку
-    // иначе сообщить пользователю, что он не администратор )))
+fun deleteGroupChat(keyGroup: String, function: (Boolean) -> Unit) {
     val path = REF_DATABASE_ROOT.child(NODE_GROUPS).child(keyGroup)
-    val pathStorage = REF_STORAGE_ROOT.child(FOLDER_GROUPS_IMAGE).child(keyGroup)
-
     val users = hashMapOf<String, String>()
     var isThereACreator = false
+
     path.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
         dataSnapshot.child(NODE_MEMBERS).children.map {
             if (it.value.toString() == USER_CREATOR) isThereACreator = true
             users[it.key.toString()] = it.value.toString()
         }
         if ((!isThereACreator && users[CURRENT_UID] == USER_ADMIN) || users[CURRENT_UID] == USER_CREATOR) {
-            BOOLEAN = true
-            for ((key, value) in users) {
-                println(key + " " + value)
+            for ((key) in users) {
                 REF_DATABASE_ROOT.child(NODE_MAIN_LIST).child(key).child(keyGroup).removeValue()
                     .addOnFailureListener { showToast(it.message.toString()) }
                     .addOnSuccessListener { }
@@ -272,10 +265,9 @@ fun deleteGroupChat(keyGroup: String, function: () -> Unit) {
             path.removeValue()
                 .addOnFailureListener { showToast(it.message.toString()) }
                 .addOnSuccessListener { }
-            function()
+            function(true)
         } else {
-            BOOLEAN = false
-            function()
+            function(false)
         }
     })
 }
@@ -284,10 +276,9 @@ fun exitGroupChat(keyGroup: String, function: () -> Unit) {
     REF_DATABASE_ROOT.child(NODE_MAIN_LIST).child(CURRENT_UID).child(keyGroup).removeValue()
         .addOnFailureListener { showToast(it.message.toString()) }
         .addOnSuccessListener { function() }
-    function()
 }
 
-fun clearGroupChat(keyGroup: String, function: () -> Unit) {
+fun clearGroupChat(keyGroup: String, function: (Boolean) -> Unit) {
     val path = REF_DATABASE_ROOT.child(NODE_GROUPS).child(keyGroup)
     val users = hashMapOf<String, String>()
     path.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
@@ -295,14 +286,12 @@ fun clearGroupChat(keyGroup: String, function: () -> Unit) {
             users[it.key.toString()] = it.value.toString()
         }
         if (users[CURRENT_UID] == USER_ADMIN || users[CURRENT_UID] == USER_CREATOR) {
-            BOOLEAN = true
             path.child(NODE_MESSAGES).removeValue()
                 .addOnFailureListener { showToast(it.message.toString()) }
                 .addOnSuccessListener { }
-            function()
+            function(true)
         } else {
-            BOOLEAN = false
-            function()
+            function(false)
         }
     })
 }
@@ -423,4 +412,41 @@ fun sendMessageAsFileToGroup(
         .updateChildren(mapMessage)
         .addOnSuccessListener { showToast("file saved") }
         .addOnFailureListener { showToast(it.message.toString()) }
+}
+fun initRVAddCotact3(function: (List<CommonModel>, CommonModel) -> Unit) {
+    // добавляем пользователей в список для создния группы/беседы
+    // (многоурвневе добавление из initRecyclerView/AddContactActivity)
+    val mRefMessages = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID)
+    initRVAddCotact2() { dataSnapshot1, model ->
+        val newModel = dataSnapshot1.getCommonModel()
+        // 3 запрос
+        mRefMessages.child(model.id).limitToLast(1)
+            .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot2 ->
+                val tempList = dataSnapshot2.children.map { it.getCommonModel() }
+                function(tempList, newModel)
+            })
+    }
+}
+
+fun initRVAddCotact2(function: (DataSnapshot, CommonModel) -> Unit) {
+    val mRefUsers = REF_DATABASE_ROOT.child(NODE_USERS)
+    initRVAddCotact1() { model ->
+        // 2 запрос
+        mRefUsers.child(model.id)
+            .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot1 ->
+                function(dataSnapshot1, model)
+            })
+    }
+}
+
+fun initRVAddCotact1(function: (CommonModel) -> Unit) {
+    val mRefContactsList = REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
+    var mListItems: List<CommonModel>
+    // 1 запрос
+    mRefContactsList.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
+        mListItems = dataSnapshot.children.map { it.getCommonModel() }
+        mListItems.forEach { model ->
+            function(model)
+        }
+    })
 }

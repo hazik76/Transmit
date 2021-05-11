@@ -133,14 +133,10 @@ class GroupChatFragment(private val group: CommonModel) :
     private fun initRecycleView() {
         mRecyclerView = chat_recycle_view
         mAdapter = GroupChatAdapter()
-
-
         mRefMessages = REF_DATABASE_ROOT
             .child(NODE_GROUPS)
             .child(group.id)
             .child(NODE_MESSAGES)
-
-
         mRecyclerView.adapter = mAdapter
         mRecyclerView.setHasFixedSize(true)
         mRecyclerView.isNestedScrollingEnabled = false
@@ -261,7 +257,7 @@ class GroupChatFragment(private val group: CommonModel) :
                 replaceFragment(MainListFragment())
             }
             R.id.menu_delete_chat -> deleteGroupChat(group.id){
-                if (BOOLEAN) {
+                if (it) {
                     showToast("Чат удален")
                     replaceFragment(MainListFragment())
                 }

@@ -292,7 +292,6 @@ fun clearGroupChat(keyGroup: String, function: () -> Unit) {
     val users = hashMapOf<String, String>()
     path.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
         dataSnapshot.child(NODE_MEMBERS).children.map {
-            if (it.value.toString() == USER_CREATOR) isThereACreator = true
             users[it.key.toString()] = it.value.toString()
         }
         if (users[CURRENT_UID] == USER_ADMIN || users[CURRENT_UID] == USER_CREATOR) {

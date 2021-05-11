@@ -34,7 +34,6 @@ class MainListFragment : Fragment(R.layout.fragment_main_list) {
         mRefMainList.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
             mListItems = dataSnapshot.children.map { it.getCommonModel() }
             mListItems.forEach { model ->
-
                 when(model.type){
                     TYPE_CHAT -> showChat(model)
                     TYPE_GROUP -> showGroup(model)

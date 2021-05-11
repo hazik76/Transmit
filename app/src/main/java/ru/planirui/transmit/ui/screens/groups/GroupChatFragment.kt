@@ -14,7 +14,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.database.DatabaseReference
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.choice_upload.*
-import kotlinx.android.synthetic.main.fragment_create_group.*
 import kotlinx.android.synthetic.main.fragment_single_chat.*
 import kotlinx.android.synthetic.main.toolbar_info.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -247,18 +246,26 @@ class GroupChatFragment(private val group: CommonModel) :
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         /* Создания выпадающего меню*/
         //menu.clear();
-        activity?.menuInflater?.inflate(R.menu.single_chat_action_menu, menu)
+        activity?.menuInflater?.inflate(R.menu.group_chat_action_menu, menu)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        /* Слушатель выбора пунктов выпадающего меню */
         when (item.itemId) {
-            R.id.menu_clear_chat -> clearChat(group.id){
-                showToast("Чат очищен")
+            R.id.menu_clear_chat -> clearGroupChat(group.id){
+                if (BOOLEAN){
+                    showToast("Чат очищен")
+                    replaceFragment(MainListFragment())
+                }else showToast("У вас нет прав на удаление")
+            }
+            R.id.menu_exit_chat -> exitGroupChat(group.id){
+                showToast("Вы вышли из чата")
                 replaceFragment(MainListFragment())
             }
-            R.id.menu_delete_chat -> deleteChat(group.id){
-                showToast("Чат удален")
-                replaceFragment(MainListFragment())
+            R.id.menu_delete_chat -> deleteGroupChat(group.id){
+                if (BOOLEAN) {
+                    showToast("Чат удален")
+                    replaceFragment(MainListFragment())
+                }
+                else showToast("У вас нет прав на удаление")
             }
         }
         return true

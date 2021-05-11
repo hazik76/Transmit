@@ -41,6 +41,7 @@
     <string name="stop">stop</string>
     <string name="action_myMessages">Сообщения</string>
     <string name="action_my_groups">Создать группу</string>
+    <string name="exit_chat">Выйти из чата</string>
 
     <plurals name="count_members">
         <item quantity="one">%d участник</item>

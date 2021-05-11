@@ -36,7 +36,7 @@ inline fun putUrlToDatabase(url: String, crossinline function: () -> Unit) {
 }
 
 inline fun getUrlFromStorage(path: StorageReference, crossinline function: (url: String) -> Unit) {
-    /* Функция высшего порядка, получает  URL картинки из хранилища */
+    /* Функция высшего порядка, получает URL картинки из хранилища */
     path.downloadUrl
         .addOnSuccessListener { function(it.toString()) }
         .addOnFailureListener { showToast(it.message.toString()) }
@@ -244,6 +244,68 @@ fun clearChat(id: String, function: () -> Unit) {
                 .addOnSuccessListener { function() }
         }
         .addOnFailureListener { showToast(it.message.toString()) }
+}
+
+fun deleteGroupChat(keyGroup: String, function: () -> Unit) {
+    // пройтись по всему списку пользователей, посмотеть, если текущий пользователь USER_CREATOR
+    // или USER_CREATOR отсутствует в группе, а текущий пользователь USER_ADMIN, то
+    // удалить у всех пользователей запись о беседе и удалить беседу + удалить картинку
+    // иначе сообщить пользователю, что он не администратор )))
+    val path = REF_DATABASE_ROOT.child(NODE_GROUPS).child(keyGroup)
+    val pathStorage = REF_STORAGE_ROOT.child(FOLDER_GROUPS_IMAGE).child(keyGroup)
+
+    val users = hashMapOf<String, String>()
+    var isThereACreator = false
+    path.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
+        dataSnapshot.child(NODE_MEMBERS).children.map {
+            if (it.value.toString() == USER_CREATOR) isThereACreator = true
+            users[it.key.toString()] = it.value.toString()
+        }
+        if ((!isThereACreator && users[CURRENT_UID] == USER_ADMIN) || users[CURRENT_UID] == USER_CREATOR) {
+            BOOLEAN = true
+            for ((key, value) in users) {
+                println(key + " " + value)
+                REF_DATABASE_ROOT.child(NODE_MAIN_LIST).child(key).child(keyGroup).removeValue()
+                    .addOnFailureListener { showToast(it.message.toString()) }
+                    .addOnSuccessListener { }
+            }
+            path.removeValue()
+                .addOnFailureListener { showToast(it.message.toString()) }
+                .addOnSuccessListener { }
+            function()
+        } else {
+            BOOLEAN = false
+            function()
+        }
+    })
+}
+
+fun exitGroupChat(keyGroup: String, function: () -> Unit) {
+    REF_DATABASE_ROOT.child(NODE_MAIN_LIST).child(CURRENT_UID).child(keyGroup).removeValue()
+        .addOnFailureListener { showToast(it.message.toString()) }
+        .addOnSuccessListener { function() }
+    function()
+}
+
+fun clearGroupChat(keyGroup: String, function: () -> Unit) {
+    val path = REF_DATABASE_ROOT.child(NODE_GROUPS).child(keyGroup)
+    val users = hashMapOf<String, String>()
+    path.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
+        dataSnapshot.child(NODE_MEMBERS).children.map {
+            if (it.value.toString() == USER_CREATOR) isThereACreator = true
+            users[it.key.toString()] = it.value.toString()
+        }
+        if (users[CURRENT_UID] == USER_ADMIN || users[CURRENT_UID] == USER_CREATOR) {
+            BOOLEAN = true
+            path.child(NODE_MESSAGES).removeValue()
+                .addOnFailureListener { showToast(it.message.toString()) }
+                .addOnSuccessListener { }
+            function()
+        } else {
+            BOOLEAN = false
+            function()
+        }
+    })
 }
 
 fun createGroupToDatabase(

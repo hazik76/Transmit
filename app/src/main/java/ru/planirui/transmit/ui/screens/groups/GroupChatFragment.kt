@@ -97,7 +97,7 @@ class GroupChatFragment(private val group: CommonModel) :
                         chat_input_message.setText("")
                         chat_btn_voice.colorFilter = null
                         mAppVoiceRecorder.stopRecord { file, messageKey ->
-                            uploadFileToStorage(
+                            uploadFileToStorageToGroup(
                                 Uri.fromFile(file),
                                 messageKey,
                                 group.id,
@@ -230,15 +230,15 @@ class GroupChatFragment(private val group: CommonModel) :
                 CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
                     val uri = CropImage.getActivityResult(data).uri
                     val messageKey = getMessageKey(group.id)
-                    uploadFileToStorage(uri, messageKey, group.id, TYPE_MESSAGE_IMAGE)
+                    uploadFileToStorageToGroup(uri, messageKey, group.id, TYPE_MESSAGE_IMAGE)
                     mSmoothScrollToPosition = true
                 }
                 PIC_FILE_REQUEST_CODE -> {
                     val uri = data.data
                     val messageKey = getMessageKey(group.id)
-                    //uri?.let { uploadFileToStorage(it, messageKey, contact.id, TYPE_MESSAGE_FILE) }
+                    //uri?.let { uploadFileToStorageToGroup(it, messageKey, contact.id, TYPE_MESSAGE_FILE) }
                     val filename = getFilenameFromUri(uri!!)
-                    uploadFileToStorage(uri,messageKey,group.id, TYPE_MESSAGE_FILE,filename)
+                    uploadFileToStorageToGroup(uri,messageKey,group.id, TYPE_MESSAGE_FILE,filename)
                     mSmoothScrollToPosition = true
                 }
             }

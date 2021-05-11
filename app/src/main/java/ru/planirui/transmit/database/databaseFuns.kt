@@ -325,3 +325,41 @@ fun sendMessageToGroup(message: String, groupID: String, typeText: String, funct
         .addOnSuccessListener { function() }
         .addOnFailureListener { showToast(it.message.toString()) }
 }
+
+fun uploadFileToStorageToGroup(
+    uri: Uri,
+    messageKey: String,
+    groupID: String,
+    typeMessage: String,
+    filename: String = ""
+) {
+    val path = REF_STORAGE_ROOT.child(FOLDER_FILES).child(messageKey)
+    putFileToStorage(uri, path) {
+        getUrlFromStorage(path) {
+            sendMessageAsFileToGroup(groupID, it, messageKey, typeMessage, filename)
+        }
+    }
+}
+
+fun sendMessageAsFileToGroup(
+    groupID: String,
+    fileUrl: String,
+    messageKey: String,
+    typeMessage: String,
+    filename: String
+) {
+    val refMessages = "$NODE_GROUPS/$groupID/$NODE_MESSAGES"
+
+    val mapMessage = hashMapOf<String, Any>()
+    mapMessage[CHILD_FROM] = CURRENT_UID
+    mapMessage[CHILD_TYPE] = typeMessage
+    mapMessage[CHILD_ID] = messageKey
+    mapMessage[CHILD_TIMESTAMP] = ServerValue.TIMESTAMP
+    mapMessage[CHILD_FILE_URL] = fileUrl
+    mapMessage[CHILD_TEXT] = filename
+
+    REF_DATABASE_ROOT.child(refMessages).child(messageKey.toString())
+        .updateChildren(mapMessage)
+        .addOnSuccessListener { showToast("file saved") }
+        .addOnFailureListener { showToast(it.message.toString()) }
+}

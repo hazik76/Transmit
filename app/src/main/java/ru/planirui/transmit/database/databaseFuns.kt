@@ -299,32 +299,52 @@ fun clearGroupChat(keyGroup: String, function: (Boolean) -> Unit) {
 
 fun createGroupToDatabase(
     nameGroup: String,
-    uri: Uri,
+    uriGroup: Uri,
+    timeEnd: String,
+    uriGoods: String,
+    nameGoods: String,
+    photoGoods: String,
     listContacts: List<CommonModel>,
     function: () -> Unit
 ) {
-
     val keyGroup = REF_DATABASE_ROOT.child(NODE_GROUPS).push().key.toString()
     val path = REF_DATABASE_ROOT.child(NODE_GROUPS).child(keyGroup)
     val pathStorage = REF_STORAGE_ROOT.child(FOLDER_GROUPS_IMAGE).child(keyGroup)
-
     val mapData = hashMapOf<String, Any>()
     mapData[CHILD_ID] = keyGroup
     mapData[CHILD_FULLNAME] = nameGroup
     mapData[CHILD_PHOTO_URL] = "empty"
+    mapData[GAME_STATUS] = GAME_STATUS_CURRENT
+    mapData[GAME_TIME_STARTING] = ServerValue.TIMESTAMP
+    mapData[GAME_TIME_ENDING] = timeEnd
+
+    // добавим пустой товар
+    val mapGoods = hashMapOf<String, Any>()
+    val mapGoods2 = hashMapOf<String, Any>()
+    mapGoods2[GAME_GOODS_OWNER] = CURRENT_UID
+    mapGoods2[GAME_GOODS_ID] = uriGoods
+    mapGoods2[GAME_GOODS_NAME] = nameGoods
+    mapGoods2[GAME_GOODS_PHOTO] = photoGoods
+    mapGoods2[GAME_GOODS_BOOKED_1] = ""
+    mapGoods2[GAME_GOODS_BOOKED_2] = ""
+    mapGoods2[GAME_GOODS_BOOKED_3] = ""
+    mapGoods2[GAME_GOODS_STATUS] = GAME_GOODS_STATUS_NO_RECEIVED
+    mapGoods[uriGoods] = mapGoods2
+
     val mapMembers = hashMapOf<String, Any>()
     listContacts.forEach {
         if (it.id != CURRENT_UID) mapMembers[it.id] = USER_MEMBER
     }
     mapMembers[CURRENT_UID] = USER_CREATOR
 
+    mapData[NODE_GAME_GOODS] = mapGoods
     mapData[NODE_MEMBERS] = mapMembers
 
     path.updateChildren(mapData)
         .addOnSuccessListener {
             function()
-            if (uri != Uri.EMPTY) {
-                putFileToStorage(uri, pathStorage) {
+            if (uriGroup != Uri.EMPTY) {
+                putFileToStorage(uriGroup, pathStorage) {
                     getUrlFromStorage(pathStorage) {
                         path.child(CHILD_PHOTO_URL).setValue(it)
                         addGroupsToMainList(mapData, listContacts) {
@@ -414,6 +434,7 @@ fun sendMessageAsFileToGroup(
         .addOnSuccessListener { showToast("file saved") }
         .addOnFailureListener { showToast(it.message.toString()) }
 }
+
 fun initRVAddContact3(function: (List<CommonModel>, CommonModel) -> Unit) {
     // добавляем пользователей в список для создния группы/беседы
     // (многоурвневе добавление из initRecyclerView/AddContactActivity)
@@ -452,9 +473,10 @@ fun initRVAddContact1(function: (CommonModel) -> Unit) {
     })
 }
 
-fun mRefUserGroup(groupID:String): DatabaseReference {
+fun mRefUserGroup(groupID: String): DatabaseReference {
     return REF_DATABASE_ROOT.child(NODE_USERS).child(groupID)
 }
+
 fun mRefMessagesGroup(groupID: String): DatabaseReference {
     return REF_DATABASE_ROOT
         .child(NODE_GROUPS)

@@ -252,7 +252,7 @@ class GroupChatFragment(private val group: CommonModel) :
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_clear_chat -> clearGroupChat(group.id) {
-                if (BOOLEAN) {
+                if (it) {
                     showToast("Чат очищен")
                     replaceFragment(MainListFragment())
                 } else showToast("У вас нет прав на удаление")

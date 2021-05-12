@@ -12,7 +12,6 @@ lateinit var CURRENT_UID: String
 lateinit var REF_DATABASE_ROOT: DatabaseReference
 lateinit var REF_STORAGE_ROOT: StorageReference
 lateinit var USER: UserModel
-var BOOLEAN by Delegates.notNull<Boolean>()
 const val TYPE_TEXT = "text"
 const val NODE_USERS = "users"
 const val NODE_MESSAGES = "messages"

@@ -413,11 +413,11 @@ fun sendMessageAsFileToGroup(
         .addOnSuccessListener { showToast("file saved") }
         .addOnFailureListener { showToast(it.message.toString()) }
 }
-fun initRVAddCotact3(function: (List<CommonModel>, CommonModel) -> Unit) {
+fun initRVAddContact3(function: (List<CommonModel>, CommonModel) -> Unit) {
     // добавляем пользователей в список для создния группы/беседы
     // (многоурвневе добавление из initRecyclerView/AddContactActivity)
     val mRefMessages = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID)
-    initRVAddCotact2() { dataSnapshot1, model ->
+    initRVAddContact2() { dataSnapshot1, model ->
         val newModel = dataSnapshot1.getCommonModel()
         // 3 запрос
         mRefMessages.child(model.id).limitToLast(1)
@@ -428,9 +428,9 @@ fun initRVAddCotact3(function: (List<CommonModel>, CommonModel) -> Unit) {
     }
 }
 
-fun initRVAddCotact2(function: (DataSnapshot, CommonModel) -> Unit) {
+fun initRVAddContact2(function: (DataSnapshot, CommonModel) -> Unit) {
     val mRefUsers = REF_DATABASE_ROOT.child(NODE_USERS)
-    initRVAddCotact1() { model ->
+    initRVAddContact1() { model ->
         // 2 запрос
         mRefUsers.child(model.id)
             .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot1 ->
@@ -439,7 +439,7 @@ fun initRVAddCotact2(function: (DataSnapshot, CommonModel) -> Unit) {
     }
 }
 
-fun initRVAddCotact1(function: (CommonModel) -> Unit) {
+fun initRVAddContact1(function: (CommonModel) -> Unit) {
     val mRefContactsList = REF_DATABASE_ROOT.child(NODE_PHONES_CONTACTS).child(CURRENT_UID)
     var mListItems: List<CommonModel>
     // 1 запрос

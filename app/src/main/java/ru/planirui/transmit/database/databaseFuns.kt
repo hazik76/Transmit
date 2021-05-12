@@ -3,6 +3,7 @@ package ru.planirui.transmit.database
 import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
 import com.google.firebase.storage.FirebaseStorage
@@ -449,4 +450,14 @@ fun initRVAddContact1(function: (CommonModel) -> Unit) {
             function(model)
         }
     })
+}
+
+fun mRefUserGroup(groupID:String): DatabaseReference {
+    return REF_DATABASE_ROOT.child(NODE_USERS).child(groupID)
+}
+fun mRefMessagesGroup(groupID: String): DatabaseReference {
+    return REF_DATABASE_ROOT
+        .child(NODE_GROUPS)
+        .child(groupID)
+        .child(NODE_MESSAGES)
 }

@@ -23,8 +23,8 @@ import ru.planirui.transmit.R
 import ru.planirui.transmit.database.*
 import ru.planirui.transmit.models.CommonModel
 import ru.planirui.transmit.models.UserModel
-import ru.planirui.transmit.ui.screens.base.BaseFragment
 import ru.planirui.transmit.ui.message_recycler_view.views.AppViewFactory
+import ru.planirui.transmit.ui.screens.base.BaseFragment
 import ru.planirui.transmit.ui.screens.main_list.MainListFragment
 import ru.planirui.transmit.utilits.*
 
@@ -133,10 +133,7 @@ class GroupChatFragment(private val group: CommonModel) :
     private fun initRecycleView() {
         mRecyclerView = chat_recycle_view
         mAdapter = GroupChatAdapter()
-        mRefMessages = REF_DATABASE_ROOT
-            .child(NODE_GROUPS)
-            .child(group.id)
-            .child(NODE_MESSAGES)
+        mRefMessages = mRefMessagesGroup(group.id)
         mRecyclerView.adapter = mAdapter
         mRecyclerView.setHasFixedSize(true)
         mRecyclerView.isNestedScrollingEnabled = false
@@ -192,7 +189,7 @@ class GroupChatFragment(private val group: CommonModel) :
             initInfoToolbar()
         }
 
-        mRefUser = REF_DATABASE_ROOT.child(NODE_USERS).child(group.id)
+        mRefUser = mRefUserGroup(group.id)
         mRefUser.addValueEventListener(mListenerInfoToolbar)
         chat_btn_send_message.setOnClickListener {
             mSmoothScrollToPosition = true
@@ -233,35 +230,42 @@ class GroupChatFragment(private val group: CommonModel) :
                     val messageKey = getMessageKey(group.id)
                     //uri?.let { uploadFileToStorageToGroup(it, messageKey, contact.id, TYPE_MESSAGE_FILE) }
                     val filename = getFilenameFromUri(uri!!)
-                    uploadFileToStorageToGroup(uri,messageKey,group.id, TYPE_MESSAGE_FILE,filename)
+                    uploadFileToStorageToGroup(
+                        uri,
+                        messageKey,
+                        group.id,
+                        TYPE_MESSAGE_FILE,
+                        filename
+                    )
                     mSmoothScrollToPosition = true
                 }
             }
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         /* Создания выпадающего меню*/
         //menu.clear();
         activity?.menuInflater?.inflate(R.menu.group_chat_action_menu, menu)
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_clear_chat -> clearGroupChat(group.id){
-                if (BOOLEAN){
+            R.id.menu_clear_chat -> clearGroupChat(group.id) {
+                if (BOOLEAN) {
                     showToast("Чат очищен")
                     replaceFragment(MainListFragment())
-                }else showToast("У вас нет прав на удаление")
+                } else showToast("У вас нет прав на удаление")
             }
-            R.id.menu_exit_chat -> exitGroupChat(group.id){
+            R.id.menu_exit_chat -> exitGroupChat(group.id) {
                 showToast("Вы вышли из чата")
                 replaceFragment(MainListFragment())
             }
-            R.id.menu_delete_chat -> deleteGroupChat(group.id){
+            R.id.menu_delete_chat -> deleteGroupChat(group.id) {
                 if (it) {
                     showToast("Чат удален")
                     replaceFragment(MainListFragment())
-                }
-                else showToast("У вас нет прав на удаление")
+                } else showToast("У вас нет прав на удаление")
             }
         }
         return true

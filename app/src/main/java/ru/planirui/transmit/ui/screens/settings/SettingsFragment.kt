@@ -49,16 +49,10 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             && resultCode == RESULT_OK && data != null
         ) {
             val uri = CropImage.getActivityResult(data).uri
-            val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_IMAGE)
-                .child(CURRENT_UID)
-            putFileToStorage(uri, path) {
-                getUrlFromStorage(path) {
-                    putUrlToDatabase(it) {
-                        settings_user_photo.downloadAndSetImage(it)
-                        showToast(getString(R.string.toast_data_update))
-                        USER.photoUrl = it
-                    }
-                }
+            saveUserPhoto(uri){
+                settings_user_photo.downloadAndSetImage(it)
+                showToast(getString(R.string.toast_data_update))
+                USER.photoUrl = it
             }
         }
     }

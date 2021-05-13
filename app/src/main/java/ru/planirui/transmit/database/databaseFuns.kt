@@ -61,7 +61,17 @@ inline fun initUser(crossinline function: () -> Unit) {
             function()
         })
 }
-
+fun saveUserPhoto(uri: Uri, function: (String) -> Unit){
+    val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_IMAGE)
+        .child(CURRENT_UID)
+    putFileToStorage(uri, path) {
+        getUrlFromStorage(path) {
+            putUrlToDatabase(it) {
+                function(it)
+            }
+        }
+    }
+}
 fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>) {
     /* Функция добавляет номер телефона с id в базу данных */
     REF_DATABASE_ROOT.child(NODE_PHONES).addListenerForSingleValueEvent(AppValueEventListener {

@@ -62,6 +62,7 @@ inline fun initUser(crossinline function: () -> Unit) {
         })
 }
 fun saveUserPhoto(uri: Uri, function: (String) -> Unit){
+    /* заносим фото пользователя в хранилище */
     val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_IMAGE)
         .child(CURRENT_UID)
     putFileToStorage(uri, path) {
@@ -71,6 +72,18 @@ fun saveUserPhoto(uri: Uri, function: (String) -> Unit){
             }
         }
     }
+}
+fun saveGoodsPhoto(uri: Uri, function: (String) -> Unit){
+    /* заносим фото товара в хранилище */
+//    val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_IMAGE)
+//        .child(CURRENT_UID)
+//    putFileToStorage(uri, path) {
+//        getUrlFromStorage(path) {
+//            putUrlToDatabase(it) {
+//                function(it)
+//            }
+//        }
+//    }
 }
 fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>) {
     /* Функция добавляет номер телефона с id в базу данных */

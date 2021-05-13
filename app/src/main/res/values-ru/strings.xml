@@ -42,6 +42,10 @@
     <string name="action_myMessages">Сообщения</string>
     <string name="action_my_groups">Создать группу</string>
     <string name="exit_chat">Выйти из чата</string>
+    <string name="add_goods_change">Добавть вещь для обмена</string>
+    <string name="goods_all">Всего вещей:</string>
+    <string name="goods_description_change">Нажмите, чтобы изменить описание</string>
+    <string name="settings_other">Дополнительно</string>
 
     <plurals name="count_members">
         <item quantity="one">%d участник</item>

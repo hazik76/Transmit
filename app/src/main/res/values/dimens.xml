@@ -27,4 +27,6 @@
     <dimen name="bottom_sheet_height">70dp</dimen>
     <dimen name="btn_bottom_sheet_width">50dp</dimen>
 
+    <dimen name="list_max_description">37</dimen>
+
 </resources>

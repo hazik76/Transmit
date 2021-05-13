@@ -4,172 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.screens.MyGoodsFragment">
+    tools:context=".ui.screens.goods.MyGoodsFragment">
 
-    <TextView
-        android:id="@+id/top1"
-        style="@style/topic"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/my_goods_recycle_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Текущие"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/add_goods"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/main_list_item" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/settings_btn_change_bio"
+        android:id="@+id/add_goods"
         style="@style/settingsButtons"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top1">
+        android:layout="@dimen/app_margin">
 
         <TextView
             android:id="@+id/settings_bio"
             style="@style/normalText"
-            android:text="Меняем приставку на кофеварку"
+            android:text="@string/add_goods_change"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/settings_btn_change_bio" />
+            app:layout_constraintTop_toTopOf="@id/add_goods" />
 
         <TextView
             android:id="@+id/settings_label_bio"
             style="@style/smallText"
-            android:text="Игроков: 23"
+            android:text="@string/goods_all"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/settings_bio" />
 
-        <View
-            style="@style/separator"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/settings_label_bio" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/top2"
-        style="@style/topic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Завершенные"
-        app:layout_constraintTop_toBottomOf="@+id/settings_btn_change_bio"
-        tools:layout_editor_absoluteX="-23dp" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/settings_btn_change_bio2"
-        style="@style/settingsButtons"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top2">
-
-        <TextView
-            android:id="@+id/settings_bio2"
-            style="@style/normalText"
-            android:text="Меняем приставку на кофеварку"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/settings_btn_change_bio2" />
-
-        <TextView
-            android:id="@+id/settings_label_bio2"
-            style="@style/smallText"
-            android:text="Игроков: 23"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/settings_bio2" />
-
-        <View
-            style="@style/separator"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/settings_label_bio2" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/settings_change_photo2"
-            android:layout_width="@dimen/settings_btn_change_photo_width"
-            android:layout_height="@dimen/settings_btn_change_photo_width"
-            android:src="@drawable/ic_baseline_check"
-            app:civ_border_color="@color/gray"
-            app:civ_circle_background_color="@color/lightgray"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/app_margin"
-            tools:ignore="MissingConstraints" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/settings_btn_change_bio3"
-        style="@style/settingsButtons"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_btn_change_bio2">
-
-        <TextView
-            android:id="@+id/settings_bio3"
-            style="@style/normalText"
-            android:text="Меняем приставку на кофеварку"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/settings_btn_change_bio3" />
-
-        <TextView
-            android:id="@+id/settings_label_bio3"
-            style="@style/smallText"
-            android:text="Игроков: 23"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/settings_bio3" />
-
-        <View
-            style="@style/separator"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/settings_label_bio3" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/settings_change_photo3"
-            android:layout_width="@dimen/settings_btn_change_photo_width"
-            android:layout_height="@dimen/settings_btn_change_photo_width"
-            android:src="@drawable/ic_baseline_check"
-            app:civ_border_color="@color/gray"
-            app:civ_circle_background_color="@color/lightgray"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/app_margin"
-            tools:ignore="MissingConstraints" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/settings_btn_change_bio4"
-        style="@style/settingsButtons"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/settings_btn_change_bio3">
-
-        <TextView
-            android:id="@+id/settings_bio4"
-            style="@style/normalText"
-            android:text="Меняем приставку на кофеварку"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/settings_btn_change_bio4" />
-
-        <TextView
-            android:id="@+id/settings_label_bio4"
-            style="@style/smallText"
-            android:text="Игроков: 23"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/settings_bio4" />
-
-        <View
-            style="@style/separator"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/settings_label_bio4" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/settings_change_photo4"
-            android:layout_width="@dimen/settings_btn_change_photo_width"
-            android:layout_height="@dimen/settings_btn_change_photo_width"
-            android:src="@drawable/ic_baseline_cancel"
-            app:civ_border_color="@color/gray"
-            app:civ_circle_background_color="@color/lightgray"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="@dimen/app_margin"
-            tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

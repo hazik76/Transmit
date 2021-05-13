@@ -15,7 +15,7 @@ import ru.planirui.transmit.database.initFirebase
 import ru.planirui.transmit.database.initUser
 import ru.planirui.transmit.ui.screens.contacts.ContactsFragment
 import ru.planirui.transmit.ui.screens.MyGamesFragment
-import ru.planirui.transmit.ui.screens.MyGoodsFragment
+import ru.planirui.transmit.ui.screens.goods.MyGoodsFragment
 import ru.planirui.transmit.ui.screens.groups.AddContactsFragment
 import ru.planirui.transmit.ui.screens.settings.SettingsFragment
 import ru.planirui.transmit.ui.screens.main_list.MainListFragment

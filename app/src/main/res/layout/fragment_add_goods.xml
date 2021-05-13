@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.screens.goods.AddGoodsFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/settings_goods_header_bloc"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/settings_goods_photo"
+            android:layout_width="@dimen/settings_user_photo_width"
+            android:layout_height="@dimen/settings_user_photo_width"
+            android:layout_marginStart="@dimen/app_margin"
+            android:src="@drawable/ic_goods_photo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/settings_goods_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_margin"
+            android:layout_marginTop="@dimen/app_small_margin"
+            tools:text="Товар"
+            android:textColor="@color/white"
+            android:textSize="@dimen/normalText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/settings_goods_photo"
+            app:layout_constraintTop_toTopOf="@id/settings_goods_photo" />
+
+        <TextView
+            android:id="@+id/settings_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/app_margin"
+            tools:text="статус"
+            android:textColor="@color/white"
+            android:textSize="@dimen/smallText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/settings_goods_photo"
+            app:layout_constraintTop_toBottomOf="@id/settings_goods_name" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/settings_btn_change_goods_description"
+        style="@style/settingsButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_goods_header_bloc">
+
+        <TextView
+            android:id="@+id/settings_goods_desc"
+            style="@style/normalText"
+            android:text="@string/goods_descriptions"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/settings_btn_change_goods_description" />
+
+        <TextView
+            android:id="@+id/settings_goods_description"
+            style="@style/smallText"
+            android:text="@string/goods_description_change"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_goods_desc" />
+
+        <View
+            style="@style/separator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_goods_description" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/settings_btn_change_goods_extend"
+        style="@style/settingsButtons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settings_btn_change_goods_description">
+
+        <TextView
+            android:id="@+id/settings_goods_ext"
+            style="@style/normalText"
+            tools:text="@string/settings_other"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/settings_btn_change_goods_extend" />
+
+        <TextView
+            android:id="@+id/settings_goods_extension"
+            style="@style/smallText"
+            android:text="@string/goods_description_change"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_goods_ext" />
+
+        <View
+            style="@style/separator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_goods_extension" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/settings_change_photo_goods"
+        android:layout_width="@dimen/settings_user_photo_width"
+        android:layout_height="@dimen/settings_user_photo_width"
+        android:src="@drawable/camera"
+        android:layout_marginEnd="@dimen/app_margin"
+        app:civ_border_color="@color/gray"
+        app:civ_circle_background_color="@color/lightgray"
+        app:layout_constraintBottom_toBottomOf="@+id/settings_goods_header_bloc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_goods_header_bloc" />
+</androidx.constraintlayout.widget.ConstraintLayout>

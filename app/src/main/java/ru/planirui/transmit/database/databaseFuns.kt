@@ -38,7 +38,8 @@ inline fun putUrlToDatabase(url: String, crossinline function: () -> Unit) {
 
 inline fun putUrlGoodsToDatabase(url: String, idGoods: String, crossinline function: () -> Unit) {
     /* Функция высшего порядка, отпраляет полученый URL в базу данных */
-    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS).child(idGoods).child(NODE_GOODS_IMAGE).child("image1")
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS).child(idGoods)
+        .child(NODE_GOODS_IMAGE).child("image1")
         .setValue(url)
         .addOnSuccessListener { function() }
         .addOnFailureListener { showToast(it.message.toString()) }
@@ -69,7 +70,8 @@ inline fun initUser(crossinline function: () -> Unit) {
             function()
         })
 }
-fun saveUserPhoto(uri: Uri, function: (String) -> Unit){
+
+fun saveUserPhoto(uri: Uri, function: (String) -> Unit) {
     /* заносим фото пользователя в хранилище */
     val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_IMAGE)
         .child(CURRENT_UID)
@@ -81,13 +83,15 @@ fun saveUserPhoto(uri: Uri, function: (String) -> Unit){
         }
     }
 }
-fun getKeyGoods(function: (String) -> Unit){
+
+fun getKeyGoods(function: (String) -> Unit) {
     var idGoods = REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(
         NODE_GOODS
     ).push().key.toString()
     function(idGoods)
 }
-fun saveGoodsPhoto(uri: Uri, idGoods:String, function: (String) -> Unit){
+
+fun saveGoodsPhoto(uri: Uri, idGoods: String, function: (String) -> Unit) {
     /* заносим фото товара в хранилище */
     val path = REF_STORAGE_ROOT.child(FOLDER_GOODS_IMAGE)
         .child(idGoods)
@@ -99,6 +103,7 @@ fun saveGoodsPhoto(uri: Uri, idGoods:String, function: (String) -> Unit){
         }
     }
 }
+
 fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>) {
     /* Функция добавляет номер телефона с id в базу данных */
     REF_DATABASE_ROOT.child(NODE_PHONES).addListenerForSingleValueEvent(AppValueEventListener {
@@ -180,27 +185,47 @@ fun setBioToDatabase(newBio: String) {
             APP_ACTIVITY.supportFragmentManager.popBackStack()
         }.addOnFailureListener { showToast(it.message.toString()) }
 }
-fun setGoodsDescriptionsToDatabase(newDescriptions: String, idGoods:String) {
+
+fun newGoodsCreate(function: (String) -> Unit) {
+    getKeyGoods() { keyGoods ->
+        val mapMessage = hashMapOf<String, Any>()
+        mapMessage[GOODS_DESCRIPTION] = ""
+        mapMessage[GOODS_EXTEND] = ""
+        mapMessage[GOODS_NAME] = "Empty"
+        mapMessage[GOODS_STATUS] = GOODS_STATUS_ADDED
+
+        REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS).child(keyGoods)
+            .updateChildren(mapMessage)
+            .addOnFailureListener { function(keyGoods) }
+    }
+}
+
+fun setGoodsDescriptionsToDatabase(newDescriptions: String, idGoods: String) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS).child(idGoods).child(
-        GOODS_DESCRIPTION).setValue(newDescriptions)
+        GOODS_DESCRIPTION
+    ).setValue(newDescriptions)
         .addOnSuccessListener {
             showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
             //USER.bio = newDescriptions
             APP_ACTIVITY.supportFragmentManager.popBackStack()
         }.addOnFailureListener { showToast(it.message.toString()) }
 }
-fun setGoodsExtendToDatabase(newDescriptions: String, idGoods:String) {
+
+fun setGoodsExtendToDatabase(newDescriptions: String, idGoods: String) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS).child(idGoods).child(
-        GOODS_EXTEND).setValue(newDescriptions)
+        GOODS_EXTEND
+    ).setValue(newDescriptions)
         .addOnSuccessListener {
             showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
             //USER.bio = newDescriptions
             APP_ACTIVITY.supportFragmentManager.popBackStack()
         }.addOnFailureListener { showToast(it.message.toString()) }
 }
-fun setGoodsNameToDatabase(newDescriptions: String, idGoods:String) {
+
+fun setGoodsNameToDatabase(newDescriptions: String, idGoods: String) {
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS).child(idGoods).child(
-        GOODS_NAME).setValue(newDescriptions)
+        GOODS_NAME
+    ).setValue(newDescriptions)
         .addOnSuccessListener {
             showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
             //USER.bio = newDescriptions
@@ -382,17 +407,17 @@ fun createGroupToDatabase(
     mapData[GAME_TIME_STARTING] = ServerValue.TIMESTAMP
     mapData[GAME_TIME_ENDING] = timeEnd
 
-    // добавим пустой товар
+    // добавим пустой товар в "игру"
     val mapGoods = hashMapOf<String, Any>()
     val mapGoods2 = hashMapOf<String, Any>()
     mapGoods2[GOODS_OWNER] = CURRENT_UID
     mapGoods2[GOODS_ID] = uriGoods
     mapGoods2[GOODS_NAME] = nameGoods
     mapGoods2[GAME_GOODS_PHOTO] = photoGoods
-    mapGoods2[GAME_GOODS_BOOKED_1] = ""
-    mapGoods2[GAME_GOODS_BOOKED_2] = ""
-    mapGoods2[GAME_GOODS_BOOKED_3] = ""
-    mapGoods2[GAME_GOODS_STATUS] = GAME_GOODS_STATUS_NO_RECEIVED
+    mapGoods2[GOODS_BOOKED_1] = ""
+    mapGoods2[GOODS_BOOKED_2] = ""
+    mapGoods2[GOODS_BOOKED_3] = ""
+    mapGoods2[GOODS_STATUS] = GOODS_STATUS_PLAYS
     mapGoods[uriGoods] = mapGoods2
 
     val mapMembers = hashMapOf<String, Any>()

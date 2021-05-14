@@ -5,7 +5,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/create_group_photo"
         android:layout_width="@dimen/settings_user_photo_width"

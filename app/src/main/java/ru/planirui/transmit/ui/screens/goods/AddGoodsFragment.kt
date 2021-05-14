@@ -27,12 +27,12 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
     private fun initData() {
         if (idGoods == "") {
             APP_ACTIVITY.title = "Добавить вещь"
-            getKeyGoods() {
-                idGoods = it
-                description = "пусто"
-                extend = "пусто"
-                ifExists = false
-            }
+//            getKeyGoods() {
+//                idGoods = it
+//                description = "пусто"
+//                extend = "пусто"
+//                ifExists = false
+//            }
         } else {
             APP_ACTIVITY.title = "Редактировать вещь"
             description = "что-то было, потом добавить инициализацию"
@@ -60,7 +60,7 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
 
     private fun changeData(changeName: String) {
         if (ifExists) replaceFragment(ChangeGoodsFragment(extend, idGoods, changeName))
-        else replaceFragment(NewGoodsFragment(extend, idGoods, changeName))
+        else replaceFragment(NewGoodsFragment(extend, idGoods, changeName)) //TODO каким-то образом из фрагмента надо вернуть idGoods и ...
     }
 
     private fun changePhotoGoods() {

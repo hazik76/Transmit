@@ -17,8 +17,9 @@ class MyGoodsFragment : BaseFragment(R.layout.fragment_my_goods) {
     }
 
     private fun initFields() {
-        var urlGoods = ""
-        add_goods.setOnClickListener { replaceFragment(AddGoodsFragment(urlGoods)) }
+        var idGoods = "-M_ex7V9CoMx9zmATqME"
+        add_goods.setOnClickListener { replaceFragment(AddGoodsFragment("")) }
+        add_goods2.setOnClickListener { replaceFragment(AddGoodsFragment(idGoods)) }
     }
 
     private fun initRecyclerView() {

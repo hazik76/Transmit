@@ -47,14 +47,20 @@ const val GAME_STATUS_COMPLETED = "completed" //завершенные
 const val GAME_STATUS_ENDING = "ending"    //завершающиеся
 const val GAME_TIME_STARTING = "time_starting"
 const val GAME_TIME_ENDING = "time_ending"
-const val NODE_GAME_GOODS = "goods"
-const val GAME_GOODS_OWNER = "owner"
-const val GAME_GOODS_ID = "goods_id"
-const val GAME_GOODS_NAME = "name"
+
+const val NODE_GOODS = "goods"
+const val GOODS_OWNER = "owner"
+const val GOODS_ID = "goods_id"
+const val GOODS_NAME = "name"
+const val NODE_GOODS_IMAGE = "image"
 const val GAME_GOODS_PHOTO = "uriPhoto"
+const val GOODS_DESCRIPTION = "description"
+const val GOODS_EXTEND = "extend"
 const val GAME_GOODS_BOOKED_1 = "booked_1"  //забронирована кем
 const val GAME_GOODS_BOOKED_2 = "booked_2"
 const val GAME_GOODS_BOOKED_3 = "booked_3"
 const val GAME_GOODS_STATUS = "status"
 const val GAME_GOODS_STATUS_NO_RECEIVED = "no_received"
 const val GAME_GOODS_STATUS_RECEIVED = "received"
+
+const val FOLDER_GOODS_IMAGE = "goods_image"

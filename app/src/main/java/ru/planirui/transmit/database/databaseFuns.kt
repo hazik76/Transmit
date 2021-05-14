@@ -36,6 +36,14 @@ inline fun putUrlToDatabase(url: String, crossinline function: () -> Unit) {
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
+inline fun putUrlGoodsToDatabase(url: String, idGoods: String, crossinline function: () -> Unit) {
+    /* Функция высшего порядка, отпраляет полученый URL в базу данных */
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS).child(idGoods).child(NODE_GOODS_IMAGE).child("image1")
+        .setValue(url)
+        .addOnSuccessListener { function() }
+        .addOnFailureListener { showToast(it.message.toString()) }
+}
+
 inline fun getUrlFromStorage(path: StorageReference, crossinline function: (url: String) -> Unit) {
     /* Функция высшего порядка, получает URL картинки из хранилища */
     path.downloadUrl
@@ -73,17 +81,23 @@ fun saveUserPhoto(uri: Uri, function: (String) -> Unit){
         }
     }
 }
-fun saveGoodsPhoto(uri: Uri, function: (String) -> Unit){
+fun getKeyGoods(function: (String) -> Unit){
+    var idGoods = REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(
+        NODE_GOODS
+    ).push().key.toString()
+    function(idGoods)
+}
+fun saveGoodsPhoto(uri: Uri, idGoods:String, function: (String) -> Unit){
     /* заносим фото товара в хранилище */
-//    val path = REF_STORAGE_ROOT.child(FOLDER_PROFILE_IMAGE)
-//        .child(CURRENT_UID)
-//    putFileToStorage(uri, path) {
-//        getUrlFromStorage(path) {
-//            putUrlToDatabase(it) {
-//                function(it)
-//            }
-//        }
-//    }
+    val path = REF_STORAGE_ROOT.child(FOLDER_GOODS_IMAGE)
+        .child(idGoods)
+    putFileToStorage(uri, path) {
+        getUrlFromStorage(path) {
+            putUrlGoodsToDatabase(it, idGoods) {
+                function(it)
+            }
+        }
+    }
 }
 fun updatePhonesToDatabase(arrayContacts: ArrayList<CommonModel>) {
     /* Функция добавляет номер телефона с id в базу данных */
@@ -163,6 +177,33 @@ fun setBioToDatabase(newBio: String) {
         .addOnSuccessListener {
             showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
             USER.bio = newBio
+            APP_ACTIVITY.supportFragmentManager.popBackStack()
+        }.addOnFailureListener { showToast(it.message.toString()) }
+}
+fun setGoodsDescriptionsToDatabase(newDescriptions: String, idGoods:String) {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS).child(idGoods).child(
+        GOODS_DESCRIPTION).setValue(newDescriptions)
+        .addOnSuccessListener {
+            showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
+            //USER.bio = newDescriptions
+            APP_ACTIVITY.supportFragmentManager.popBackStack()
+        }.addOnFailureListener { showToast(it.message.toString()) }
+}
+fun setGoodsExtendToDatabase(newDescriptions: String, idGoods:String) {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS).child(idGoods).child(
+        GOODS_EXTEND).setValue(newDescriptions)
+        .addOnSuccessListener {
+            showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
+            //USER.bio = newDescriptions
+            APP_ACTIVITY.supportFragmentManager.popBackStack()
+        }.addOnFailureListener { showToast(it.message.toString()) }
+}
+fun setGoodsNameToDatabase(newDescriptions: String, idGoods:String) {
+    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS).child(idGoods).child(
+        GOODS_NAME).setValue(newDescriptions)
+        .addOnSuccessListener {
+            showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
+            //USER.bio = newDescriptions
             APP_ACTIVITY.supportFragmentManager.popBackStack()
         }.addOnFailureListener { showToast(it.message.toString()) }
 }
@@ -344,9 +385,9 @@ fun createGroupToDatabase(
     // добавим пустой товар
     val mapGoods = hashMapOf<String, Any>()
     val mapGoods2 = hashMapOf<String, Any>()
-    mapGoods2[GAME_GOODS_OWNER] = CURRENT_UID
-    mapGoods2[GAME_GOODS_ID] = uriGoods
-    mapGoods2[GAME_GOODS_NAME] = nameGoods
+    mapGoods2[GOODS_OWNER] = CURRENT_UID
+    mapGoods2[GOODS_ID] = uriGoods
+    mapGoods2[GOODS_NAME] = nameGoods
     mapGoods2[GAME_GOODS_PHOTO] = photoGoods
     mapGoods2[GAME_GOODS_BOOKED_1] = ""
     mapGoods2[GAME_GOODS_BOOKED_2] = ""
@@ -360,7 +401,7 @@ fun createGroupToDatabase(
     }
     mapMembers[CURRENT_UID] = USER_CREATOR
 
-    mapData[NODE_GAME_GOODS] = mapGoods
+    mapData[NODE_GOODS] = mapGoods
     mapData[NODE_MEMBERS] = mapMembers
 
     path.updateChildren(mapData)

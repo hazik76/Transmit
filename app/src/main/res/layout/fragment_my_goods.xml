@@ -20,9 +20,10 @@
         style="@style/settingsButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout="@dimen/app_margin"
+        app:layout_constraintBottom_toTopOf="@+id/add_goods2"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout="@dimen/app_margin">
+        >
 
         <TextView
             android:id="@+id/settings_bio"
@@ -37,6 +38,30 @@
             android:text="@string/goods_all"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/settings_bio" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/add_goods2"
+        style="@style/settingsButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout="@dimen/app_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/settings_bio2"
+            style="@style/normalText"
+            android:text="Уже есть тестовая, редактировать"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/add_goods2" />
+
+        <TextView
+            android:id="@+id/settings_label_bio2"
+            style="@style/smallText"
+            android:text="@string/goods_all"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_bio2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

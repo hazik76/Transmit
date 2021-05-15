@@ -42,7 +42,7 @@ class MyGoodsFragment : BaseFragment(R.layout.fragment_my_goods) {
                 println("мы тут " + goods.name + " " + goods.description + " " + goods.uriPhoto + " " + goods.extend + " " + goods.status)
                 mAdapter.updateListItems(goods)
             }
-            settings_label_bio.setText("Всего вещей: " + mListItems.size.toString())
+            settings_label_goods_sum.setText(mListItems.size.toString())
         })
         mRecyclerView.adapter = mAdapter
     }

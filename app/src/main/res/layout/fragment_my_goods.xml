@@ -32,10 +32,17 @@
             app:layout_constraintTop_toTopOf="@id/add_goods" />
 
         <TextView
-            android:id="@+id/settings_label_bio"
+            android:id="@+id/settings_label_goods"
             style="@style/smallText"
             android:text="@string/goods_all"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_bio" />
+
+        <TextView
+            android:id="@+id/settings_label_goods_sum"
+            style="@style/smallText"
+            android:text=""
+            app:layout_constraintStart_toEndOf="@+id/settings_label_goods"
             app:layout_constraintTop_toBottomOf="@id/settings_bio" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

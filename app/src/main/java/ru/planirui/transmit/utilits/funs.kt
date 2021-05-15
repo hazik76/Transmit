@@ -68,6 +68,13 @@ fun ImageView.downloadAndSetImage(url: String) {
         .placeholder(R.drawable.default_user)
         .into(this)
 }
+fun ImageView.downloadAndSetImageGoods(url: String) {
+    /* Функция раширения ImageView, скачивает и устанавливает картинку */
+    Picasso.get()
+        .load(url)
+        .placeholder(R.drawable.ic_goods_photo)
+        .into(this)
+}
 
 fun initContacts() {
     /* Функция считывает контакты с телефонной книги, заполняет массив arrayContacts моделями CommonModel */

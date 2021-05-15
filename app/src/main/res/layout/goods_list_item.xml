@@ -25,12 +25,11 @@
         tools:text="Name Goods item" />
 
     <TextView
-        android:id="@+id/goods_list_description"
+        android:id="@+id/goods_list_status"
         style="@style/smallText"
-        tools:text="description"
-        android:maxLength="@dimen/list_max_description"
+        app:layout_constraintBottom_toBottomOf="@+id/goods_list_item_photo"
         app:layout_constraintStart_toEndOf="@id/goods_list_item_photo"
-        app:layout_constraintTop_toBottomOf="@id/goods_list_item_name"/>
+        tools:text="description" />
 
     <ImageView
         android:id="@+id/goods_status"

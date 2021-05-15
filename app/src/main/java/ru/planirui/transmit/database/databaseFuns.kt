@@ -38,6 +38,7 @@ inline fun putUrlToDatabase(url: String, crossinline function: () -> Unit) {
 
 inline fun putUrlGoodsToDatabase(url: String, idGoods: String, crossinline function: () -> Unit) {
     /* Функция высшего порядка, отпраляет полученый URL в базу данных */
+
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS).child(idGoods)
         .child(NODE_GOODS_IMAGE).child("image1")
         .setValue(url)
@@ -192,11 +193,13 @@ fun newGoodsCreate(function: (String) -> Unit) {
         mapMessage[GOODS_DESCRIPTION] = ""
         mapMessage[GOODS_EXTEND] = ""
         mapMessage[GOODS_NAME] = "Empty"
+        mapMessage[GOODS_ID] = keyGoods
         mapMessage[GOODS_STATUS] = GOODS_STATUS_ADDED
 
         REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS).child(keyGoods)
             .updateChildren(mapMessage)
-            .addOnFailureListener { function(keyGoods) }
+            .addOnSuccessListener { function(keyGoods) }
+            .addOnFailureListener {  }
     }
 }
 

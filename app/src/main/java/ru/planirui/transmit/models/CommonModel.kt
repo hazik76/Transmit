@@ -1,5 +1,8 @@
 package ru.planirui.transmit.models
 
+import android.net.Uri
+import androidx.core.net.toUri
+
 /* Общая модель для всех сущностей приложения*/
 
 class CommonModel {
@@ -19,6 +22,15 @@ class CommonModel {
 
     var lastMessage:String = ""
     var choice:Boolean = false
+
+    var name: String = ""
+    var description: String = ""
+    var uriPhoto: String = ""
+    var extend: String = ""
+    var goodsID: String = ""
+    // var image: String = ""
+    var status: String = ""
+    var goodsStatus: String = ""
 
     override fun equals(other: Any?): Boolean {
         return (other as CommonModel).id == id

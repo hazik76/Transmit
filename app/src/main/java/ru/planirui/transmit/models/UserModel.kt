@@ -10,4 +10,5 @@ class UserModel {
     var state: String = ""
     var phone: String = ""
     var photoUrl: String = "empty"
+    var tempMessage = ""
 }

@@ -17,6 +17,8 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
 
     private lateinit var description: String
     private lateinit var extend: String
+    private lateinit var goodsName:String
+    private lateinit var goodsStatus:String
     private var ifExists by Delegates.notNull<Boolean>()
 
     override fun onResume() {
@@ -25,8 +27,17 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
     }
 
     private fun initData() {
+        if (USER.tempMessage != "") { // т.е. мы выполнили один из фрагментов по смене поля и завели запись в БД
+            idGoods = USER.tempMessage
+            USER.tempMessage = "" // обнулим тестовое сообщение
+        }
         if (idGoods == "") {
             APP_ACTIVITY.title = "Добавить вещь"
+            goodsName = "пусто"
+            goodsStatus  = "не создана"
+            description = "пусто"
+            extend = "пусто"
+            ifExists = false
 //            getKeyGoods() {
 //                idGoods = it
 //                description = "пусто"
@@ -35,10 +46,14 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
 //            }
         } else {
             APP_ACTIVITY.title = "Редактировать вещь"
+            goodsName = "имя, потом добавить инициализацию"
+            goodsStatus = "created"
             description = "что-то было, потом добавить инициализацию"
             extend = "что-то было, потом добавить инициализацию"
             ifExists = true
         }
+        settings_goods_name.setText(goodsName)
+        settings_status.setText(goodsStatus)
         initFields()
     }
 
@@ -55,12 +70,16 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
         if (ifExists) {
             settings_change_photo_goods.setOnClickListener { changePhotoGoods() }
         } else showToast("Сначала добавьте название вещи")
-
     }
 
     private fun changeData(changeName: String) {
         if (ifExists) replaceFragment(ChangeGoodsFragment(extend, idGoods, changeName))
-        else replaceFragment(NewGoodsFragment(extend, idGoods, changeName)) //TODO каким-то образом из фрагмента надо вернуть idGoods и ...
+        else replaceFragment(
+            NewGoodsFragment(
+                extend,
+                changeName
+            )
+        ) //TODO каким-то образом из фрагмента надо вернуть idGoods и ...
     }
 
     private fun changePhotoGoods() {

@@ -50,7 +50,7 @@ const val GAME_TIME_ENDING = "time_ending"
 
 const val NODE_GOODS = "goods"
 const val GOODS_OWNER = "owner"
-const val GOODS_ID = "goods_id"
+const val GOODS_ID = "goodsID"
 const val GOODS_NAME = "name"
 const val NODE_GOODS_IMAGE = "image"
 const val GAME_GOODS_PHOTO = "uriPhoto"

@@ -74,12 +74,13 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
 
     private fun changeData(changeName: String) {
         if (ifExists) replaceFragment(ChangeGoodsFragment(extend, idGoods, changeName))
-        else replaceFragment(
-            NewGoodsFragment(
-                extend,
-                changeName
-            )
-        ) //TODO каким-то образом из фрагмента надо вернуть idGoods и ...
+        else replaceFragment(ChangeGoodsFragment(extend, idGoods, changeName))
+//            replaceFragment(
+//            NewGoodsFragment(
+//                extend,
+//                changeName
+//            )
+//        ) //TODO каким-то образом из фрагмента надо вернуть idGoods и ...
     }
 
     private fun changePhotoGoods() {

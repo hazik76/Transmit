@@ -5,11 +5,11 @@ import ru.planirui.transmit.R
 import ru.planirui.transmit.database.*
 import ru.planirui.transmit.ui.screens.base.BaseChangeFragment
 
-/* Фрагмент для изменения описания товара */
+/* Фрагмент для изменения описания товара, если товара не было, то с добавлением всех недостающих полей */
 
 class ChangeGoodsFragment(
     private val description: String,
-    private val idGoods: String,
+    private var idGoods: String,
     private val changeName: String
 ) : BaseChangeFragment(R.layout.fragment_change_bio) {
 
@@ -24,6 +24,16 @@ class ChangeGoodsFragment(
 
     override fun change() {
         super.change()
+        if (idGoods == ""){
+            newGoodsCreate() {
+                idGoods = it
+                USER.tempMessage = it
+                change2()
+            }
+        }else change2()
+    }
+
+    fun change2() {
         val newDescriptions = settings_input_bio.text.toString()
         when(changeName){
             "description" -> setGoodsDescriptionsToDatabase(newDescriptions, idGoods)

@@ -27,8 +27,7 @@ class MyGoodsFragment : BaseFragment(R.layout.fragment_my_goods) {
     }
 
     private fun initFields() {
-        var idGoods = "-M_fpfIfjxIPlcjMzgOL"
-        add_goods.setOnClickListener { replaceFragment(AddGoodsFragment(idGoods)) }
+        add_goods.setOnClickListener { replaceFragment(AddGoodsFragment("")) }
     }
 
     private fun initRecyclerView() {
@@ -36,7 +35,6 @@ class MyGoodsFragment : BaseFragment(R.layout.fragment_my_goods) {
         mAdapter = MyGoodsAdapter()
 
         mRefGoodsList.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
-            //val newModel = dataSnapshot.getCommonModel()
             mListItems = dataSnapshot.children.map { it.getCommonModel() }
             mListItems.forEach {goods ->
                 println("мы тут " + goods.name + " " + goods.description + " " + goods.uriPhoto + " " + goods.extend + " " + goods.status)

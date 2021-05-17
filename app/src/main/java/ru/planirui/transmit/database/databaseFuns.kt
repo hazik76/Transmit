@@ -38,9 +38,10 @@ inline fun putUrlToDatabase(url: String, crossinline function: () -> Unit) {
 
 inline fun putUrlGoodsToDatabase(url: String, idGoods: String, crossinline function: () -> Unit) {
     /* Функция высшего порядка, отпраляет полученый URL в базу данных */
+    /* Пока добавляем одно единственное изображение */
 
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS).child(idGoods)
-        .child(NODE_GOODS_IMAGE).child("image1")
+        .child(GAME_GOODS_PHOTO)
         .setValue(url)
         .addOnSuccessListener { function() }
         .addOnFailureListener { showToast(it.message.toString()) }
@@ -199,7 +200,7 @@ fun newGoodsCreate(function: (String) -> Unit) {
         REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS).child(keyGoods)
             .updateChildren(mapMessage)
             .addOnSuccessListener { function(keyGoods) }
-            .addOnFailureListener {  }
+            .addOnFailureListener { }
     }
 }
 
@@ -574,4 +575,14 @@ fun mRefMessagesGroup(groupID: String): DatabaseReference {
         .child(NODE_GROUPS)
         .child(groupID)
         .child(NODE_MESSAGES)
+}
+
+fun getGoodsInfo(idGoods: String, function: (CommonModel) -> Unit) {
+    val mRefGoodsList =
+        REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS)
+            .child(idGoods)
+    mRefGoodsList.addListenerForSingleValueEvent(AppValueEventListener {
+        var goods = it.getValue(CommonModel::class.java) ?: CommonModel()
+        function(goods)
+    })
 }

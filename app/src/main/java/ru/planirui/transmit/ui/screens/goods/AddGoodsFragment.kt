@@ -2,24 +2,23 @@ package ru.planirui.transmit.ui.screens.goods
 
 import android.app.Activity
 import android.content.Intent
+import com.google.firebase.database.DataSnapshot
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.fragment_add_goods.*
 import ru.planirui.transmit.R
 import ru.planirui.transmit.database.*
+import ru.planirui.transmit.models.CommonModel
+import ru.planirui.transmit.models.UserModel
 import ru.planirui.transmit.ui.screens.base.BaseFragment
-import ru.planirui.transmit.utilits.APP_ACTIVITY
-import ru.planirui.transmit.utilits.replaceFragment
-import ru.planirui.transmit.utilits.showToast
+import ru.planirui.transmit.utilits.*
 import kotlin.properties.Delegates
 
 class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.fragment_add_goods) {
 
-    private lateinit var description: String
     private lateinit var extend: String
-    private lateinit var goodsName:String
-    private lateinit var goodsStatus:String
     private var ifExists by Delegates.notNull<Boolean>()
+    private lateinit var goods: CommonModel
 
     override fun onResume() {
         super.onResume()
@@ -33,54 +32,53 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
         }
         if (idGoods == "") {
             APP_ACTIVITY.title = "Добавить вещь"
-            goodsName = "пусто"
-            goodsStatus  = "не создана"
-            description = "пусто"
-            extend = "пусто"
+            goods = CommonModel()
+            goods.name = "пусто"
+            goods.status = "не создана"
+            goods.description = "пусто"
+            goods.extend = "пусто"
             ifExists = false
-//            getKeyGoods() {
-//                idGoods = it
-//                description = "пусто"
-//                extend = "пусто"
-//                ifExists = false
-//            }
+            initFields()
         } else {
-            APP_ACTIVITY.title = "Редактировать вещь"
-            goodsName = "имя, потом добавить инициализацию"
-            goodsStatus = "created"
-            description = "что-то было, потом добавить инициализацию"
-            extend = "что-то было, потом добавить инициализацию"
-            ifExists = true
+            getGoodsInfo(idGoods) {
+                goods = it
+                println("мы тут 2" + goods.name + " " + goods.description + " " + goods.uriPhoto + " " + goods.extend + " " + goods.status)
+                APP_ACTIVITY.title = "Редактировать вещь"
+                ifExists = true
+                initFields()
+            }
         }
-        settings_goods_name.setText(goodsName)
-        settings_status.setText(goodsStatus)
-        initFields()
     }
 
     private fun initFields() {
+        settings_goods_name.setText(goods.name)
+        settings_status.setText(goods.status)
+        settings_goods_description.setText(goods.description)
+        settings_goods_extension.setText((goods.extend))
+        if (goods.uriPhoto.isNotEmpty()) {
+            settings_goods_photo.downloadAndSetImageGoods(goods.uriPhoto)
+        }
         settings_goods_header_bloc.setOnClickListener {
+            extend = goods.name
             changeData("name")
         }
         settings_btn_change_goods_description.setOnClickListener {
+            extend = goods.description
             changeData("description")
         }
         settings_btn_change_goods_extend.setOnClickListener {
+            extend = goods.extend
             changeData("extend")
         }
-        if (ifExists) {
-            settings_change_photo_goods.setOnClickListener { changePhotoGoods() }
-        } else showToast("Сначала добавьте название вещи")
+        settings_change_photo_goods.setOnClickListener {
+            if (ifExists) changePhotoGoods()
+            else showToast("Сначала добавьте название вещи")
+        }
     }
 
     private fun changeData(changeName: String) {
         if (ifExists) replaceFragment(ChangeGoodsFragment(extend, idGoods, changeName))
         else replaceFragment(ChangeGoodsFragment(extend, idGoods, changeName))
-//            replaceFragment(
-//            NewGoodsFragment(
-//                extend,
-//                changeName
-//            )
-//        ) //TODO каким-то образом из фрагмента надо вернуть idGoods и ...
     }
 
     private fun changePhotoGoods() {

@@ -37,7 +37,7 @@ class MyGoodsFragment : BaseFragment(R.layout.fragment_my_goods) {
         mRefGoodsList.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
             mListItems = dataSnapshot.children.map { it.getCommonModel() }
             mListItems.forEach {goods ->
-                println("мы тут " + goods.name + " " + goods.description + " " + goods.uriPhoto + " " + goods.extend + " " + goods.status)
+                // println("мы тут " + goods.name + " " + goods.description + " " + goods.uriPhoto + " " + goods.extend + " " + goods.status)
                 mAdapter.updateListItems(goods)
             }
             settings_label_goods_sum.setText(mListItems.size.toString())

@@ -2,16 +2,18 @@ package ru.planirui.transmit.ui.screens.goods
 
 import android.app.Activity
 import android.content.Intent
-import com.google.firebase.database.DataSnapshot
 import com.theartofdev.edmodo.cropper.CropImage
-import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.fragment_add_goods.*
 import ru.planirui.transmit.R
-import ru.planirui.transmit.database.*
+import ru.planirui.transmit.database.USER
+import ru.planirui.transmit.database.getGoodsInfo
+import ru.planirui.transmit.database.saveGoodsPhoto
 import ru.planirui.transmit.models.CommonModel
-import ru.planirui.transmit.models.UserModel
 import ru.planirui.transmit.ui.screens.base.BaseFragment
-import ru.planirui.transmit.utilits.*
+import ru.planirui.transmit.utilits.APP_ACTIVITY
+import ru.planirui.transmit.utilits.downloadAndSetImageGoods
+import ru.planirui.transmit.utilits.replaceFragment
+import ru.planirui.transmit.utilits.showToast
 import kotlin.properties.Delegates
 
 class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.fragment_add_goods) {
@@ -42,7 +44,6 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
         } else {
             getGoodsInfo(idGoods) {
                 goods = it
-                println("мы тут 2" + goods.name + " " + goods.description + " " + goods.uriPhoto + " " + goods.extend + " " + goods.status)
                 APP_ACTIVITY.title = "Редактировать вещь"
                 ifExists = true
                 initFields()
@@ -86,7 +87,7 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
         CropImage.activity()
             .setAspectRatio(1, 1)
             .setRequestedSize(600, 600)
-            .setCropShape(CropImageView.CropShape.OVAL)
+            //.setCropShape(CropImageView.CropShape.OVAL)
             .start(APP_ACTIVITY, this)
     }
 
@@ -99,8 +100,8 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
             val uri = CropImage.getActivityResult(data).uri
             saveGoodsPhoto(uri, idGoods) {
                 //settings_goods_photo.downloadAndSetImage(it)
+                settings_goods_photo.downloadAndSetImageGoods(it)
                 showToast(getString(R.string.toast_data_update) + it)
-                //USER.photoUrl = it
             }
         }
     }

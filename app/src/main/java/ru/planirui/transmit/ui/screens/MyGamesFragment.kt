@@ -7,7 +7,6 @@ import ru.planirui.transmit.utilits.APP_ACTIVITY
 /* Главный фрагмент, содержит все игры пользователя */
 
 class MyGamesFragment : BaseFragment(R.layout.fragment_my_games) {
-    private val TAG = "MyGamesFragment"
 
     override fun onResume() {
         super.onResume()

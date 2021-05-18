@@ -1,6 +1,5 @@
 package ru.planirui.transmit.utilits
 
-import android.util.Log
 import androidx.recyclerview.widget.DiffUtil
 import ru.planirui.transmit.models.CommonModel
 

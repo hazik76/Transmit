@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.add_contacts_item.view.*
-import kotlinx.android.synthetic.main.main_list_item.view.*
 import ru.planirui.transmit.R
 import ru.planirui.transmit.models.CommonModel
 import ru.planirui.transmit.utilits.downloadAndSetImage

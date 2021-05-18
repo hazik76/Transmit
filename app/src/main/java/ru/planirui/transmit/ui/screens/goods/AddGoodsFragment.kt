@@ -52,10 +52,10 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
     }
 
     private fun initFields() {
-        settings_goods_name.setText(goods.name)
-        settings_status.setText(goods.status)
-        settings_goods_description.setText(goods.description)
-        settings_goods_extension.setText((goods.extend))
+        settings_goods_name.text = goods.name
+        settings_status.text = goods.status
+        settings_goods_description.text = goods.description
+        settings_goods_extension.text = (goods.extend)
         if (goods.uriPhoto.isNotEmpty()) {
             settings_goods_photo.downloadAndSetImageGoods(goods.uriPhoto)
         }
@@ -93,7 +93,6 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         /* Активность запускается для получения картинки для фото товара */
-        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE
             && resultCode == Activity.RESULT_OK && data != null
         ) {

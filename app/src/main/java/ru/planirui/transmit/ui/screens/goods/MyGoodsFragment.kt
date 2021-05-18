@@ -3,11 +3,9 @@ package ru.planirui.transmit.ui.screens.goods
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_my_goods.*
 import ru.planirui.transmit.R
-import ru.planirui.transmit.database.*
-import ru.planirui.transmit.models.CommonModel
+import ru.planirui.transmit.database.getGoodsListInfo
 import ru.planirui.transmit.ui.screens.base.BaseFragment
 import ru.planirui.transmit.utilits.APP_ACTIVITY
-import ru.planirui.transmit.utilits.AppValueEventListener
 import ru.planirui.transmit.utilits.replaceFragment
 
 /* Фрагмент вещей пользователя */
@@ -35,7 +33,7 @@ class MyGoodsFragment : BaseFragment(R.layout.fragment_my_goods) {
             mListItems.forEach { goods ->
                 mAdapter.updateListItems(goods)
             }
-            settings_label_goods_sum.setText(mListItems.size.toString())
+            settings_label_goods_sum.text = mListItems.size.toString()
         }
         mRecyclerView.adapter = mAdapter
     }

@@ -87,7 +87,7 @@ fun saveUserPhoto(uri: Uri, function: (String) -> Unit) {
 }
 
 fun getKeyGoods(function: (String) -> Unit) {
-    var idGoods = REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(
+    val idGoods = REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(
         NODE_GOODS
     ).push().key.toString()
     function(idGoods)
@@ -474,7 +474,7 @@ fun addGroupsToMainList(
 
 fun sendMessageToGroup(message: String, groupID: String, typeText: String, function: () -> Unit) {
 
-    var refMessages = "$NODE_GROUPS/$groupID/$NODE_MESSAGES"
+    val refMessages = "$NODE_GROUPS/$groupID/$NODE_MESSAGES"
     val messageKey = REF_DATABASE_ROOT.child(refMessages).push().key
 
     val mapMessage = hashMapOf<String, Any>()
@@ -522,7 +522,7 @@ fun sendMessageAsFileToGroup(
     mapMessage[CHILD_FILE_URL] = fileUrl
     mapMessage[CHILD_TEXT] = filename
 
-    REF_DATABASE_ROOT.child(refMessages).child(messageKey.toString())
+    REF_DATABASE_ROOT.child(refMessages).child(messageKey)
         .updateChildren(mapMessage)
         .addOnSuccessListener { showToast("file saved") }
         .addOnFailureListener { showToast(it.message.toString()) }
@@ -592,7 +592,7 @@ fun getGoodsInfo(idGoods: String, function: (CommonModel) -> Unit) {
         REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS)
             .child(idGoods)
     mRefGoodsList.addListenerForSingleValueEvent(AppValueEventListener {
-        var goods = it.getValue(CommonModel::class.java) ?: CommonModel()
+        val goods = it.getValue(CommonModel::class.java) ?: CommonModel()
         function(goods)
     })
 }

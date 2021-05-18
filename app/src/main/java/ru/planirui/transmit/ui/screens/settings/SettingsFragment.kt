@@ -44,7 +44,6 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         /* Активность которая запускается для получения картинки для фото пользователя */
-        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE
             && resultCode == RESULT_OK && data != null
         ) {

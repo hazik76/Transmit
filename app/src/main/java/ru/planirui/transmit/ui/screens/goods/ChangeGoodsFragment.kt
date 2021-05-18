@@ -25,7 +25,7 @@ class ChangeGoodsFragment(
     override fun change() {
         super.change()
         if (idGoods == ""){
-            newGoodsCreate() {
+            newGoodsCreate {
                 idGoods = it
                 USER.tempMessage = it
                 change2()
@@ -33,7 +33,7 @@ class ChangeGoodsFragment(
         }else change2()
     }
 
-    fun change2() {
+    private fun change2() {
         val newDescriptions = settings_input_bio.text.toString()
         when(changeName){
             "description" -> setGoodsDescriptionsToDatabase(newDescriptions, idGoods)

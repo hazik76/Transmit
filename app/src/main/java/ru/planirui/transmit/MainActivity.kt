@@ -24,7 +24,6 @@ import ru.planirui.transmit.utilits.*
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
-    private val TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         APP_ACTIVITY = this

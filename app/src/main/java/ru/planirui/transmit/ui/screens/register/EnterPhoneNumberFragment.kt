@@ -1,6 +1,5 @@
 package ru.planirui.transmit.ui.screens.register
 
-import android.util.Log
 import androidx.fragment.app.Fragment
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
@@ -10,13 +9,16 @@ import com.google.firebase.auth.PhoneAuthProvider
 import kotlinx.android.synthetic.main.fragment_enter_phone_number.*
 import ru.planirui.transmit.R
 import ru.planirui.transmit.database.AUTH
-import ru.planirui.transmit.utilits.*
+import ru.planirui.transmit.utilits.APP_ACTIVITY
+import ru.planirui.transmit.utilits.replaceFragment
+import ru.planirui.transmit.utilits.restartActivity
+import ru.planirui.transmit.utilits.showToast
 import java.util.concurrent.TimeUnit
 
 /* Фрагмент для ввода номера телефона при регистрации */
 
 class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) {
-    private val TAG = "EnterPhoneNumberFragment"
+
     private lateinit var mPhoneNumber: String
     private lateinit var mCallback: PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
@@ -70,7 +72,6 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
             .setActivity(APP_ACTIVITY)
             .setCallbacks(mCallback)
             .build()
-        Log.d(TAG, options.toString())
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
 }

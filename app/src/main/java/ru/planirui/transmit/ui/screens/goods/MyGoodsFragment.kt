@@ -16,8 +16,6 @@ class MyGoodsFragment : BaseFragment(R.layout.fragment_my_goods) {
 
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: MyGoodsAdapter
-    private var mListItems = listOf<CommonModel>()
-    private val mRefGoodsList = REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS)
 
     override fun onResume() {
         super.onResume()
@@ -33,15 +31,12 @@ class MyGoodsFragment : BaseFragment(R.layout.fragment_my_goods) {
     private fun initRecyclerView() {
         mRecyclerView = my_goods_recycle_view
         mAdapter = MyGoodsAdapter()
-
-        mRefGoodsList.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
-            mListItems = dataSnapshot.children.map { it.getCommonModel() }
-            mListItems.forEach {goods ->
-                // println("мы тут " + goods.name + " " + goods.description + " " + goods.uriPhoto + " " + goods.extend + " " + goods.status)
+        getGoodsListInfo { mListItems ->
+            mListItems.forEach { goods ->
                 mAdapter.updateListItems(goods)
             }
             settings_label_goods_sum.setText(mListItems.size.toString())
-        })
+        }
         mRecyclerView.adapter = mAdapter
     }
 }

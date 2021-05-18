@@ -528,7 +528,7 @@ fun sendMessageAsFileToGroup(
         .addOnFailureListener { showToast(it.message.toString()) }
 }
 
-fun initRVAddContact3(function: (List<CommonModel>, CommonModel) -> Unit) {
+fun initRVAddContact(function: (List<CommonModel>, CommonModel) -> Unit) {
     // добавляем пользователей в список для создния группы/беседы
     // (многоурвневе добавление из initRecyclerView/AddContactActivity)
     val mRefMessages = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID)
@@ -575,6 +575,16 @@ fun mRefMessagesGroup(groupID: String): DatabaseReference {
         .child(NODE_GROUPS)
         .child(groupID)
         .child(NODE_MESSAGES)
+}
+
+fun getGoodsListInfo(function: (List<CommonModel>) -> Unit) {
+    var mListItems: List<CommonModel>
+    val mRefGoodsList =
+        REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS)
+    mRefGoodsList.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
+        mListItems = dataSnapshot.children.map { it.getCommonModel() }
+        function(mListItems)
+    })
 }
 
 fun getGoodsInfo(idGoods: String, function: (CommonModel) -> Unit) {

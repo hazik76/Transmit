@@ -3,7 +3,7 @@ package ru.planirui.transmit.ui.screens.groups
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_add_contacts.*
 import ru.planirui.transmit.R
-import ru.planirui.transmit.database.initRVAddContact3
+import ru.planirui.transmit.database.initRVAddContact
 import ru.planirui.transmit.models.CommonModel
 import ru.planirui.transmit.ui.screens.base.BaseFragment
 import ru.planirui.transmit.utilits.APP_ACTIVITY
@@ -31,7 +31,7 @@ class AddContactsFragment : BaseFragment(R.layout.fragment_add_contacts) {
     private fun initRecyclerView() {
         mRecyclerView = add_contacts_recycle_view
         mAdapter = AddContactsAdapter()
-        initRVAddContact3() { tempList, newModel ->
+        initRVAddContact() { tempList, newModel ->
             if (tempList.isEmpty()) {
                 newModel.lastMessage = "Чат очищен"
             } else {

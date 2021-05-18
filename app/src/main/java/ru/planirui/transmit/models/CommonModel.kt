@@ -28,9 +28,7 @@ class CommonModel {
     var uriPhoto: String = ""
     var extend: String = ""
     var goodsID: String = ""
-    // var image: String = ""
     var status: String = ""
-    var goodsStatus: String = ""
 
     override fun equals(other: Any?): Boolean {
         return (other as CommonModel).id == id

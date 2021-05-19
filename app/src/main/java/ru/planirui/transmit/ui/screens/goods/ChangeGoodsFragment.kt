@@ -1,8 +1,10 @@
 package ru.planirui.transmit.ui.screens.goods
 
-import kotlinx.android.synthetic.main.fragment_change_bio.*
+import android.os.Bundle
+import android.view.View
 import ru.planirui.transmit.R
 import ru.planirui.transmit.database.*
+import ru.planirui.transmit.databinding.FragmentChangeBioBinding
 import ru.planirui.transmit.ui.screens.base.BaseChangeFragment
 
 /* Фрагмент для изменения описания товара, если товара не было, то с добавлением всех недостающих полей */
@@ -13,13 +15,16 @@ class ChangeGoodsFragment(
     private val changeName: String
 ) : BaseChangeFragment(R.layout.fragment_change_bio) {
 
-    override fun onResume() {
-        super.onResume()
+    private var binding: FragmentChangeBioBinding? = null
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentChangeBioBinding.bind(view)
         initFields()
     }
 
     private fun initFields() {
-        settings_input_bio.setText(description)
+        binding?.settingsInputBio?.setText(description)
     }
 
     override fun change() {
@@ -34,12 +39,7 @@ class ChangeGoodsFragment(
     }
 
     private fun change2() {
-        val newDescriptions = settings_input_bio.text.toString()
+        val newDescriptions = binding?.settingsInputBio?.text.toString()
         setGoodsChangeToDatabase(newDescriptions, idGoods, changeName)
-//        when(changeName){
-//            "description" -> setGoodsDescriptionsToDatabase(newDescriptions, idGoods)
-//            "extend" ->  setGoodsExtendToDatabase(newDescriptions, idGoods)
-//            "name" ->  setGoodsNameToDatabase(newDescriptions, idGoods)
-//        }
     }
 }

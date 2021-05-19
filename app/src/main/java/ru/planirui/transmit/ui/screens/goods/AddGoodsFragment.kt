@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.theartofdev.edmodo.cropper.CropImage
-import kotlinx.android.synthetic.main.fragment_add_goods.*
 import ru.planirui.transmit.R
 import ru.planirui.transmit.database.USER
 import ru.planirui.transmit.database.getGoodsInfo
@@ -66,32 +65,24 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
     private fun initFields() {
         binding?.settingsGoodsName?.text = goods.name
         binding?.settingsStatus?.text = goods.status
-        //settings_status.text = goods.status
         binding?.settingsGoodsDescription?.text = goods.description
-        //settings_goods_description.text = goods.description
         binding?.settingsGoodsExtension?.text = (goods.extend)
-        //settings_goods_extension.text = (goods.extend)
         if (goods.uriPhoto.isNotEmpty()) {
             binding?.settingsGoodsPhoto?.downloadAndSetImageGoods(goods.uriPhoto)
-            //settings_goods_photo.downloadAndSetImageGoods(goods.uriPhoto)
         }
         binding?.settingsGoodsHeaderBloc?.setOnClickListener {
-        //settings_goods_header_bloc.setOnClickListener {
             extend = goods.name
             changeData("name")
         }
         binding?.settingsBtnChangeGoodsDescription?.setOnClickListener {
-        //settings_btn_change_goods_description.setOnClickListener {
             extend = goods.description
             changeData("description")
         }
         binding?.settingsBtnChangeGoodsExtend?.setOnClickListener {
-        //settings_btn_change_goods_extend.setOnClickListener {
             extend = goods.extend
             changeData("extend")
         }
         binding?.settingsChangePhotoGoods?.setOnClickListener {
-        //settings_change_photo_goods.setOnClickListener {
             if (ifExists) changePhotoGoods()
             else showToast("Сначала добавьте название вещи")
         }
@@ -118,12 +109,12 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
         ) {
             val uri = CropImage.getActivityResult(data).uri
             saveGoodsPhoto(uri, idGoods) {
-                binding?.settingsChangePhotoGoods?.downloadAndSetImageGoods(it)
-                //settings_goods_photo.downloadAndSetImageGoods(it)
+                binding?.settingsGoodsPhoto?.downloadAndSetImageGoods(it)
                 showToast(getString(R.string.toast_data_update) + it)
             }
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null

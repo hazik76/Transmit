@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.ContactsContract
 import android.provider.OpenableColumns
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
@@ -20,8 +19,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /* Файл для хранения утилитарных функций, доступных во всем приложении */
-
-private val TAG = "funs.kt"
 
 fun showToast(message: String) {
     /* Функция показывает сообщение */
@@ -68,6 +65,7 @@ fun ImageView.downloadAndSetImage(url: String) {
         .placeholder(R.drawable.default_user)
         .into(this)
 }
+
 fun ImageView.downloadAndSetImageGoods(url: String) {
     /* Функция раширения ImageView, скачивает и устанавливает картинку */
     Picasso.get()
@@ -101,9 +99,7 @@ fun initContacts() {
             }
         }
         cursor?.close()
-        if (AUTH.currentUser!=null) updatePhonesToDatabase(arrayContacts)
-    } else {
-        Log.d(TAG, "считывание из записной книги не разрешены")
+        if (AUTH.currentUser != null) updatePhonesToDatabase(arrayContacts)
     }
 }
 
@@ -129,7 +125,6 @@ fun getFilenameFromUri(uri: Uri): String {
     }
 }
 
-fun getPlurals(count:Int) = APP_ACTIVITY.resources.getQuantityString(
-    R.plurals.count_members,count,count
+fun getPlurals(count: Int) = APP_ACTIVITY.resources.getQuantityString(
+    R.plurals.count_members, count, count
 )
-

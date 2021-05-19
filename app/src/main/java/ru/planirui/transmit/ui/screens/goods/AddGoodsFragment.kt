@@ -2,12 +2,15 @@ package ru.planirui.transmit.ui.screens.goods
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Bundle
+import android.view.View
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.main.fragment_add_goods.*
 import ru.planirui.transmit.R
 import ru.planirui.transmit.database.USER
 import ru.planirui.transmit.database.getGoodsInfo
 import ru.planirui.transmit.database.saveGoodsPhoto
+import ru.planirui.transmit.databinding.FragmentAddGoodsBinding
 import ru.planirui.transmit.models.CommonModel
 import ru.planirui.transmit.ui.screens.base.BaseFragment
 import ru.planirui.transmit.utilits.APP_ACTIVITY
@@ -16,7 +19,11 @@ import ru.planirui.transmit.utilits.replaceFragment
 import ru.planirui.transmit.utilits.showToast
 import kotlin.properties.Delegates
 
+/* Добавляем/редактируем вещь пользователя */
+
 class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.fragment_add_goods) {
+
+    private var binding: FragmentAddGoodsBinding? = null
 
     private lateinit var extend: String
     private var ifExists by Delegates.notNull<Boolean>()
@@ -25,6 +32,11 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
     override fun onResume() {
         super.onResume()
         initData()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentAddGoodsBinding.bind(view)
     }
 
     private fun initData() {
@@ -52,26 +64,34 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
     }
 
     private fun initFields() {
-        settings_goods_name.text = goods.name
-        settings_status.text = goods.status
-        settings_goods_description.text = goods.description
-        settings_goods_extension.text = (goods.extend)
+        binding?.settingsGoodsName?.text = goods.name
+        binding?.settingsStatus?.text = goods.status
+        //settings_status.text = goods.status
+        binding?.settingsGoodsDescription?.text = goods.description
+        //settings_goods_description.text = goods.description
+        binding?.settingsGoodsExtension?.text = (goods.extend)
+        //settings_goods_extension.text = (goods.extend)
         if (goods.uriPhoto.isNotEmpty()) {
-            settings_goods_photo.downloadAndSetImageGoods(goods.uriPhoto)
+            binding?.settingsGoodsPhoto?.downloadAndSetImageGoods(goods.uriPhoto)
+            //settings_goods_photo.downloadAndSetImageGoods(goods.uriPhoto)
         }
-        settings_goods_header_bloc.setOnClickListener {
+        binding?.settingsGoodsHeaderBloc?.setOnClickListener {
+        //settings_goods_header_bloc.setOnClickListener {
             extend = goods.name
             changeData("name")
         }
-        settings_btn_change_goods_description.setOnClickListener {
+        binding?.settingsBtnChangeGoodsDescription?.setOnClickListener {
+        //settings_btn_change_goods_description.setOnClickListener {
             extend = goods.description
             changeData("description")
         }
-        settings_btn_change_goods_extend.setOnClickListener {
+        binding?.settingsBtnChangeGoodsExtend?.setOnClickListener {
+        //settings_btn_change_goods_extend.setOnClickListener {
             extend = goods.extend
             changeData("extend")
         }
-        settings_change_photo_goods.setOnClickListener {
+        binding?.settingsChangePhotoGoods?.setOnClickListener {
+        //settings_change_photo_goods.setOnClickListener {
             if (ifExists) changePhotoGoods()
             else showToast("Сначала добавьте название вещи")
         }
@@ -98,10 +118,14 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
         ) {
             val uri = CropImage.getActivityResult(data).uri
             saveGoodsPhoto(uri, idGoods) {
-                //settings_goods_photo.downloadAndSetImage(it)
-                settings_goods_photo.downloadAndSetImageGoods(it)
+                binding?.settingsChangePhotoGoods?.downloadAndSetImageGoods(it)
+                //settings_goods_photo.downloadAndSetImageGoods(it)
                 showToast(getString(R.string.toast_data_update) + it)
             }
         }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding = null
     }
 }

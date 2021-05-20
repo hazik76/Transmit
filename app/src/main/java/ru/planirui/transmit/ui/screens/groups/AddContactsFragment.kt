@@ -1,9 +1,13 @@
 package ru.planirui.transmit.ui.screens.groups
 
+/* Добавляем пользователей из листа контактов */
+
+import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_add_contacts.*
 import ru.planirui.transmit.R
 import ru.planirui.transmit.database.initRVAddContact
+import ru.planirui.transmit.databinding.FragmentAddContactsBinding
 import ru.planirui.transmit.models.CommonModel
 import ru.planirui.transmit.ui.screens.base.BaseFragment
 import ru.planirui.transmit.utilits.APP_ACTIVITY
@@ -13,8 +17,14 @@ import ru.planirui.transmit.utilits.showToast
 
 class AddContactsFragment : BaseFragment(R.layout.fragment_add_contacts) {
 
+    private var binding: FragmentAddContactsBinding? = null
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: AddContactsAdapter
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentAddContactsBinding.bind(view)
+    }
 
     override fun onResume() {
         listContacts.clear()
@@ -22,14 +32,14 @@ class AddContactsFragment : BaseFragment(R.layout.fragment_add_contacts) {
         APP_ACTIVITY.title = "Добавить участника"
         hideKeyboard()
         initRecyclerView()
-        add_contacts_btn_next.setOnClickListener {
+        binding?.addContactsBtnNext?.setOnClickListener {
             if (listContacts.isEmpty()) showToast("Добавьте участника")
             else replaceFragment(CreateGroupFragment(listContacts))
         }
     }
 
     private fun initRecyclerView() {
-        mRecyclerView = add_contacts_recycle_view
+        mRecyclerView = binding?.addContactsRecycleView!!
         mAdapter = AddContactsAdapter()
         initRVAddContact() { tempList, newModel ->
             if (tempList.isEmpty()) {

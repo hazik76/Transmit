@@ -1,25 +1,34 @@
 package ru.planirui.transmit.ui.screens.settings
 
-import kotlinx.android.synthetic.main.fragment_change_username.*
+import android.os.Bundle
+import android.view.View
 import ru.planirui.transmit.R
 import ru.planirui.transmit.database.*
+import ru.planirui.transmit.databinding.FragmentChangeUsernameBinding
 import ru.planirui.transmit.ui.screens.base.BaseChangeFragment
-import ru.planirui.transmit.utilits.*
+import ru.planirui.transmit.utilits.AppValueEventListener
+import ru.planirui.transmit.utilits.showToast
 import java.util.*
 
 /* Фрагмент для изменения username пользователя */
 
 class ChangeUsernameFragment : BaseChangeFragment(R.layout.fragment_change_username) {
 
+    private var binding: FragmentChangeUsernameBinding? = null
     private lateinit var mNewUsername: String
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentChangeUsernameBinding.bind(view)
+        binding?.settingsInputUsername?.setText(USER.username)
+    }
 
     override fun onResume() {
         super.onResume()
-        settings_input_username.setText(USER.username)
     }
 
     override fun change() {
-        mNewUsername = settings_input_username.text.toString().toLowerCase(Locale.ROOT)
+        mNewUsername = binding?.settingsInputUsername?.text.toString().toLowerCase(Locale.ROOT)
         if (mNewUsername.isEmpty()) {
             showToast("Поле пустое")
         } else {

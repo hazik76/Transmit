@@ -1,10 +1,12 @@
 package ru.planirui.transmit.ui.screens.main_list
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_main_list.*
 import ru.planirui.transmit.R
 import ru.planirui.transmit.database.*
+import ru.planirui.transmit.databinding.FragmentMainListBinding
 import ru.planirui.transmit.models.CommonModel
 import ru.planirui.transmit.utilits.*
 
@@ -12,6 +14,7 @@ import ru.planirui.transmit.utilits.*
 
 class MainListFragment : Fragment(R.layout.fragment_main_list) {
 
+    private var binding: FragmentMainListBinding? = null
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mAdapter: MainListAdapter
     private val mRefMainList = REF_DATABASE_ROOT.child(NODE_MAIN_LIST).child(CURRENT_UID)
@@ -26,15 +29,20 @@ class MainListFragment : Fragment(R.layout.fragment_main_list) {
         initRecyclerView()
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentMainListBinding.bind(view)
+    }
+
     private fun initRecyclerView() {
-        mRecyclerView = main_list_recycle_view
+        mRecyclerView = binding?.mainListRecycleView!!
         mAdapter = MainListAdapter()
 
         // 1 запрос
         mRefMainList.addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot ->
             mListItems = dataSnapshot.children.map { it.getCommonModel() }
             mListItems.forEach { model ->
-                when(model.type){
+                when (model.type) {
                     TYPE_CHAT -> showChat(model)
                     TYPE_GROUP -> showGroup(model)
                 }
@@ -57,7 +65,7 @@ class MainListFragment : Fragment(R.layout.fragment_main_list) {
                     .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot2 ->
                         val tempList = dataSnapshot2.children.map { it.getCommonModel() }
 
-                        if (tempList.isEmpty()){
+                        if (tempList.isEmpty()) {
                             newModel.lastMessage = "Чат очищен"
                         } else {
                             newModel.lastMessage = tempList[0].text
@@ -65,7 +73,7 @@ class MainListFragment : Fragment(R.layout.fragment_main_list) {
                         newModel.type = TYPE_GROUP
                         mAdapter.updateListItems(newModel)
                     })
-        })
+            })
 
     }
 
@@ -80,7 +88,7 @@ class MainListFragment : Fragment(R.layout.fragment_main_list) {
                     .addListenerForSingleValueEvent(AppValueEventListener { dataSnapshot2 ->
                         val tempList = dataSnapshot2.children.map { it.getCommonModel() }
 
-                        if (tempList.isEmpty()){
+                        if (tempList.isEmpty()) {
                             newModel.lastMessage = "Чат очищен"
                         } else newModel.lastMessage = tempList[0].text
 

@@ -2,17 +2,25 @@ package ru.planirui.transmit.ui.screens.settings
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.os.Bundle
+import android.view.View
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
-import kotlinx.android.synthetic.main.fragment_settings.*
 import ru.planirui.transmit.R
-import ru.planirui.transmit.database.*
+import ru.planirui.transmit.database.USER
+import ru.planirui.transmit.database.saveUserPhoto
+import ru.planirui.transmit.databinding.FragmentSettingsBinding
 import ru.planirui.transmit.ui.screens.base.BaseFragment
-import ru.planirui.transmit.utilits.*
+import ru.planirui.transmit.utilits.APP_ACTIVITY
+import ru.planirui.transmit.utilits.downloadAndSetImage
+import ru.planirui.transmit.utilits.replaceFragment
+import ru.planirui.transmit.utilits.showToast
 
 /* Фрагмент настроек */
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
+
+    private var binding: FragmentSettingsBinding? = null
 
     override fun onResume() {
         super.onResume()
@@ -20,17 +28,26 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         initFields()
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentSettingsBinding.bind(view)
+    }
+
     private fun initFields() {
-        settings_bio.text = USER.bio
-        settings_full_name.text = USER.fullname
-        settings_phone_number.text = USER.phone
-        settings_status.text = USER.state
-        settings_username.text = USER.username
-        settings_header_bloc.setOnClickListener { replaceFragment(ChangeNameFragment()) }
-        settings_btn_change_username.setOnClickListener { replaceFragment(ChangeUsernameFragment()) }
-        settings_btn_change_bio.setOnClickListener { replaceFragment(ChangeBioFragment()) }
-        settings_change_photo.setOnClickListener { changePhotoUser() }
-        settings_user_photo.downloadAndSetImage(USER.photoUrl)
+        binding?.settingsBio?.text = USER.bio
+        binding?.settingsFullName?.text = USER.fullname
+        binding?.settingsPhoneNumber?.text = USER.phone
+        binding?.settingsStatus?.text = USER.state
+        binding?.settingsUsername?.text = USER.username
+        binding?.settingsHeaderBloc?.setOnClickListener { replaceFragment(ChangeNameFragment()) }
+        binding?.settingsBtnChangeUsername?.setOnClickListener {
+            replaceFragment(
+                ChangeUsernameFragment()
+            )
+        }
+        binding?.settingsBtnChangeBio?.setOnClickListener { replaceFragment(ChangeBioFragment()) }
+        binding?.settingsChangePhoto?.setOnClickListener { changePhotoUser() }
+        binding?.settingsUserPhoto?.downloadAndSetImage(USER.photoUrl)
     }
 
     private fun changePhotoUser() {
@@ -48,8 +65,8 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
             && resultCode == RESULT_OK && data != null
         ) {
             val uri = CropImage.getActivityResult(data).uri
-            saveUserPhoto(uri){
-                settings_user_photo.downloadAndSetImage(it)
+            saveUserPhoto(uri) {
+                binding?.settingsUserPhoto?.downloadAndSetImage(it)
                 showToast(getString(R.string.toast_data_update))
                 USER.photoUrl = it
             }

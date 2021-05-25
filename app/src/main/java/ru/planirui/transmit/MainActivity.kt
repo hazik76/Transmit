@@ -22,6 +22,8 @@ import ru.planirui.transmit.ui.screens.main_list.MainListFragment
 import ru.planirui.transmit.ui.screens.register.EnterPhoneNumberFragment
 import ru.planirui.transmit.utilits.*
 
+/* Единственное активити в проекте) */
+
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {

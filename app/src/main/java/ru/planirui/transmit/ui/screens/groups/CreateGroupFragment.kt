@@ -42,8 +42,9 @@ class CreateGroupFragment(private var listContacts:List<CommonModel>): BaseFragm
                 val uriGoods = "вытаскивать у пользователя"
                 val nameGoods = "получать от товара"
                 val photoGoods = "ссылка на картинку товара"
+                val regionGoods = "Например Москва"
                 val timeEnd = "1621437897911"   // добавить выбор даты
-                createGroupToDatabase(nameGroup, mUri, timeEnd, uriGoods, nameGoods, photoGoods, listContacts){
+                createGroupToDatabase(nameGroup, mUri, timeEnd, uriGoods, nameGoods, regionGoods, photoGoods, listContacts){
                     replaceFragment(MainListFragment())
                 }
             }

@@ -194,6 +194,7 @@ fun newGoodsCreate(function: (String) -> Unit) {
         mapMessage[GOODS_DESCRIPTION] = ""
         mapMessage[GOODS_EXTEND] = ""
         mapMessage[GOODS_NAME] = "Empty"
+        mapMessage[GOODS_REGION] = "Москва"
         mapMessage[GOODS_ID] = keyGoods
         mapMessage[GOODS_STATUS] = GOODS_STATUS_ADDED
 
@@ -208,36 +209,6 @@ fun setGoodsChangeToDatabase(newDescriptions: String, idGoods: String, changeNam
     REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS).child(idGoods)
         .child(changeName)
         .setValue(newDescriptions)
-        .addOnSuccessListener {
-            showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
-            APP_ACTIVITY.supportFragmentManager.popBackStack()
-        }.addOnFailureListener { showToast(it.message.toString()) }
-}
-
-fun setGoodsDescriptionsToDatabase(newDescriptions: String, idGoods: String) {
-    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS).child(idGoods).child(
-        GOODS_DESCRIPTION
-    ).setValue(newDescriptions)
-        .addOnSuccessListener {
-            showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
-            APP_ACTIVITY.supportFragmentManager.popBackStack()
-        }.addOnFailureListener { showToast(it.message.toString()) }
-}
-
-fun setGoodsExtendToDatabase(newDescriptions: String, idGoods: String) {
-    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS).child(idGoods).child(
-        GOODS_EXTEND
-    ).setValue(newDescriptions)
-        .addOnSuccessListener {
-            showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
-            APP_ACTIVITY.supportFragmentManager.popBackStack()
-        }.addOnFailureListener { showToast(it.message.toString()) }
-}
-
-fun setGoodsNameToDatabase(newDescriptions: String, idGoods: String) {
-    REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(NODE_GOODS).child(idGoods).child(
-        GOODS_NAME
-    ).setValue(newDescriptions)
         .addOnSuccessListener {
             showToast(APP_ACTIVITY.getString(R.string.toast_data_update))
             APP_ACTIVITY.supportFragmentManager.popBackStack()
@@ -403,6 +374,7 @@ fun createGroupToDatabase(
     timeEnd: String,
     uriGoods: String,
     nameGoods: String,
+    regionGoods: String,
     photoGoods: String,
     listContacts: List<CommonModel>,
     function: () -> Unit
@@ -424,6 +396,7 @@ fun createGroupToDatabase(
     mapGoods2[GOODS_OWNER] = CURRENT_UID
     mapGoods2[GOODS_ID] = uriGoods
     mapGoods2[GOODS_NAME] = nameGoods
+    mapGoods2[GOODS_REGION] = regionGoods
     mapGoods2[GAME_GOODS_PHOTO] = photoGoods
     mapGoods2[GOODS_BOOKED_1] = ""
     mapGoods2[GOODS_BOOKED_2] = ""

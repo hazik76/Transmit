@@ -112,6 +112,34 @@
                 app:layout_constraintTop_toBottomOf="@id/settings_goods_extension" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/settings_btn_change_goods_region"
+            style="@style/settingsButtons"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_btn_change_goods_extend">
+
+            <TextView
+                android:id="@+id/settings_goods_reg"
+                style="@style/normalText"
+                android:text="@string/settings_region"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/settings_btn_change_goods_region" />
+
+            <TextView
+                android:id="@+id/settings_goods_region"
+                style="@style/smallText"
+                android:text="@string/goods_description_change"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/settings_goods_reg" />
+
+            <View
+                style="@style/separator"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/settings_goods_region" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/settings_change_photo_goods"
             android:layout_width="@dimen/settings_user_photo_width"

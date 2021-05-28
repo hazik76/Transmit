@@ -47,6 +47,7 @@
     <string name="goods_descriptions">Описание товара</string>
     <string name="goods_description_change">Нажмите, чтобы изменить описание</string>
     <string name="settings_other">Дополнительно</string>
+    <string name="settings_region">Регион</string>
 
     <plurals name="count_members">
         <item quantity="one">%d участник</item>

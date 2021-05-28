@@ -66,7 +66,8 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
         binding?.settingsGoodsName?.text = goods.name
         binding?.settingsStatus?.text = goods.status
         binding?.settingsGoodsDescription?.text = goods.description
-        binding?.settingsGoodsExtension?.text = (goods.extend)
+        binding?.settingsGoodsExtension?.text = goods.extend
+        binding?.settingsGoodsRegion?.text = goods.region
         if (goods.uriPhoto.isNotEmpty()) {
             binding?.settingsGoodsPhoto?.downloadAndSetImageGoods(goods.uriPhoto)
         }
@@ -81,6 +82,10 @@ class AddGoodsFragment(private var idGoods: String) : BaseFragment(R.layout.frag
         binding?.settingsBtnChangeGoodsExtend?.setOnClickListener {
             extend = goods.extend
             changeData("extend")
+        }
+        binding?.settingsBtnChangeGoodsRegion?.setOnClickListener{
+            extend = goods.region
+            changeData("region")
         }
         binding?.settingsChangePhotoGoods?.setOnClickListener {
             if (ifExists) changePhotoGoods()

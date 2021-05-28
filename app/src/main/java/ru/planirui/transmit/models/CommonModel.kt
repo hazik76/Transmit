@@ -29,6 +29,7 @@ class CommonModel {
     var extend: String = ""
     var goodsID: String = ""
     var status: String = ""
+    var region: String = ""
 
     override fun equals(other: Any?): Boolean {
         return (other as CommonModel).id == id

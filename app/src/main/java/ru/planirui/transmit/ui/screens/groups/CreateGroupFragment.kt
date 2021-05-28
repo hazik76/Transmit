@@ -15,6 +15,7 @@ import ru.planirui.transmit.models.CommonModel
 import ru.planirui.transmit.ui.screens.base.BaseFragment
 import ru.planirui.transmit.ui.screens.main_list.MainListFragment
 import ru.planirui.transmit.utilits.*
+import java.util.*
 
 class CreateGroupFragment(private var listContacts:List<CommonModel>): BaseFragment(R.layout.fragment_create_group) {
 
@@ -42,8 +43,9 @@ class CreateGroupFragment(private var listContacts:List<CommonModel>): BaseFragm
                 val uriGoods = "вытаскивать у пользователя"
                 val nameGoods = "получать от товара"
                 val photoGoods = "ссылка на картинку товара"
+                val timeEnd = "1622195898117" // использовать DatePickerDialog
                 val regionGoods = "Например Москва"
-                val timeEnd = "1621437897911"   // добавить выбор даты
+
                 createGroupToDatabase(nameGroup, mUri, timeEnd, uriGoods, nameGoods, regionGoods, photoGoods, listContacts){
                     replaceFragment(MainListFragment())
                 }
